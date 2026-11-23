@@ -2615,5 +2615,68 @@ ACT.adrec=()=>sysAlert('Impossibile recuperare','Gli elementi sono stati elimina
 allPhotoKeys=(o=>()=>o().concat(DEL.map(p=>[p.t,p.s])))(allPhotoKeys);
 </script>
 
+<style>
+/* ===== v9: Ricordi ===== */
+#mem{position:absolute;inset:0;z-index:105;background:#000;overflow:hidden;animation:memIn .6s cubic-bezier(.2,.9,.25,1)}
+@keyframes memIn{from{transform:scale(.6);opacity:0;border-radius:40px}}
+#mem.out{transition:opacity .45s,transform .45s;opacity:0;transform:scale(.9)}
+#mem .ms{position:absolute;inset:0;opacity:0;transition:opacity 1.3s ease}#mem .ms.on{opacity:1}
+#mem .ms img{position:absolute;inset:-4%;width:108%;height:108%;object-fit:cover}
+#mem .ms.on img{animation:kb 6.5s ease-out forwards}#mem .ms.alt.on img{animation-name:kb2}
+@keyframes kb{from{transform:scale(1.02) translate(-2%,1%)}to{transform:scale(1.16) translate(2%,-2%)}}
+@keyframes kb2{from{transform:scale(1.18) translate(2%,2%)}to{transform:scale(1.04) translate(-1%,-1%)}}
+#mem .ms::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.75))}
+#mem .mcap{position:absolute;left:22px;right:22px;bottom:calc(70px + env(safe-area-inset-bottom));z-index:2;font-size:15px;font-weight:600;opacity:0;transform:translateY(10px);transition:all .8s .5s;text-shadow:0 1px 8px #000}
+#mem .ms.on .mcap{opacity:1;transform:none}
+#mem .mtit{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;z-index:2;padding:30px}
+#mem .mtit b{font-size:38px;font-weight:800;letter-spacing:-.5px;animation:mt 1.6s cubic-bezier(.2,.9,.25,1) both}#mem .mtit small{font-size:15px;color:#ddd;margin-top:8px;animation:mt 1.6s .35s cubic-bezier(.2,.9,.25,1) both;letter-spacing:2px;text-transform:uppercase}
+@keyframes mt{from{opacity:0;transform:translateY(16px);filter:blur(8px)}}
+#mem .mbr{position:absolute;top:calc(58px + env(safe-area-inset-top));left:14px;right:14px;display:flex;gap:4px;z-index:3}
+#mem .mbr i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.3);overflow:hidden}#mem .mbr i::after{content:"";display:block;height:100%;width:0;background:#fff}
+#mem .mbr i.done::after{width:100%}#mem .mbr i.run::after{animation:mbar var(--d) linear forwards}@keyframes mbar{to{width:100%}}
+#mem .mx{position:absolute;top:calc(70px + env(safe-area-inset-top));right:14px;z-index:4;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.45);display:flex;align-items:center;justify-content:center;font-size:17px;cursor:pointer}
+#mem .mend{position:absolute;inset:0;z-index:5;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:rgba(0,0,0,.6);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);animation:fade .8s}
+#mem .mend b{font-size:20px}#mem .mend p{color:#aaa;font-size:13px;text-align:center;padding:0 40px}#mem .mend div{display:flex;gap:12px}#mem .mend span{background:rgba(255,255,255,.15);border-radius:20px;padding:10px 28px;cursor:pointer;font-weight:600}
+#mem.glt .ms.on img{filter:contrast(1.6) saturate(0) brightness(.7)}
+.memc{margin:4px 16px 18px;border-radius:16px;overflow:hidden;position:relative;height:200px;cursor:pointer;background:#111 center/cover}
+.memc::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(0,0,0,.8))}
+.memc div{position:absolute;left:16px;bottom:14px;z-index:1}.memc b{display:block;font-size:22px;font-weight:800}.memc small{color:#ddd;font-size:13px}
+.memc span{position:absolute;right:14px;bottom:16px;z-index:1;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center}
+.memc span svg{width:16px;height:16px;fill:#fff;stroke:none}
+</style>
+<script>
+/* ===== v9: Ricordi (presentazioni automatiche della Galleria) ===== */
+'use strict';
+function memories(){const L={id:'lucia',t:'Primavera con L.',s:'aprile – giugno',cover:['bar',2],sl:[['bar',2,'17 aprile · Bar Centrale'],['umbrella',20,'18 aprile · Via dei Salici'],['window',21,'19 aprile · Notte 1'],['window',22,'30 maggio · Notte 41'],['sunset',3,'2 giugno · Lido di San Ilario'],['food',7,'3 giugno · Osteria Centrale']]};
+ const out=[L];if(S.act>=2){const mine=S.xphotos.filter(p=>p.t==='dark'||p.t==='darkfig').slice(-3);out.unshift({id:'next',t:'Il prossimo',s:'oggi',cover:['street',31],sl:[['street',31,'Oggi · Gino Usato, via Roma 2']].concat(mine.map(p=>[p.t,p.s,'Oggi · Via dei Glicini 3'])).concat(mine.length?[]:[['lake',17,'20 ottobre · Il lago']])})}return out}
+let memI=null,memTimers=[];
+function memMusic(on){clearInterval(memI);memI=null;if(!on||!AC)return;const ch=[[261.6,329.6,392],[220,261.6,329.6],[174.6,220,261.6],[196,246.9,293.7]];let k=0;
+ const play=()=>{const c=ch[k++%4];c.forEach((f,i)=>{nt(f,{d:4,a:1.2,v:.035,type:'triangle',wet:.8});nt(f*2,{d:3,a:1,v:.012,wet:.9})});[0,.5,1,1.5,2,2.5,3,3.5].forEach((w,i)=>mar(c[i%3]*2*(i%4===3?2:1),w,.05,.6))};play();memI=setInterval(play,4000)}
+function playMemory(id){const m=memories().find(x=>x.id===id)||memories()[0];if($('#mem'))return;closeShade&&closeShade();if(m.id==='lucia')learn('rel');logA('mem',m.id);
+ const el=document.createElement('div');el.id='mem';const D=4600;
+ el.innerHTML=`<div class="mbr">${m.sl.map(()=>'<i></i>').join('')}</div><div class="mx" data-mx="1">✕</div>${m.sl.map((s,i)=>`<div class="ms ${i%2?'alt':''}"><img src="${photo(s[0],s[1])}" alt=""><div class="mcap">${esc(s[2])}</div></div>`).join('')}<div class="mtit"><b>${esc(m.t)}</b><small>${esc(m.s)}</small></div>`;
+ $('#scr').appendChild(el);memMusic(true);vib(10);
+ const slides=[...el.querySelectorAll('.ms')],bars=[...el.querySelectorAll('.mbr i')],tit=el.querySelector('.mtit');let cur=-1;
+ const close=()=>{memTimers.forEach(clearTimeout);memTimers=[];memMusic(false);el.classList.add('out');setTimeout(()=>el.remove(),450)};
+ const show=i=>{cur=i;slides.forEach((s,k)=>s.classList.toggle('on',k===i));bars.forEach((b,k)=>{b.classList.toggle('done',k<i);b.classList.remove('run');b.style.setProperty('--d',D+'ms')});if(bars[i]){void bars[i].offsetWidth;bars[i].classList.add('run')}
+  if(m.id==='lucia'&&/Notte/.test(m.sl[i][2])){memTimers.push(setTimeout(()=>{el.classList.add('glt');SND.glitch();vib(30);setTimeout(()=>el.classList.remove('glt'),260)},1800))}
+  memTimers.forEach(clearTimeout);memTimers=[setTimeout(()=>i+1<slides.length?show(i+1):end(),D)]};
+ const end=()=>{bars.forEach(b=>{b.classList.add('done');b.classList.remove('run')});const e=document.createElement('div');e.className='mend';
+  e.innerHTML=m.id==='lucia'?`<b>Ti è piaciuto questo ricordo?</b><p>Ricordi crea automaticamente presentazioni con le persone che compaiono più spesso nelle tue foto: «L.» (214 foto).</p><div><span data-mr="1">Sì</span><span data-mr="0">No</span></div>`:`<b>Ricordo condiviso da Marco V.</b><p>Creato oggi alle ${clk()} da «Tablet di Marco».</p><div><span data-mr="1">Chiudi</span></div>`;el.appendChild(e)};
+ el.addEventListener('click',ev=>{const t=ev.target;if(t.closest('[data-mx]'))return close();const r=t.closest('[data-mr]');if(r){close();if(m.id==='lucia'&&S.act>=2&&!S.end&&!S.cnt.memmsg){S.cnt.memmsg=1;setTimeout(()=>addMsg('owner',r.dataset.mr==='1'?'Anche a me piace quel ricordo. Notte quarantuno è il mio preferito.':'Peccato. Le ho scelte una a una.'),3500)}return}
+  if(el.querySelector('.mend'))return;const x=ev.clientX-el.getBoundingClientRect().left;const n=x<el.getBoundingClientRect().width*.3?Math.max(0,cur-1):cur+1;if(n<slides.length)show(n);else{memTimers.forEach(clearTimeout);end()}});
+ setTimeout(()=>{tit.style.transition='opacity .8s';tit.style.opacity='0';setTimeout(()=>tit.remove(),800);show(0)},2200)}
+/* card «Per te» nella Galleria */
+const _gal9=VIEWS.gallery;VIEWS.gallery=()=>{let h=_gal9();if(galTab==='album'){const cards=memories().map(m=>`<div class="memc" data-a="memp" data-v="${m.id}" style="background-image:url(${photo(m.cover[0],m.cover[1])})"><div><b>${esc(m.t)}</b><small>${esc(m.s)}</small></div><span><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></span></div>`).join('');h=h.replace('<div class="albs">',`<div class="gh" style="padding:0 18px 8px">Ricordi · Per te</div>${cards}<div class="gh" style="padding:0 18px 8px">Album</div><div class="albs">`)}return h};
+ACT.memp=v=>playMemory(v);
+/* widget «Ricordi» della Home e notifiche */
+document.addEventListener('click',e=>{const w=e.target.closest('#home .wg.w4');if(!w||dragged||!live||S.end)return;setTimeout(()=>{if(curApp==='gallery'){galTab='album';draw();setTimeout(()=>playMemory(S.act>=2?'next':'lucia'),350)}},450)},true);
+const _gt9=goTarget;goTarget=function(t){_gt9(t);if(t&&t.mem)setTimeout(()=>playMemory(t.mem),400)};
+HINTS[0].run=()=>notify('gallery','Ricordi','Nuovo ricordo per te: «Primavera con L.»',{mem:'lucia'});
+const _st9=stopAll;stopAll=function(){_st9();memTimers.forEach(clearTimeout);memMusic(false);const m=$('#mem');if(m)m.remove()};
+const _cs9=canSleep;canSleep=function(){return _cs9()&&!$('#mem')};
+BEATS.push({id:'a2_mem',act:2,at:150,run(){notify('gallery','Ricordi','Marco V. ha condiviso un ricordo con te: «Il prossimo»',{mem:'next'})}});
+</script>
+
 </body>
 </html>
