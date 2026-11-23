@@ -1451,5 +1451,566 @@ const _sp=startPhase2;startPhase2=function(){_sp();rainLoop(.07);SND.thunder()};
 const _sf2=startFinale;startFinale=function(){const was=!!S.fin;_sf2();if(!was&&S.fin){SND.thunder(.4);rainLoop(.1)}};
 
 </script>
+<style>
+/* ===== LUMEN OS v3 — app ===== */
+.xi{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.hdr{justify-self:end;display:flex;gap:4px;align-items:center}
+.hic{color:#0a84ff;padding:6px 8px;display:flex;cursor:pointer}.hic .xi{width:24px;height:24px}
+.hlink{color:#0a84ff;font-size:17px;padding:6px 8px;cursor:pointer}
+.srch{margin:0 16px 10px;background:#1c1c1e;border-radius:11px;padding:8px 10px;color:#8e8e93;display:flex;gap:6px;align-items:center;font-size:16.5px;cursor:text}
+.srch .xi{width:17px;height:17px}
+.udot{width:10px;height:10px;border-radius:50%;flex:none;margin-right:-4px;background:transparent}.udot.on{background:#0a84ff}
+.r2.two{white-space:normal;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;line-height:1.3;align-items:initial}
+.r1 small{display:flex;align-items:center;white-space:nowrap}.r1 small .xi{width:12px;height:12px;stroke-width:2.6;vertical-align:-1px;margin-left:3px;color:#5a5a5e}
+.av{box-shadow:inset 0 -14px 22px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.18);color:#fff}
+.mrow{padding:9px 16px 9px 8px;align-items:flex-start}.mrow .av{margin-top:2px}.mrow::after{left:74px}
+.mrow .r2{min-height:38px}
+.you{color:#8e8e93}
+/* thread */
+.thd{grid-template-columns:70px 1fr 70px;min-height:58px;padding:2px 6px 6px;border-bottom:.5px solid #222!important;background:rgba(18,18,20,.92);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.thc{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
+.thc .av{width:40px;height:40px;font-size:17px}
+.thc span{font-size:12px;color:#ddd;display:flex;align-items:center;gap:1px}.thc span .xi{width:11px;height:11px;stroke-width:2.6;color:#777}
+.chat{padding:10px 14px 16px;gap:2px}
+.chat .b{max-width:75%;padding:7px 13px 8px;border-radius:19px;font-size:16.5px;line-height:1.32;position:relative;word-wrap:break-word;white-space:pre-wrap}
+.chat .b.in{border-bottom-left-radius:19px;background:#262629}
+.chat .b.out{border-bottom-right-radius:19px}
+.chat .b.in+.b.out,.chat .b.out+.b.in{margin-top:9px}
+.chat .b.tl.out::before{content:"";position:absolute;bottom:0;right:-7px;width:20px;height:19px;background:#0a84ff;border-bottom-left-radius:16px 14px}
+.chat .b.tl.out::after{content:"";position:absolute;bottom:0;right:-26px;width:26px;height:20px;background:#000;border-bottom-left-radius:10px}
+.chat .b.tl.in::before{content:"";position:absolute;bottom:0;left:-7px;width:20px;height:19px;background:#262629;border-bottom-right-radius:16px 14px}
+.chat .b.tl.in::after{content:"";position:absolute;bottom:0;left:-26px;width:26px;height:20px;background:#000;border-bottom-right-radius:10px}
+.chat .b.tl{margin-bottom:4px}
+.chat .sep{margin:16px 0 8px;font-size:11.5px;color:#8e8e93}.chat .sep b{font-weight:600;color:#9a9aa0}
+.rcpt{align-self:flex-end;color:#8e8e93;font-size:11.5px;margin:1px 6px 4px;font-weight:500}
+.chat .fail{display:flex;align-items:center;gap:4px;margin-top:2px}
+.chat .fail i{width:15px;height:15px;border-radius:50%;background:#ff453a;color:#fff;font-style:normal;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center}
+.typing{display:flex;gap:4px;align-items:center;padding:12px 14px!important}
+.typing i{width:8px;height:8px;border-radius:50%;background:#8e8e93;animation:tdot 1.2s infinite}
+.typing i:nth-child(2){animation-delay:.18s}.typing i:nth-child(3){animation-delay:.36s}
+@keyframes tdot{0%,60%,100%{opacity:.35;transform:none}30%{opacity:1;transform:translateY(-2px)}}
+.inp2{align-items:flex-end;gap:8px;padding:7px 10px calc(28px + env(safe-area-inset-bottom));border-top:0;background:rgba(12,12,14,.95)}
+.inp2 .pl{width:34px;height:34px;border-radius:50%;background:#1f1f22;color:#9a9aa0;display:flex;align-items:center;justify-content:center;flex:none;cursor:pointer}
+.inp2 .fld{flex:1;display:flex;align-items:center;border:1px solid #38383b;border-radius:19px;padding:2px 3px 2px 13px;min-height:36px;min-width:0}
+.inp2 input{flex:1;background:none;border:0;padding:6px 0;font-size:16.5px;color:#fff;min-width:0;outline:none}
+.inp2 .send{width:29px;height:29px;display:none;align-items:center;justify-content:center;padding:0;flex:none}
+.inp2 .send .xi{width:18px;height:18px;stroke-width:2.8}
+.inp2 .mic{color:#8e8e93;display:flex;padding:0 6px}.inp2 .mic .xi{width:20px;height:20px}
+.inp2.has .send{display:flex}.inp2.has .mic{display:none}
+/* mail */
+.mlrow{align-items:flex-start;padding:10px 16px 11px 8px}.mlrow::after{left:24px}
+.mlrow .udot{margin:6px 4px 0 0}
+.msub{font-size:15px;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.mbar{flex:none;display:grid;grid-template-columns:44px 1fr 44px;align-items:center;padding:7px 10px calc(24px + env(safe-area-inset-bottom));border-top:.5px solid #222;background:rgba(14,14,16,.96);text-align:center}
+.mbar b{display:block;font-size:12px;font-weight:600}.mbar small{font-size:11px;color:#8e8e93}
+.mvh{display:flex;gap:12px;align-items:center;padding:6px 18px 14px;border-bottom:.5px solid #2a2a2c}
+.mvh .av{width:42px;height:42px;font-size:16px}
+.mvf{flex:1;min-width:0}.mvf small{color:#8e8e93;font-size:13.5px;display:block;margin-top:2px}
+.mvs{font-size:21px;line-height:1.28;padding:14px 18px 4px;font-weight:700}
+.mvb{white-space:pre-wrap;font-size:16px;line-height:1.55;padding:10px 18px 40px;color:#e6e6e6}
+.mtool{flex:none;display:flex;justify-content:space-around;padding:10px 6px calc(24px + env(safe-area-inset-bottom));border-top:.5px solid #222;background:rgba(14,14,16,.96);color:#0a84ff}
+.mtool span{padding:4px 10px;cursor:pointer;display:flex}
+/* telefono */
+.tabs .tab{display:flex;flex-direction:column;align-items:center;gap:3px;padding-top:7px;position:relative}
+.tabs .tab .xi{width:25px;height:25px}
+.tabs .tab .tb{position:absolute;top:3px;left:calc(50% + 6px);background:#ff3b30;color:#fff;border-radius:9px;font-size:11px;font-weight:600;min-width:18px;height:18px;padding:0 5px;display:flex;align-items:center;justify-content:center}
+.seg{display:flex;background:#1c1c1e;border-radius:9px;padding:2px;margin:0 auto;width:190px}
+.seg span{flex:1;text-align:center;font-size:13px;font-weight:600;padding:5px 0;border-radius:7px;cursor:pointer;color:#ddd}
+.seg span.on{background:#636366;color:#fff}
+.prow{padding:9px 12px 9px 4px;gap:6px}.prow::after{left:36px}
+.prow .pi{width:26px;display:flex;justify-content:center;color:#8e8e93}.prow .pi .xi{width:15px;height:15px}
+.prow b{font-size:16.5px;font-weight:600}.prow b.red{color:#ff453a}
+.prow>small{color:#8e8e93;font-size:14.5px}
+.prow .info{color:#0a84ff;display:flex;padding:4px}.prow .info .xi{width:23px;height:23px}
+.mycard{display:flex;gap:14px;align-items:center;padding:8px 18px 14px;border-bottom:.5px solid #2a2a2c;cursor:pointer}
+.mycard .av{width:58px;height:58px;font-size:24px}
+.mycard b{font-size:19px;display:block}.mycard small{color:#8e8e93;font-size:13.5px}
+.lh{background:#111;color:#8e8e93;font-size:13px;font-weight:600;padding:3px 18px;position:sticky;top:0;z-index:1}
+.crow{padding:11px 18px;border-bottom:.5px solid #222;font-size:17px;cursor:pointer;margin-left:0}
+.crow:active{background:#1c1c1e}
+.pcard{display:flex;flex-direction:column;align-items:center;padding:4px 16px 18px}
+.pcard .av{width:96px;height:96px;font-size:40px}
+.pcard h2{font-size:28px;font-weight:600;margin-top:12px;text-align:center}
+.pacts{display:flex;gap:8px;margin:16px 16px 4px}
+.pacts span{flex:1;background:#1c1c1e;border-radius:11px;padding:9px 0 7px;display:flex;flex-direction:column;align-items:center;gap:3px;color:#0a84ff;font-size:11.5px;cursor:pointer}
+.pacts span .xi{width:22px;height:22px}
+.pf{margin:12px 16px 0;background:#1c1c1e;border-radius:11px;padding:10px 15px}
+.pf small{font-size:13px;color:#ddd;display:block}.pf div{color:#0a84ff;font-size:17px;margin-top:2px}.pf div.txt{color:#ddd;font-size:15.5px}
+.pf+.pf{margin-top:8px}
+.vmrow{padding:12px 16px 12px 10px;border-bottom:.5px solid #222;cursor:pointer}
+.vmrow .vt{display:flex;align-items:center;gap:10px}
+.vmrow .vt .udot{margin:0}
+.vmrow b{flex:1;font-size:16.5px}.vmrow small{color:#8e8e93;font-size:14px}
+.vmrow .vs{color:#8e8e93;font-size:14px;margin:2px 0 0 20px}
+.vmx{margin:10px 0 0 20px}
+.vbar{display:flex;align-items:center;gap:10px}
+.vbar .pp{width:34px;height:34px;border-radius:50%;background:#0a84ff;color:#fff;display:flex;align-items:center;justify-content:center;flex:none}
+.vbar .pp .xi{width:16px;height:16px;fill:#fff;stroke:none}
+.vtrk{flex:1;height:4px;border-radius:2px;background:#3a3a3c;overflow:hidden}.vtrk i{display:block;height:100%;width:0;background:#fff}
+.vtrk.run i{animation:vprog var(--d,6s) linear forwards}
+@keyframes vprog{to{width:100%}}
+.vtx{color:#ddd;font-size:15px;line-height:1.5;margin-top:10px;font-style:italic}
+.vbtns{display:flex;gap:18px;margin-top:10px;color:#0a84ff;font-size:14.5px}.vbtns span{cursor:pointer}
+.vbtns span.r{color:#ff453a}
+.kp>div{background:#333336!important}
+/* chiamate */
+.call2{background:#0b0b0f;padding:calc(64px + env(safe-area-inset-top)) 22px calc(44px + env(safe-area-inset-bottom))}
+.cbg{position:absolute;inset:0;background:radial-gradient(120% 70% at 50% 0%,#3a4458 0%,#171a22 55%,#07080a 100%);z-index:0}
+.call2.priv .cbg{background:radial-gradient(120% 70% at 50% 0%,#4a1c22 0%,#190c10 55%,#050304 100%);animation:cpulse 5s ease-in-out infinite}
+@keyframes cpulse{50%{filter:brightness(1.35)}}
+.call2>*{position:relative;z-index:1}
+.ctop{text-align:center;width:100%}
+.call2 .cname{font-size:34px;font-weight:400;margin-top:0;letter-spacing:-.4px}
+.call2 .csub{font-size:17px;color:#b8b8c0}
+.call2 .clines{margin:18px 0 8px}
+.call2 .cln{background:rgba(255,255,255,.08);backdrop-filter:blur(10px)}
+.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px 26px;width:100%;max-width:300px;margin:4px 0 30px}
+.cg{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer}
+.cg span{width:72px;height:72px;border-radius:50%;background:rgba(255,255,255,.16);display:flex;align-items:center;justify-content:center;transition:.15s}
+.cg span .xi{width:30px;height:30px}
+.cg.on span{background:#fff;color:#111}
+.cg small{font-size:12.5px;color:#ddd}
+.call2.inc .cgrid{display:none}
+.cinc{display:none;width:100%;max-width:300px;margin-bottom:34px}
+.call2.inc .cinc{display:block}
+.cmini{display:flex;justify-content:space-between;padding:0 10px}
+.cmini span{display:flex;flex-direction:column;align-items:center;gap:5px;color:#ddd;font-size:12.5px;cursor:pointer}
+.cmini .xi{width:26px;height:26px}
+.call2 .cbtns{gap:0;width:100%;max-width:300px;justify-content:center}
+.call2.inc .cbtns{justify-content:space-between}
+.cbw{display:flex;flex-direction:column;align-items:center;gap:7px;font-size:13px;color:#ddd}
+.call2 .copts{max-width:330px}
+/* browser */
+.sfpg{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y;padding-bottom:20px;position:relative}
+.sfload{position:absolute;top:0;left:0;height:2.5px;background:#0a84ff;z-index:5;animation:sfl 1s ease-out forwards}
+@keyframes sfl{0%{width:0;opacity:1}70%{width:88%;opacity:1}100%{width:100%;opacity:0}}
+.sfbar{flex:none;background:rgba(22,22,24,.97);border-top:.5px solid #2a2a2c;padding:8px 12px calc(20px + env(safe-area-inset-bottom))}
+.sfaddr{background:#2c2c2e;border-radius:12px;height:42px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:16px;color:#fff;cursor:pointer;padding:0 12px;position:relative}
+.sfaddr .xi{width:15px;height:15px;stroke-width:2.3}
+.sfaddr .lk{color:#bbb}.sfaddr .ph{color:#8e8e93}
+.sfaddr .rl{position:absolute;right:12px;color:#ddd}
+.sfaddr .aa{position:absolute;left:12px;font-size:14px;font-weight:600;color:#ddd}
+.sftool{display:flex;justify-content:space-between;padding:10px 8px 0;color:#0a84ff}
+.sftool span{display:flex;cursor:pointer;padding:2px 6px}.sftool span.dis{color:#4a4a4e}
+.sftool .xi{width:24px;height:24px}
+.sfstart{padding:calc(14px + env(safe-area-inset-top)) 16px 10px}
+.sfstart h3{font-size:21px;font-weight:700;margin:18px 4px 12px}
+.sffav{display:grid;grid-template-columns:repeat(4,1fr);gap:16px 10px}
+.sffav div{display:flex;flex-direction:column;align-items:center;gap:6px;font-size:11.5px;color:#ccc;text-align:center;cursor:pointer}
+.sffav i{width:62px;height:62px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:800;font-size:24px;color:#fff;box-shadow:inset 0 0 0 .5px rgba(255,255,255,.15)}
+.sfpriv{background:#1c1c1e;border-radius:14px;padding:13px 15px;display:flex;gap:12px;align-items:center;font-size:14px;color:#ccc;margin-top:6px}
+.sfpriv b{font-size:26px;color:#fff;font-weight:700}
+.sfhist{background:#1c1c1e;border-radius:14px;overflow:hidden}
+.sfhist div{padding:11px 15px;border-bottom:.5px solid #2c2c2e;display:flex;gap:10px;align-items:center;cursor:pointer;font-size:15px}
+.sfhist div:last-child{border-bottom:0}
+.sfhist .xi{width:16px;height:16px;color:#8e8e93}.sfhist span{flex:1}.sfhist small{color:#8e8e93;font-size:13px}
+.sfsrch{display:flex;align-items:center;gap:8px;background:#1c1c1e;border-radius:12px;padding:0 12px;margin-top:6px}
+.sfsrch .xi{width:18px;height:18px;color:#8e8e93}
+.sfsrch input{flex:1;background:none;border:0;color:#fff;font-size:16.5px;padding:11px 0;outline:none;min-width:0}
+/* risultati */
+.srp{background:#101114;min-height:100%}
+.srph{padding:calc(12px + env(safe-area-inset-top)) 16px 0;border-bottom:.5px solid #26272b;background:#16171b}
+.srpl{font-size:25px;font-weight:800;letter-spacing:-1px;text-align:center;margin-bottom:10px}
+.srpl b:nth-child(1){color:#4f8cff}.srpl b:nth-child(2){color:#ff5a5f}.srpl b:nth-child(3){color:#ffc02e}.srpl b:nth-child(4){color:#4f8cff}.srpl b:nth-child(5){color:#3ccf6e}
+.srpq{display:flex;align-items:center;gap:8px;background:#2a2b30;border-radius:24px;padding:0 14px}
+.srpq input{flex:1;background:none;border:0;color:#fff;font-size:16px;padding:11px 0;outline:none;min-width:0}
+.srpq .xi{width:18px;height:18px;color:#9aa0a6}
+.chips{display:flex;gap:18px;overflow-x:auto;font-size:14px;color:#9aa0a6;padding:12px 2px 0}
+.chips span{padding-bottom:9px;white-space:nowrap}.chips span.on{color:#8ab4ff;border-bottom:3px solid #8ab4ff}
+.srpn{color:#9aa0a6;font-size:12.5px;padding:10px 16px 2px}
+.res2{background:#1d1e22;margin:8px 10px;border-radius:14px;padding:13px 15px;cursor:pointer}
+.res2:active{background:#26272c}
+.rsite{display:flex;gap:10px;align-items:center}
+.rsite i{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700;font-size:13px;color:#fff;flex:none}
+.rsite b{display:block;font-size:14px;font-weight:500;color:#e8e8e8}.rsite small{display:block;font-size:12px;color:#9aa0a6;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:250px}
+.res2 h3{color:#8ab4ff;font-size:19px;font-weight:400;line-height:1.3;margin:9px 0 5px}
+.res2 p{color:#bdc1c6;font-size:14px;line-height:1.45}
+.res2 .rimg{display:flex;gap:10px}.res2 .rimg img{width:84px;height:84px;object-fit:cover;border-radius:10px;flex:none}
+.paa{background:#1d1e22;margin:8px 10px;border-radius:14px;padding:6px 15px}
+.paa h4{font-size:17px;font-weight:500;padding:8px 0}
+.paa div{border-top:.5px solid #34353a;padding:12px 0;font-size:15px;cursor:pointer;display:flex;justify-content:space-between;gap:10px}
+.paa div p{display:none;color:#bdc1c6;font-size:14px;line-height:1.45;padding-top:8px}
+.paa div.op{flex-direction:column}.paa div.op p{display:block}
+/* giornale */
+.gz{background:#f6f3ee;color:#1a1a1a;min-height:100%;font-family:Georgia,"Times New Roman",serif}
+.gzh{background:#7d1018;color:#fff;padding:calc(10px + env(safe-area-inset-top)) 14px 10px;display:flex;align-items:center;justify-content:space-between}
+.gzh b{font-size:19px;letter-spacing:.2px;font-weight:700}
+.gzh .xi{width:22px;height:22px}
+.gzn{background:#5d0a10;color:#f4d6d8;font-family:-apple-system,sans-serif;font-size:12.5px;display:flex;gap:16px;padding:8px 14px;overflow-x:auto;white-space:nowrap;text-transform:uppercase;letter-spacing:.6px}
+.gzn span.on{color:#fff;font-weight:700}
+.gzt{background:#fffbe6;color:#7a5b00;font-family:-apple-system,sans-serif;font-size:12.5px;padding:7px 14px;border-bottom:1px solid #eadfb5}
+.gza{padding:16px 16px 10px}
+.gza .cat{font-family:-apple-system,sans-serif;color:#b0141f;font-size:12px;font-weight:800;letter-spacing:1px}
+.gza h1{font-size:26px;line-height:1.18;margin:8px 0 10px;font-weight:700}
+.gza .sum{font-size:17.5px;line-height:1.4;color:#444;font-style:italic;margin-bottom:12px}
+.gza .by{font-family:-apple-system,sans-serif;font-size:12.5px;color:#777;border-top:1px solid #ddd;border-bottom:1px solid #ddd;padding:8px 0;margin-bottom:12px;display:flex;justify-content:space-between}
+.gza figure{margin:0 -16px 14px}.gza figure img{width:100%;display:block;aspect-ratio:16/10;object-fit:cover}
+.gza figcaption{font-family:-apple-system,sans-serif;font-size:12px;color:#777;padding:6px 16px 0}
+.gza p{font-size:17px;line-height:1.62;margin-bottom:14px;color:#222}
+.gzad{margin:6px 16px 18px;border:1px solid #ddd;background:#fff;font-family:-apple-system,sans-serif;padding:10px 12px 12px;text-align:center}
+.gzad small{font-size:10px;color:#999;letter-spacing:1px;display:block;margin-bottom:6px}
+.gzad b{font-size:17px;color:#6b3b12;display:block}.gzad span{font-size:13px;color:#555}
+.gzr{padding:4px 16px 10px;font-family:-apple-system,sans-serif}
+.gzr h4{font-size:13px;letter-spacing:1px;color:#b0141f;margin-bottom:8px}
+.gzr div{display:flex;gap:10px;padding:10px 0;border-top:1px solid #e2ddd5;cursor:pointer}
+.gzr img{width:84px;height:60px;object-fit:cover;flex:none}
+.gzr b{font-family:Georgia,serif;font-size:15.5px;line-height:1.3;color:#1a1a1a}
+.gzc{padding:6px 16px 30px;font-family:-apple-system,sans-serif}
+.gzc h4{font-size:15px;margin-bottom:6px;color:#222}
+.gzc div{padding:10px 0;border-top:1px solid #e2ddd5;font-size:14.5px;line-height:1.45;color:#333}
+.gzc div b{font-size:13px;color:#111;display:block}.gzc div small{color:#999;font-size:12px}
+.gzc div.mv b{color:#7d1018}
+.gzlist div{display:flex;gap:12px;padding:14px 16px;border-bottom:1px solid #e2ddd5;cursor:pointer}
+.gzlist img{width:110px;height:76px;object-fit:cover;flex:none}
+.gzlist b{font-size:17px;line-height:1.25}.gzlist small{display:block;font-family:-apple-system,sans-serif;font-size:12px;color:#888;margin-top:5px}
+/* siti vari */
+.site{min-height:100%;font-family:-apple-system,sans-serif}
+.site .sh{padding:calc(14px + env(safe-area-inset-top)) 16px 14px;display:flex;align-items:center;justify-content:space-between}
+.site .sb{padding:16px}
+.site h1{font-size:26px;line-height:1.15;margin-bottom:8px}
+.site p{font-size:15px;line-height:1.5;margin-bottom:12px}
+.site .card{border-radius:12px;padding:12px;margin-bottom:10px}
+.site img.hero{width:100%;border-radius:12px;display:block;margin:6px 0 12px;aspect-ratio:4/3;object-fit:cover}
+.site .btn2{display:block;text-align:center;border-radius:10px;padding:12px;font-weight:600;margin-top:8px;cursor:pointer}
+.site input{width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;font-size:16px;margin-bottom:8px;background:#fff;color:#111}
+/* mappe */
+.mapw2{position:relative;flex:1;min-height:0;overflow:hidden;background:#1b1e24}
+.mapw2 canvas{width:100%;height:100%;display:block;touch-action:none}
+.mtop{position:absolute;top:calc(8px + env(safe-area-inset-top));left:10px;right:10px;display:flex;gap:8px;align-items:center;pointer-events:none}
+.mtop .bk2{pointer-events:auto;width:42px;height:42px;border-radius:50%;background:rgba(30,30,34,.92);display:flex;align-items:center;justify-content:center;color:#0a84ff;cursor:pointer;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.mtop .ms2{pointer-events:auto;flex:1;height:42px;border-radius:21px;background:rgba(30,30,34,.92);display:flex;align-items:center;gap:8px;padding:0 14px;color:#8e8e93;font-size:16px;box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.mtop .ms2 .xi{width:17px;height:17px}
+.mbtns{position:absolute;right:10px;top:calc(62px + env(safe-area-inset-top));display:flex;flex-direction:column;border-radius:10px;overflow:hidden;background:rgba(30,30,34,.92);box-shadow:0 2px 10px rgba(0,0,0,.4)}
+.mbtns span{width:44px;height:44px;display:flex;align-items:center;justify-content:center;color:#0a84ff;cursor:pointer;border-bottom:.5px solid #3a3a3c}
+.mbtns span:last-child{border-bottom:0}.mbtns span.on{color:#fff;background:#0a84ff}
+.mbtns .xi{width:21px;height:21px}
+.msheet{flex:none;max-height:44%;display:flex;flex-direction:column;background:#1c1c1e;border-radius:14px 14px 0 0;margin-top:-14px;position:relative;z-index:2;box-shadow:0 -4px 20px rgba(0,0,0,.4)}
+.msheet .grab{width:38px;height:5px;border-radius:3px;background:#48484a;margin:7px auto 4px}
+.msheet .sc{padding-bottom:30px}
+.mcard2{margin:4px 14px 8px;padding:2px 2px 10px;border-bottom:.5px solid #2c2c2e}
+.mcard2 h3{font-size:21px;font-weight:700;display:flex;align-items:center;gap:8px}
+.mcard2 h3 i{width:10px;height:10px;border-radius:50%;flex:none}
+.mcard2 p{color:#aaa;font-size:14.5px;margin-top:3px}
+.mcard2 em{display:block;color:#ddd;font-size:14.5px;margin-top:6px}
+.mcard2 .mact{display:flex;gap:8px;margin-top:10px}
+.mcard2 .mact span{flex:1;background:#2c2c2e;border-radius:10px;padding:9px 0;text-align:center;font-size:14px;font-weight:600;color:#0a84ff;cursor:pointer}
+.mcard2 .mact span.pr{background:#0a84ff;color:#fff}
+.mcard2.alert h3{color:#ff453a}
+.mlrow2{display:flex;gap:12px;align-items:center;padding:9px 16px;cursor:pointer}
+.mlrow2:active{background:#2c2c2e}
+.mlrow2 .pin{width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;flex:none}
+.mlrow2 .pin .xi{width:16px;height:16px;stroke-width:2.3}
+.mlrow2 b{display:block;font-size:16px;font-weight:600}.mlrow2 small{color:#8e8e93;font-size:13.5px}
+.mlrow2.sel{background:#2c2c2e}
+#ban{touch-action:none}
+</style>
+<script>
+/* ===== LUMEN OS v3 — app ===== */
+'use strict';
+const XI={
+ search:'<circle cx="11" cy="11" r="6.5"/><path d="M16 16l4.5 4.5"/>',
+ compose:'<path d="M12 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6"/><path d="M17.5 3.5l3 3L12 15l-4 1 1-4z"/>',
+ chev:'<path d="M9 5l7 7-7 7"/>',chevL:'<path d="M15 4l-8 8 8 8"/>',chevR:'<path d="M9 4l8 8-8 8"/>',chevU:'<path d="M5 15l7-7 7 7"/>',chevD:'<path d="M5 9l7 7 7-7"/>',
+ video:'<rect x="2.5" y="6.5" width="13" height="11" rx="2.5"/><path d="M15.5 10.5l6-3.5v10l-6-3.5"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',up:'<path d="M12 19V6M6 11.5l6-6 6 6"/>',
+ mic:'<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21"/>',
+ trash:'<path d="M4 7h16M9 7V4.5h6V7M6 7l1 13h10l1-13M10 11v6M14 11v6"/>',folder:'<path d="M3 7.5V18a1.5 1.5 0 0 0 1.5 1.5h15A1.5 1.5 0 0 0 21 18V9a1.5 1.5 0 0 0-1.5-1.5H12L10 5H4.5A1.5 1.5 0 0 0 3 6.5z"/>',
+ reply:'<path d="M10 6L4 12l6 6M4 12h10a6 6 0 0 1 6 6"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',person:'<circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/>',
+ grid:'<circle cx="6" cy="5" r="1.6"/><circle cx="12" cy="5" r="1.6"/><circle cx="18" cy="5" r="1.6"/><circle cx="6" cy="11" r="1.6"/><circle cx="12" cy="11" r="1.6"/><circle cx="18" cy="11" r="1.6"/><circle cx="6" cy="17" r="1.6"/><circle cx="12" cy="17" r="1.6"/><circle cx="18" cy="17" r="1.6"/>',
+ vm:'<circle cx="6.5" cy="12" r="4"/><circle cx="17.5" cy="12" r="4"/><path d="M6.5 16h11"/>',
+ info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>',
+ callout:'<path d="M14 4h6v6M20 4l-8 8"/><path d="M6 14l-2 3 3 3 3-2"/>',
+ phone:'<path d="M6.5 3h3l1.6 4.2-2.1 1.5a11 11 0 0 0 6.3 6.3l1.5-2.1 4.2 1.6v3a2 2 0 0 1-2.2 2A17 17 0 0 1 4.5 5.2 2 2 0 0 1 6.5 3z"/>',
+ msg:'<path d="M12 4c5 0 9 3.1 9 7s-4 7-9 7c-1 0-2-.1-2.9-.4L5 19.5l1-3.4C4.2 14.8 3 13 3 11c0-3.9 4-7 9-7z"/>',
+ mail:'<rect x="3" y="5.5" width="18" height="13" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/>',
+ mute:'<path d="M9 9V6a3 3 0 0 1 6 0v6M15 15a3 3 0 0 1-6-1"/><path d="M5.5 11a6.5 6.5 0 0 0 11 4.7M12 17.5V21M3 3l18 18"/>',
+ keypad:'<circle cx="6" cy="5" r="1.4"/><circle cx="12" cy="5" r="1.4"/><circle cx="18" cy="5" r="1.4"/><circle cx="6" cy="11" r="1.4"/><circle cx="12" cy="11" r="1.4"/><circle cx="18" cy="11" r="1.4"/><circle cx="6" cy="17" r="1.4"/><circle cx="12" cy="17" r="1.4"/><circle cx="18" cy="17" r="1.4"/><circle cx="12" cy="22" r="1.2"/>',
+ speaker:'<path d="M4 9.5h3.5L12 5.5v13l-4.5-4H4z"/><path d="M15.5 9a4 4 0 0 1 0 6M18 6.5a7.5 7.5 0 0 1 0 11"/>',
+ addcall:'<path d="M12 5v14M5 12h14"/>',
+ contacts:'<circle cx="12" cy="9" r="3.4"/><path d="M5.5 19.5a6.5 6.5 0 0 1 13 0"/><rect x="3" y="3" width="18" height="18" rx="4"/>',
+ share:'<path d="M12 3v12M8 7l4-4 4 4"/><path d="M6 11H5v10h14V11h-1"/>',
+ book:'<path d="M4 5.5C7 4 9.5 4 12 6c2.5-2 5-2 8-.5V19c-3-1.5-5.5-1.5-8 .5-2.5-2-5-2-8-.5z"/><path d="M12 6v13.5"/>',
+ tabs:'<rect x="3.5" y="7.5" width="13" height="13" rx="2.5"/><path d="M7.5 4h11a2 2 0 0 1 2 2v11"/>',
+ lock:'<rect x="5.5" y="10.5" width="13" height="10" rx="2"/><path d="M8.5 10.5V7.5a3.5 3.5 0 0 1 7 0v3"/>',
+ reload:'<path d="M19.5 12a7.5 7.5 0 1 1-2.2-5.3M19.5 4v5h-5"/>',
+ locate:'<path d="M20 4L4 11l7 2 2 7z"/>',fit:'<path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/>',
+ play:'<path d="M7 4.5v15l12.5-7.5z"/>',pause:'<path d="M7 4.5h3.5v15H7zM13.5 4.5H17v15h-3.5z"/>',
+ menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',
+ home:'<path d="M4 11l8-7 8 7v9h-5.5v-6h-5v6H4z"/>',shop:'<path d="M4 9l1.5-5h13L20 9M4 9v11h16V9M4 9h16M10 20v-6h4v6"/>',cup:'<path d="M5 8h11v6a5 5 0 0 1-5 5h-1a5 5 0 0 1-5-5zM16 10h2a2.5 2.5 0 0 1 0 5h-2.5M8 3.5v2M11 3v2.5M14 3.5v2"/>',
+ heart:'<path d="M12 20s-7.5-4.6-7.5-10A4.4 4.4 0 0 1 12 7a4.4 4.4 0 0 1 7.5 3c0 5.4-7.5 10-7.5 10z"/>',warn:'<path d="M12 4l9 16H3zM12 10v4.5M12 17.5v.3"/>',
+ car:'<path d="M4 16v-4l2-5h12l2 5v4zM4 16v2.5M20 16v2.5M7.5 13.5h.5M16 13.5h.5"/>',drop:'<path d="M12 3s6 6.5 6 11a6 6 0 0 1-12 0c0-4.5 6-11 6-11z"/>',
+ recycle:'<path d="M8 8l2.5-4h3L16 8M18 12l2 4-1.5 3H14M10 19H5.5L4 16l2-4"/>',tree:'<path d="M12 3l6 9h-4l4 6H6l4-6H6zM12 18v3"/>'
+};
+const xi=(n,s='')=>`<svg class="xi" viewBox="0 0 24 24"${s?` style="${s}"`:''}>${XI[n]||''}</svg>`;
+const chevI=xi('chev');
+const avHue=s=>{let h=0;for(const c of String(s))h=(h*31+c.charCodeAt(0))%360;return h};
+const avC=s=>`linear-gradient(hsl(${avHue(s)},28%,58%),hsl(${avHue(s)},30%,40%))`;
+const ini=s=>{const w=String(s).replace(/[^\p{L}\s]/gu,'').trim().split(/\s+/);return((w[0]||'?')[0]+((w[1]||'')[0]||'')).toUpperCase()};
+const avT=(t,cls='')=>`<div class="av ${cls}" style="background:linear-gradient(${t.col},color-mix(in srgb,${t.col} 60%,#000))">${t.av}</div>`;
+
+/* ---------- BANNER: trascina per chiudere ---------- */
+(function(){const b=$('#ban');let st=null;
+ b.addEventListener('pointerdown',e=>{if(!b.classList.contains('show'))return;st={x:e.clientX,y:e.clientY,t:performance.now(),m:false,dy:0,v:0,lt:performance.now(),ly:e.clientY};clearTimeout(banT);try{b.setPointerCapture(e.pointerId)}catch(_){}});
+ b.addEventListener('pointermove',e=>{if(!st)return;const s=scale(),dx=(e.clientX-st.x)/s,dy=(e.clientY-st.y)/s;if(!st.m&&Math.abs(dx)<5&&Math.abs(dy)<5)return;st.m=true;const t=performance.now();st.v=(e.clientY-st.ly)/s/Math.max(1,t-st.lt);st.lt=t;st.ly=e.clientY;st.dy=dy;b.style.transition='none';b.style.transform=`translateY(${dy<0?dy:Math.sqrt(dy)*4}px)`});
+ const end=c=>{if(!st)return;const m=st.m,dy=st.dy,v=st.v;st=null;b.style.transition='';b.style.transform='';if(!m){banT=setTimeout(()=>b.classList.remove('show'),3500);return}b._sup=performance.now();
+  if(!c&&(dy<-22||v<-.35)){b.classList.remove('show');return}if(!c&&dy>55){b._sup=0;ACT.ban();return}banT=setTimeout(()=>b.classList.remove('show'),3000)};
+ b.addEventListener('pointerup',()=>end(false));b.addEventListener('pointercancel',()=>end(true));
+ const _ban=ACT.ban;ACT.ban=()=>{if(performance.now()-(b._sup||0)<450)return;_ban()};})();
+
+/* ---------- MESSAGGI ---------- */
+VIEWS.msg=()=>{const rows=threadIds().map(id=>{const t=TH[id],m=msgs(id).filter(x=>!x.sep),l=m[m.length-1]||{t:'',ts:''};return `<div class="row mrow" data-a="th" data-v="${id}"><i class="udot ${S.un[id]?'on':''}"></i>${avT(t)}<div class="rc"><div class="r1"><b>${esc(t.name)}</b><small>${esc(l.ts||'')}${chevI}</small></div><div class="r2 two">${l.d==='out'?'<span class="you">Tu:&nbsp;</span>':''}${esc(l.t)}</div></div></div>`}).join('');
+ return hd('Home','',`<span class="hic" data-a="mcomp">${xi('compose')}</span>`)+`<div class="tt">Messaggi</div><div class="sc"><div class="srch" data-a="spot">${xi('search')}Cerca</div>${rows}</div>`};
+ACT.mcomp=()=>toast('Nessuna SIM: puoi scrivere solo ai contatti Lumen già presenti.');
+ACT.mplus=()=>toast('Allegati non disponibili: spazio esaurito («Dati di sistema»: 41 GB).');
+ACT.thinfo=v=>toast(v==='owner'?'Videochiamata rifiutata.':'FaceTime non disponibile: nessuna SIM inserita.');
+VIEWS.thread=id=>{const t=TH[id];S.un[id]=0;clue(t.clue);
+ const extra=S.xmsg[id]||[],list=t.m.concat(extra.length?[{sep:'Oggi '+(extra[0].ts||'')}]:[],extra);
+ const bub=list.filter(m=>!m.sep);let html='';
+ list.forEach((m,i)=>{if(m.sep){html+=`<div class="sep"><b>${esc(m.sep.split(' ')[0])}</b> ${esc(m.sep.split(' ').slice(1).join(' '))}</div>`;return}
+  let nx=null;for(let j=i+1;j<list.length;j++){nx=list[j];break}
+  const tail=!nx||nx.sep||nx.d!==m.d||m.fail;
+  html+=`<div class="b ${m.d}${tail?' tl':''}">${esc(m.t)}</div>`;
+  if(m.fail)html+=`<div class="fail"><i>!</i>Non consegnato</div>`});
+ const last=bub[bub.length-1];if(last&&last.d==='out'&&!last.fail)html+=`<div class="rcpt">${id==='lucia'?'Letto 12 set':id==='owner'?'Letto':'Consegnato'}</div>`;
+ after=()=>{const s=$('#chat');s.scrollTop=s.scrollHeight;const f=$('#sendf'),i=$('#mi');i.value=draft;const up=()=>f.classList.toggle('has',!!i.value.trim());up();i.addEventListener('input',()=>{draft=i.value;up()});f.addEventListener('submit',e=>{e.preventDefault();sendMsg(id)})};
+ return `<div class="hd thd"><div class="bk" data-a="back"><svg viewBox="0 0 24 24"><path d="M15 4l-8 8 8 8"/></svg></div><div class="thc" data-a="thinfo" data-v="${id}">${avT(t)}<span>${esc(t.name)}${chevI}</span></div><div class="hdr"><span class="hic" data-a="thinfo" data-v="${id}">${xi('video')}</span></div></div><div class="sc" id="chat"><div class="chat">${html}</div></div><form class="inp inp2" id="sendf"><span class="pl" data-a="mplus">${xi('plus')}</span><div class="fld"><input id="mi" placeholder="${id==='owner'?'Messaggio Lumen':'SMS'}" autocomplete="off" enterkeyhint="send"><button class="send" aria-label="Invia">${xi('up')}</button><span class="mic">${xi('mic')}</span></div></form>`};
+/* indicatore «sta scrivendo…» quando la chat è aperta */
+const _amQ={};const _am=addMsg;
+addMsg=function(id,t){const tp=topV();const viewing=S.wifi&&live&&!S.end&&curApp==='msg'&&tp&&tp[0]===VIEWS.thread&&tp[1]===id;
+ if(!viewing&&!_amQ[id])return _am(id,t);
+ _amQ[id]=(_amQ[id]||Promise.resolve()).then(()=>new Promise(res=>{const tp2=topV(),v2=curApp==='msg'&&tp2&&tp2[0]===VIEWS.thread&&tp2[1]===id;
+  if(!v2){_am(id,t);return res()}
+  const c=$('#chat .chat');if(c&&!c.querySelector('.typing')){const ty=document.createElement('div');ty.className='b in tl typing';ty.innerHTML='<i></i><i></i><i></i>';c.appendChild(ty);const s=$('#chat');s.scrollTop=s.scrollHeight}
+  setTimeout(()=>{_am(id,t);res()},700+Math.min(1500,t.length*22))})).then(()=>{},()=>{});
+ const q=_amQ[id];q.then(()=>{if(_amQ[id]===q)delete _amQ[id]})};
+
+/* ---------- POSTA ---------- */
+VIEWS.mail=()=>{const un=MAILS.filter(m=>!S.read[m.id]).length;
+ return hd('Caselle','',`<span class="hlink" data-a="mtool" data-v="edit">Modifica</span>`)+`<div class="tt">Posta in arrivo</div><div class="sc"><div class="srch" data-a="spot">${xi('search')}Cerca</div>${MAILS.map(m=>`<div class="row mlrow" data-a="mail" data-v="${m.id}"><i class="udot ${S.read[m.id]?'':'on'}"></i><div class="rc"><div class="r1"><b>${esc(m.f)}</b><small>${m.d}${chevI}</small></div><div class="msub">${esc(m.s)}</div><div class="r2 two">${esc(m.b.replace(/\n+/g,' '))}</div></div></div>`).join('')}</div><div class="mbar"><span></span><div><b>Aggiornato adesso</b><small>${un?un+' non lette':'Tutte lette'}</small></div><span class="hic" data-a="mtool" data-v="compose">${xi('compose')}</span></div>`};
+VIEWS.mailv=id=>{const m=MAILS.find(x=>x.id===id);S.read[id]=1;clue(m.c);
+ return hd('Posta in arrivo','',`<span class="hic" data-a="mnav" data-v="-1">${xi('chevU')}</span><span class="hic" data-a="mnav" data-v="1">${xi('chevD')}</span>`)+`<div class="sc"><div class="mvh"><div class="av" style="background:${avC(m.f)}">${ini(m.f)}</div><div class="mvf"><div class="r1"><b>${esc(m.f)}</b><small>${m.d}</small></div><small>A: Marco Vettori ›</small></div></div><h2 class="mvs">${esc(m.s)}</h2><div class="mvb">${esc(m.b)}</div></div><div class="mtool">${['trash','folder','reply','compose'].map(n=>`<span data-a="mtool" data-v="${n}">${xi(n)}</span>`).join('')}</div>`};
+ACT.mnav=v=>{const t=topV(),i=MAILS.findIndex(x=>x.id===t[1]),n=MAILS[i+ +v];if(!n)return;t[1]=n.id;pushAnim=+v>0?'push':'back';draw()};
+ACT.mtool=v=>toast({trash:'Impossibile eliminare: la casella appartiene a marco.vettori.',folder:'Spostamento non consentito su questo dispositivo.',reply:'Invio non riuscito: account non verificato su questo dispositivo.',compose:'Invio non riuscito: account non verificato su questo dispositivo.',edit:'Modifica non consentita.'}[v]||'');
+
+/* ---------- TELEFONO ---------- */
+let precF='all',vmPlay=-1;
+const CNOTE={'Lucia ❤':'Finestra al 2° piano, a sinistra.','Madre di L.':'Chiama il martedì alle nove.','Mamma':'Mercoledì.','Gino Usato':'Non fa domande.','Sconosciuto':'Deposito. Solo contanti.'};
+const CTH={'Lucia ❤':'lucia','Mamma':'mamma','Sconosciuto':'forn','Gino Usato':'gino'};
+const numOf=n=>{const c=CONTACTS.find(c=>c[0]===n);return c?c[1]:/^\d+$/.test(n)?n:''};
+function ptabsHTML(){const vmN=S.vm.length;return `<div class="tabs">${[['rec','Recenti','clock'],['con','Contatti','person'],['key','Tastierino','grid'],['vm','Segreteria','vm']].map(([v,l,i])=>`<div class="tab ${ptab===v?'on':''}" data-a="ptab" data-v="${v}">${xi(i)}${v==='vm'&&vmN?`<span class="tb">${vmN}</span>`:''}<span>${l}</span></div>`).join('')}</div>`}
+VIEWS.phone=()=>{let body='',title='',hdr='';
+ if(ptab==='rec'){title='Recenti';const list=S.xcalls.map(c=>[c[0],c[1],c[2]]).concat(RECENTS).filter(c=>precF==='all'||c[2]==='missed');
+  hdr=`<div class="seg"><span class="${precF==='all'?'on':''}" data-a="precf" data-v="all">Tutte</span><span class="${precF==='miss'?'on':''}" data-a="precf" data-v="miss">Perse</span></div>`;
+  body=list.map(c=>{const n=c[0],lab=/^(112|113|115|118)$/.test(n)?'Emergenza':n==='Numero privato'?'sconosciuto':'cellulare',when=/^\d+:\d+$/.test(c[1])?c[1]:c[1];return `<div class="row prow" data-a="pcall" data-v="${esc(n)}"><span class="pi">${c[2]==='out'?xi('callout'):''}</span><div class="rc"><b class="${c[2]==='missed'?'red':''}">${esc(n)}${c[3]?` (${c[3]})`:''}</b><div class="r2">${lab}</div></div><small>${esc(when)}</small><span class="info" data-a="pinfo" data-v="${esc(n)}">${xi('info')}</span></div>`}).join('')||'<p class="cnt">Nessuna chiamata persa</p>'}
+ else if(ptab==='con'){title='Contatti';const by={};CONTACTS.slice().sort((a,b)=>a[0].localeCompare(b[0])).forEach(c=>{const l=c[0][0].toUpperCase();(by[l]=by[l]||[]).push(c)});
+  body=`<div class="srch" data-a="spot">${xi('search')}Cerca</div><div class="mycard" data-a="pmine"><div class="av" style="background:#48484a">M</div><div><b>Marco Vettori</b><small>La mia scheda</small></div></div>`+Object.keys(by).map(l=>`<div class="lh">${l}</div>`+by[l].map(c=>`<div class="crow" data-a="pinfo" data-v="${esc(c[0])}">${esc(c[0])}</div>`).join('')).join('')}
+ else if(ptab==='key'){body=`<div class="kd" id="kd">${esc(dialed)||'&nbsp;'}</div><div class="ksub">${dialed?'<span style="color:#0a84ff" data-a="kadd">Aggiungi numero</span>':'Nessuna SIM · solo chiamate di emergenza'}</div><div class="kp">${[['1',''],['2','ABC'],['3','DEF'],['4','GHI'],['5','JKL'],['6','MNO'],['7','PQRS'],['8','TUV'],['9','WXYZ'],['*',''],['0','+'],['#','']].map(([k,s])=>`<div data-a="key" data-v="${k}">${k}<small>${s}</small></div>`).join('')}</div><div class="kcall"><span></span><div class="cbtn g" data-a="dial">${svg('phone')}</div><span data-a="kdel">${dialed?'⌫':''}</span></div>`}
+ else{title='Segreteria';const list=S.vm.concat(VM0);
+  body=list.map((v,i)=>{const op=vmOpen===i,sec=(+(v.len.split(':')[0])*60+ +(v.len.split(':')[1]))||8;return `<div class="vmrow" data-a="vm" data-v="${i}"><div class="vt"><i class="udot ${i<S.vm.length&&!op?'on':''}"></i><b>${esc(v.n)}</b><small>${esc(v.d)}</small></div><div class="vs">${op?'':'Messaggio vocale · '+v.len}</div>${op?`<div class="vmx"><div class="vbar"><span class="pp" data-a="vmplay" data-v="${i}">${xi(vmPlay===i?'pause':'play')}</span><div class="vtrk ${vmPlay===i?'run':''}" style="--d:${Math.min(12,sec/4)}s"><i></i></div><small>${v.len}</small></div><div class="vtx">Trascrizione: ${esc(v.tx)}</div><div class="vbtns"><span data-a="vmplay" data-v="${i}">Altoparlante</span><span data-a="pcall" data-v="${esc(v.n)}">Richiama</span><span class="r" data-a="vmdel">Elimina</span></div></div>`:''}</div>`}).join('')}
+ return hd('Home','',ptab==='con'?`<span class="hic" data-a="kadd">${xi('plus')}</span>`:'')+(title?`<div class="tt">${title}</div>`:'')+`<div class="sc">${hdr?`<div style="padding:0 0 10px">${hdr}</div>`:''}${body}</div>`+ptabsHTML()};
+ACT.precf=v=>{precF=v;draw()};
+ACT.kadd=()=>toast('Impossibile salvare: la rubrica appartiene a marco.vettori.');
+ACT.vmdel=()=>toast('Impossibile eliminare i messaggi di un altro account.');
+ACT.vmplay=v=>{const i=+v;if(vmPlay===i){vmPlay=-1;draw();return}vmPlay=i;noise(4,{f:900,type:'bandpass',v:.08});draw();clearTimeout(ACT.vmplay._t);ACT.vmplay._t=setTimeout(()=>{if(vmPlay===i){vmPlay=-1;if(curApp==='phone'&&ptab==='vm')draw()}},12000)};
+const _ackey=ACT.key;ACT.key=v=>{const had=!!dialed;_ackey(v);if(!had&&curApp==='phone')draw()};
+const _ackdel=ACT.kdel;ACT.kdel=()=>{_ackdel();if(!dialed)draw()};
+ACT.pmine=()=>go(VIEWS.pcard,'__me');
+ACT.pinfo=v=>go(VIEWS.pcard,v);
+VIEWS.pcard=n=>{const me=n==='__me',name=me?'Marco Vettori':n,num=me?'Nessuna SIM':numOf(n)||(n==='Numero privato'?'Numero nascosto':'—'),note=me?'Ogni cosa torna sempre al suo proprietario.':CNOTE[n];
+ const rec=S.xcalls.map(c=>[c[0],'Oggi '+c[1],c[2]]).concat(RECENTS).filter(c=>c[0]===n);
+ return hd(ptab==='rec'?'Recenti':'Contatti','',`<span class="hlink" data-a="kadd">Modifica</span>`)+`<div class="sc"><div class="pcard"><div class="av" style="background:${me?'#48484a':avC(name)}">${me?'M':ini(name)}</div><h2>${esc(name)}</h2></div><div class="pacts"><span data-a="pact" data-v="msg|${esc(n)}">${xi('msg')}messaggio</span><span data-a="pact" data-v="call|${esc(n)}">${xi('phone')}chiama</span><span data-a="pact" data-v="video|${esc(n)}">${xi('video')}video</span><span data-a="pact" data-v="mail|${esc(n)}">${xi('mail')}e-mail</span></div><div class="pf"><small>${me?'il mio numero':'cellulare'}</small><div data-a="pact" data-v="call|${esc(n)}">${esc(num)}</div></div>${me?'<div class="pf"><small>e-mail</small><div>marco.vettori@lumen.mail</div></div><div class="pf"><small>indirizzo</small><div class="txt">Via del Molino 22, San Ilario</div></div>':''}${note?`<div class="pf"><small>Note</small><div class="txt">${esc(note)}</div></div>`:''}${rec.length?`<div class="pf"><small>Chiamate recenti</small>${rec.map(c=>`<div class="txt" style="font-size:14.5px;margin-top:6px">${esc(c[1])} · ${c[2]==='missed'?'<span style="color:#ff453a">Persa</span>':c[2]==='out'?'In uscita':'In entrata'}</div>`).join('')}</div>`:''}</div>`};
+ACT.pact=v=>{const [a,n]=v.split('|');if(a==='call'){if(n==='__me')return toast('Non puoi chiamare questo numero.');call(numOf(n)||n,n);return}
+ if(a==='msg'){const th=CTH[n];if(th&&(th!=='gino'||msgs('gino').length)){openApp('msg');ACT.th(th)}else toast('Nessuna SIM: impossibile inviare SMS.');return}
+ toast(a==='video'?'FaceTime non disponibile: nessuna SIM inserita.':'Nessun indirizzo e-mail per questo contatto.')};
+
+/* ---------- CHIAMATE ---------- */
+callScreen=function(name,sub,inc){const priv=name==='Numero privato';ovShow(`<div class="call call2${inc?' inc':''}${priv?' priv':''}"><div class="cbg"></div><div class="ctop"><div class="cname">${esc(name)}</div><div class="csub" id="csub">${sub}</div></div><div class="clines" id="cl"></div><div class="copts" id="co"></div><div class="cgrid">${[['mute','muto'],['keypad','tastierino'],['speaker','altoparlante'],['addcall','aggiungi'],['video','FaceTime'],['contacts','Contatti']].map(([i,l])=>`<div class="cg" data-a="cg" data-v="${i}"><span>${xi(i)}</span><small>${l}</small></div>`).join('')}</div><div class="cinc"><div class="cmini"><span data-a="cmini" data-v="r">${xi('clock')}<small>Promemoria</small></span><span data-a="cmini" data-v="m">${xi('msg')}<small>Messaggio</small></span></div></div><div class="cbtns" id="cb">${inc?`<div class="cbw"><div class="cbtn r" data-a="decline">${svg('phone')}</div><small>Rifiuta</small></div><div class="cbw"><div class="cbtn g" data-a="accept">${svg('phone')}</div><small>Accetta</small></div>`:`<div class="cbtn r" data-a="hang">${svg('phone')}</div>`}</div></div>`)};
+ACT.cg=(v,el)=>{if(v==='mute'||v==='speaker'){el.classList.toggle('on');if(v==='speaker'&&master)master.gain.value=el.classList.contains('on')?Math.min(1,vol*1.4):vol;return}
+ toast({keypad:'Tastierino non disponibile durante questa chiamata.',addcall:'Nessuna SIM: impossibile aggiungere chiamate.',video:'FaceTime non disponibile.',contacts:'Rubrica bloccata dal proprietario.'}[v])};
+ACT.cmini=v=>{ACT.decline();toast(v==='r'?'Ti verrà ricordato tra un’ora.':'Messaggio non inviato: nessuna SIM.')};
+
+/* ---------- BROWSER ---------- */
+const SITES={
+ gazz:{n:'Gazzetta di San Ilario',u:'gazzettasanilario.it',c:'#7d1018',l:'G'},
+ scin:{n:'Scintilla',u:'scintilla.app',c:'#ff6a3d',l:'S'},
+ gino:{n:'Gino Usato',u:'ginousato.it',c:'#d12a4a',l:'G'},
+ vett:{n:'Vettori Giardini',u:'vettori-giardini.it',c:'#2f7a3a',l:'V'},
+ lumen:{n:'Account Lumen',u:'account.lumen.com',c:'#0a84ff',l:'L'},
+ comune:{n:'Comune di San Ilario',u:'comune.sanilario.it',c:'#2b4c8c',l:'C'},
+ edil:{n:'EdilCasa Forniture',u:'edilcasa.it',c:'#e08a00',l:'E'}
+};
+const sfBar=(addr,opts={})=>`<div class="sfbar"><div class="sfaddr" data-a="sfaddr">${addr?`<span class="aa">AA</span>${opts.lock!==false?`<span class="lk">${xi('lock')}</span>`:''}<span>${esc(addr)}</span><span class="rl" data-a="sfreload">${xi('reload')}</span>`:`${xi('search')}<span class="ph">Cerca o inserisci un sito</span>`}</div><div class="sftool"><span class="${stack.length>1?'':'dis'}" data-a="${stack.length>1?'back':''}">${xi('chevL')}</span><span class="dis">${xi('chevR')}</span><span data-a="sfshare">${xi('share')}</span><span data-a="sfbook">${xi('book')}</span><span data-a="sftabs">${xi('tabs')}</span></div></div>`;
+const sfWrap=(inner,addr,opts)=>`<div class="sfpg"><div class="sfload"></div>${inner}</div>`+sfBar(addr,opts);
+VIEWS.web=()=>{after=()=>{const f=$('#wsf');if(f)f.addEventListener('submit',e=>{e.preventDefault();const v=$('#wsi').value.trim();if(v)go(VIEWS.page,{q:v})})};
+ const fav=[['gazz'],['scin'],['gino'],['lumen'],['comune'],['edil']];
+ return `<div class="sfpg"><div class="sfstart"><form id="wsf" class="sfsrch">${xi('search')}<input id="wsi" placeholder="Cerca o inserisci un sito" autocomplete="off" enterkeyhint="search"></form><h3>Preferiti</h3><div class="sffav">${fav.map(([k])=>{const s=SITES[k];return `<div data-a="sfopen" data-v="${k}"><i style="background:${s.c}">${s.l}</i>${esc(s.n)}</div>`}).join('')}</div><h3>Rapporto sulla privacy</h3><div class="sfpriv"><b>14</b><span>Negli ultimi 30 giorni il browser ha impedito a 14 tracker di profilare «Marco».</span></div><h3>Cronologia</h3><div class="sfhist">${HIST.map((h,i)=>`<div data-a="hist" data-v="${i}">${xi(h[2]==='q'?'search':'clock')}<span>${esc(h[0])}</span><small>${h[1]}</small></div>`).join('')}</div></div></div>`+sfBar('')};
+ACT.sfaddr=()=>{if(stack.length>1){stack=stack.slice(0,1);pushAnim='back';draw()}setTimeout(()=>{const i=$('#wsi');if(i)try{i.focus()}catch(e){}},80)};
+ACT.sfreload=()=>{draw()};
+ACT.sfshare=()=>toast('Condivisione non disponibile: nessun account configurato.');
+ACT.sfbook=()=>toast('Segnalibri sincronizzati con marco.vettori: 0 visibili.');
+ACT.sftabs=()=>toast('1 pannello aperto · 3 pannelli privati bloccati.');
+ACT.sfopen=v=>go(VIEWS.page,{s:v});
+ACT.paa=(v,el)=>{el.classList.toggle('op')};
+const gzImg={n1:()=>photo('carnight',9),n2:()=>photo('lake',17)};
+const GZMETA={n1:{sum:'La barista del Bar Centrale è sparita nel nulla la sera del 12 settembre. Nessuna traccia del telefono.',by:'di Redazione',dt:'14 settembre 2025, 08:40',cap:'Via dei Salici, dove è stata ritrovata l’auto della giovane.',com:[['Mariella_SI','2 giorni fa','Era una ragazza d’oro. Ogni mattina il cappuccino con il cuore disegnato sopra.'],['anonimo','2 giorni fa','Quella macchina scura l’ho vista più di una volta in via dei Salici. Sempre a fari spenti.'],['marco.v','1 giorno fa','Speriamo che torni presto a casa. Il quartiere è con voi.',1]]},
+ n2:{sum:'La studentessa aveva un appuntamento al lago con un uomo conosciuto su un’app. Gli inquirenti non escludono legami con il caso Ferri.',by:'di Redazione',dt:'22 ottobre 2025, 07:15',cap:'Il parcheggio nord del lago, dove è stata ritrovata l’auto.',com:[['giulia_88','5 ore fa','Basta con queste app. Le ragazze devono stare attente.'],['Pietro R.','4 ore fa','Al lago di notte non c’è una telecamera. Lo sanno tutti.'],['marco.v','3 ore fa','Il lago di notte è pericoloso. Bisogna stare attenti a chi si incontra.',1]]}};
+function gzArticle(k){clue('c_news');const n=NEWS[k],m=GZMETA[k],o=k==='n1'?'n2':'n1';
+ return `<div class="gz"><div class="gzh">${xi('menu')}<b>Gazzetta di San Ilario</b>${xi('search')}</div><div class="gzn"><span class="on">Cronaca</span><span>Politica</span><span>Sport</span><span>Cultura</span><span>Meteo</span><span>Necrologi</span></div><div class="gzt">⚠ Allerta meteo: pioggia intensa su San Ilario fino a lunedì</div><div class="gza"><div class="cat">CRONACA · SAN ILARIO</div><h1>${n.h}</h1><div class="sum">${m.sum}</div><div class="by"><span>${m.by}</span><span>${m.dt}</span></div><figure><img src="${gzImg[k]()}" alt=""><figcaption>${m.cap}</figcaption></figure>${n.p.map(p=>`<p>${p}</p>`).join('')}</div><div class="gzad"><small>PUBBLICITÀ</small><b>Bar Centrale ☕ dal 1962</b><span>Colazione al banco: chiedi del cornetto al pistacchio!</span></div><div class="gzr"><h4>LEGGI ANCHE</h4><div data-a="gzgo" data-v="${o}"><img src="${gzImg[o]()}" alt=""><b>${NEWS[o].h}</b></div></div><div class="gzc"><h4>${m.com.length} commenti</h4>${m.com.map(c=>`<div class="${c[3]?'mv':''}"><b>${esc(c[0])} <small>· ${c[1]}</small></b>${esc(c[2])}</div>`).join('')}</div></div>`}
+ACT.gzgo=v=>go(VIEWS.page,{n:v});
+function gzHome(){return `<div class="gz"><div class="gzh">${xi('menu')}<b>Gazzetta di San Ilario</b>${xi('search')}</div><div class="gzn"><span class="on">Home</span><span>Cronaca</span><span>Politica</span><span>Sport</span><span>Meteo</span></div><div class="gzt">⚠ Allerta meteo: pioggia intensa su San Ilario fino a lunedì</div><div class="gzlist">${['n2','n1'].map(k=>`<div data-a="gzgo" data-v="${k}"><img src="${gzImg[k]()}" alt=""><div><b>${NEWS[k].h}</b><small>${NEWS[k].d}</small></div></div>`).join('')}<div><div><b>Isola ecologica di via del Molino: nuovi orari da settembre</b><small>1 settembre · Comune</small></div></div><div><div><b>Bosco della Cava, il Comune: «Vecchi pozzi da mettere in sicurezza»</b><small>28 agosto · Ambiente</small></div></div></div></div>`}
+function sitePage(k){const s=SITES[k];
+ if(k==='gazz')return gzHome();
+ if(k==='scin')return `<div class="site" style="background:linear-gradient(#ff7a45,#ff3d6e);color:#fff"><div class="sh"><b style="font-size:24px">scintilla</b><span>♥</span></div><div class="sb" style="text-align:center"><h1 style="margin-top:20px">Bentornato, Marco</h1><p>Sessione scaduta. Inserisci la password per rivedere i tuoi match.</p><input type="password" placeholder="Password" id="scpw"><div class="btn2" style="background:#fff;color:#ff3d6e" data-a="scin">Accedi</div><p style="margin-top:18px;font-size:13px;opacity:.85">Il tuo profilo è stato disattivato il 20 ottobre su tua richiesta.</p></div></div>`;
+ if(k==='gino')return `<div class="site" style="background:#111;color:#eee"><div class="sh" style="background:#1b0b10"><b style="color:#ff5a78;font-size:20px">GINO USATO</b><small style="color:#8fd8ff">COMPRO · VENDO · RIPARO</small></div><div class="sb"><h1>Telefoni ricondizionati</h1><p>Ripristinati come appena usciti dalla scatola. Garanzia: nessuna. Niente resi.</p><div class="card" style="background:#1d1d20;display:flex;justify-content:space-between"><span>Lumen 12 · 64 GB</span><b style="color:#ff453a">VENDUTO</b></div><div class="card" style="background:#1d1d20;display:flex;justify-content:space-between"><span>Lumen 10 · 32 GB</span><b>45 €</b></div><div class="card" style="background:#1d1d20;display:flex;justify-content:space-between"><span>Tablet Lumen Tab</span><b style="color:#888">non in vendita</b></div><p style="color:#888;font-size:13px;margin-top:14px">Via Roma 2 · aperto fino a tardi</p></div></div>`;
+ if(k==='vett')return `<div class="site" style="background:#f3f1ea;color:#1c2a1c"><div class="sh" style="background:#2f7a3a;color:#fff"><b style="font-size:19px">Vettori Giardini</b>${xi('menu')}</div><div class="sb"><img class="hero" src="${photo('woods',13)}" alt=""><h1>Scavi, potature, sistemazione terreni.</h1><p>Lavoro pulito. Nessuna traccia. Preventivi gratuiti a domicilio: vengo io da voi, anche la sera.</p><div class="card" style="background:#fff">«Gentilissimo. Puntuale. Un po’ silenzioso.» — ★★★★★</div><div class="card" style="background:#fff">«Ha scavato una buca enorme in due ore. Non ho capito a cosa servisse, ma il giardino è perfetto.» — ★★★★☆</div><p style="font-size:13px;color:#667">Marco Vettori · Via del Molino 22 · San Ilario</p></div></div>`;
+ if(k==='lumen')return `<div class="site" style="background:#fff;color:#111"><div class="sh" style="border-bottom:1px solid #eee"><b>Lumen</b><span style="color:#0a84ff">Accedi</span></div><div class="sb"><h1>Trova Dispositivo</h1><p>Il tuo telefono è sempre tuo. Anche dopo un ripristino, puoi vedere dove si trova, in tempo reale, da qualunque tuo dispositivo.</p><p style="color:#666">Chi trova il tuo telefono non può rimuoverlo dal tuo account senza la tua password.</p><div class="btn2" style="background:#0a84ff;color:#fff" data-a="sfgofind">Apri Trova</div></div></div>`;
+ if(k==='comune')return `<div class="site" style="background:#fff;color:#111"><div class="sh" style="background:#2b4c8c;color:#fff"><b>Comune di San Ilario</b>${xi('menu')}</div><div class="sb"><h1 style="font-size:22px">Bosco della Cava: avviso</h1><p>Nell’area boschiva sono presenti vecchi pozzi in disuso, non tutti segnalati. Si raccomanda di non abbandonare i sentieri, soprattutto di notte.</p><p>È vietato abbandonare rifiuti. L’isola ecologica di via del Molino è aperta martedì, giovedì e sabato.</p></div></div>`;
+ if(k==='edil')return `<div class="site" style="background:#fff7e8;color:#222"><div class="sh" style="background:#e08a00;color:#fff"><b>EdilCasa Forniture</b><span>🛒 1</span></div><div class="sb"><h1 style="font-size:22px">I tuoi ordini</h1><div class="card" style="background:#fff">#4471 · 9 set · Consegnato al deposito<br><small style="color:#777">Calce viva ×4 · Telo PVC · Corda · Candeggina ×2 · Badile</small></div><div class="card" style="background:#fff">#4380 · 2 feb · Consegnato<br><small style="color:#777">Calce viva ×4 · Telo PVC · Corda</small></div><div class="card" style="background:#fff">#4102 · 14 mar 2024 · Consegnato<br><small style="color:#777">Calce viva ×3 · Badile</small></div><div class="btn2" style="background:#e08a00;color:#fff" data-a="edil">Riordina</div></div></div>`;
+ return ''}
+ACT.scin=()=>{toast('Password errata. 2 tentativi rimasti.');vib(120)};
+ACT.edil=()=>toast('«Lo stesso ordine?» · Carrello pronto: calce viva ×4.');
+ACT.sfgofind=()=>openApp('find');
+function serp(q,old){const ql=q.toLowerCase();let res=[],paa=null,news=false;
+ const R=(site,title,snip,go,img)=>({site,title,snip,go,img});
+ if(/lucia|ferri/.test(ql)){news=true;res=[R('gazz',NEWS.n1.h,'Di Lucia Ferri, barista del Bar Centrale, non si hanno notizie dalla sera di venerdì 12 settembre…',{n:'n1'},photo('carnight',9)),R('gazz',NEWS.n2.h,'Gli inquirenti non escludono un collegamento con il caso di Lucia Ferri…',{n:'n2'}),R({n:'Facebook',u:'facebook.com › lucia.ferri',c:'#1877f2',l:'f'},'Lucia Ferri','Profilo privato. 312 amici. «Il blu mi sta bene?» — ultimo post, 3 giugno.',null)];paa=[['Lucia Ferri è stata ritrovata?','No. Le ricerche proseguono. L’ultima cella agganciata dal suo telefono è in via dei Salici, alle 23:58 del 12 settembre.'],['Chi ha visto Lucia Ferri per ultimo?','Un conoscente ha dichiarato di averla riaccompagnata a casa verso le 23. Ha un alibi.']]}
+ else if(/sara|bellini/.test(ql)){news=true;res=[R('gazz',NEWS.n2.h,'Sara Bellini, 24 anni, non è rientrata a casa dopo un appuntamento con un uomo conosciuto su un’app di incontri…',{n:'n2'},photo('lake',17)),R('scin','Scintilla — Incontri vicino a te','Conosci persone vicino a te. Stasera.',{s:'scin'})]}
+ else if(/marco|vettori/.test(ql)){res=[R('vett','Marco Vettori — Giardinaggio e scavi','Potature, scavi, sistemazione terreni. San Ilario e dintorni. «Lavoro pulito, nessuna traccia.»',{s:'vett'}),R({n:'PagineLocali',u:'paginegialle-locali.it › vettori',c:'#f2c200',l:'P'},'Recensioni: Marco Vettori','★★★★★ «Gentilissimo. Puntuale. Un po’ silenzioso.»',null)]}
+ else if(/gino|usato/.test(ql))res=[R('gino','Gino Usato — Compro · Vendo · Riparo','Telefoni ricondizionati e ripristinati. Garanzia: nessuna.',{s:'gino'})];
+ else if(/pozz|cava|bosco/.test(ql)){res=[R('comune','Bosco della Cava: vecchi pozzi in disuso','Nell’area boschiva sono presenti vecchi pozzi non tutti segnalati…',{s:'comune'})];paa=[['Quanto sono profondi i pozzi della Cava?','Alcuni superano i venti metri. Uno, vicino al vecchio sentiero nord, non compare su nessuna mappa.']]}
+ else if(/calce/.test(ql)){res=[R('edil','Calce viva in sacchi da 25 kg — EdilCasa','Consegna al deposito. Pagamento alla consegna.',{s:'edil'})];paa=[['Quanto tempo ci mette la calce viva?','Il mito vuole che «sciolga» tutto. Non è vero: rallenta l’odore, non i resti. Molti lo scoprono troppo tardi.']]}
+ else if(/lumen|trova|ripristin/.test(ql))res=[R('lumen','Trova Dispositivo — Lumen','Il proprietario dell’account può attivare la condivisione della posizione da remoto, anche dopo un ripristino.',{s:'lumen'})];
+ if(!res.length)res=[R({n:'forum.domande.it',u:'forum.domande.it › '+ql.replace(/\s+/g,'-').slice(0,28),c:'#5f6368',l:'?'},q+' — Domande frequenti','Ultima visita: '+(old||'mai')+'. 14 risposte.',null),R({n:'guide-pratiche.net',u:'guide-pratiche.net',c:'#188038',l:'g'},q+': guida passo passo','Tutto quello che devi sapere, spiegato semplice.',null)];
+ if(!paa&&!/lucia|sara|marco|gino/.test(ql))paa=[['Le persone hanno cercato anche: «'+q+' di notte»','Nessun risultato attendibile.'],['«'+q+' senza farsi vedere»','Questa ricerca è stata eseguita da questo dispositivo il 13 settembre alle 02:41.']];
+ const rh=r=>{const s=typeof r.site==='string'?SITES[r.site]:r.site;return `<div class="res2" ${r.go?`data-a="sfres" data-v='${esc(JSON.stringify(r.go))}'`:'data-a="sfdead"'}><div class="rsite"><i style="background:${s.c}">${s.l}</i><div><b>${esc(s.n)}</b><small>${esc(s.u)}</small></div></div><h3>${esc(r.title)}</h3>${r.img?`<div class="rimg"><p>${esc(r.snip)}</p><img src="${r.img}" alt=""></div>`:`<p>${esc(r.snip)}</p>`}</div>`};
+ after=()=>{const f=$('#srpf');if(f)f.addEventListener('submit',e=>{e.preventDefault();const v=$('#srpi').value.trim();if(v)go(VIEWS.page,{q:v})})};
+ return `<div class="srp"><div class="srph"><div class="srpl"><b>c</b><b>e</b><b>r</b><b>c</b><b>a</b></div><form id="srpf" class="srpq">${xi('search')}<input id="srpi" value="${esc(q)}" autocomplete="off" enterkeyhint="search"></form><div class="chips"><span class="${news?'':'on'}">Tutti</span><span class="${news?'on':''}">Notizie</span><span>Immagini</span><span>Mappe</span><span>Video</span></div></div><div class="srpn">Circa ${(res.length*1370+212).toLocaleString('it-IT')} risultati (0,${(ql.length%5)+2}1 secondi)</div>${res.map(rh).join('')}${paa?`<div class="paa"><h4>Altre domande</h4>${paa.map(p=>`<div data-a="paa"><span>${esc(p[0])}</span><p>${esc(p[1])}</p></div>`).join('')}</div>`:''}</div>`}
+ACT.sfres=v=>{try{go(VIEWS.page,JSON.parse(v))}catch(e){}};
+ACT.sfdead=()=>toast('Impossibile aprire la pagina: nessuna connessione al server.');
+VIEWS.page=a=>{
+ if(a.n)return sfWrap(gzArticle(a.n),'gazzettasanilario.it');
+ if(a.s)return sfWrap(sitePage(a.s),SITES[a.s].u);
+ const q=a.q||'';return sfWrap(serp(q,a.old),'cerca.lumen')};
+ACT.hist=v=>{const h=HIST[+v];go(VIEWS.page,h[2]==='q'?{q:h[0],old:h[1]}:{n:h[2]})};
+
+/* ---------- MAPPE ---------- */
+const MP={casa:[232,250],dep:[352,138],luc:[488,392],lago:[786,700],pozzo:[128,826]};
+const MYOU=[628,574];
+const ROADS=[
+ {n:'Via del Molino',t:2,p:[[40,312],[150,282],[232,250],[300,196],[352,138],[420,92],[480,58]]},
+ {n:'Via Roma',t:1,p:[[0,610],[150,586],[300,560],[420,538],[520,520],[620,500],[700,482],[820,456],[1000,420]]},
+ {n:'Corso Garibaldi',t:1,p:[[452,0],[452,180],[450,330],[448,470],[444,600],[436,760],[430,1000]]},
+ {n:'Via Verdi',t:2,p:[[232,250],[248,330],[268,420],[290,500],[300,560]]},
+ {n:'Via dei Salici',t:2,p:[[360,346],[420,372],[488,392],[560,420],[640,438]]},
+ {n:'Via dei Glicini',t:2,p:[[700,482],[668,526],[628,574],[588,630],[560,680]]},
+ {n:'Viale Europa',t:2,p:[[600,0],[612,140],[626,300],[650,420],[700,482]]},
+ {n:'SP 12',t:0,p:[[700,482],[740,560],[776,640],[786,700],[820,790],[880,880],[940,1000]]},
+ {n:'Via Mazzini',t:2,p:[[0,420],[120,440],[268,420],[360,346]]},
+ {n:'Strada della Cava',t:3,p:[[300,560],[262,640],[210,720],[160,790],[128,826]]},
+ {n:'Via Cavour',t:3,p:[[520,520],[530,600],[540,680],[560,680]]}
+];
+const MINOR=(()=>{const r=rng(31),o=[];for(let x=330;x<=760;x+=58)for(let y=170;y<=660;y+=54){if(r()<.42)o.push([[x,y],[x+58,y+(r()-.5)*8]]);if(r()<.42)o.push([[x,y],[x+(r()-.5)*8,y+54]])}return o})();
+const BLD=(()=>{const r=rng(77),o=[];for(let x=320;x<=780;x+=29)for(let y=160;y<=680;y+=27){const d=Math.hypot(x-560,y-420);if(d>300||r()<.3)continue;o.push([x+r()*6,y+r()*6,10+r()*12,9+r()*11])}for(let i=0;i<40;i++){const a=r()*6.28,d=40+r()*110;o.push([232+Math.cos(a)*d,280+Math.sin(a)*d*.8,10+r()*10,9+r()*9])}return o})();
+const RIVER=[[0,668],[120,676],[260,700],[380,752],[500,770],[620,764],[720,770],[800,790]];
+const WOODS=[[20,700],[120,690],[230,740],[260,850],[220,960],[90,990],[10,920]];
+const PARK=[[470,420],[540,428],[546,470],[478,470]];
+const POI=[{n:'Gino Usato',p:[520,512],i:'shop',c:'#ff9f0a'},{n:'Bar Centrale',p:[462,478],i:'cup',c:'#ff9f0a'},{n:'Isola ecologica',p:[372,118],i:'recycle',c:'#30d158'},{n:'Piazza Garibaldi',p:[448,500],i:'',c:''}];
+const MROUTE=[[232,250],[248,330],[268,420],[290,500],[300,560],[420,538],[520,520],[620,500],[700,482],[668,526],[628,574]];
+const PICON={casa:'home',dep:'shop',luc:'heart',lago:'car',pozzo:'warn'};
+let mv={cx:470,cy:520,z:.42},mvT=null,mFollow=0;
+function plen(p){let L=0;for(let i=1;i<p.length;i++)L+=Math.hypot(p[i][0]-p[i-1][0],p[i][1]-p[i-1][1]);return L}
+function pat(p,f){let L=plen(p)*Math.max(0,Math.min(1,f));for(let i=1;i<p.length;i++){const a=p[i-1],b=p[i],d=Math.hypot(b[0]-a[0],b[1]-a[1]);if(L<=d){const k=d?L/d:0;return[a[0]+(b[0]-a[0])*k,a[1]+(b[1]-a[1])*k,i]}L-=d}const l=p[p.length-1];return[l[0],l[1],p.length-1]}
+function marcoPos(){if(!S.fin)return null;return pat(MROUTE,himProg())}
+function mfit(w,h){const xs=[...Object.values(MP).map(p=>p[0]),MYOU[0]],ys=[...Object.values(MP).map(p=>p[1]),MYOU[1]];const x0=Math.min(...xs),x1=Math.max(...xs),y0=Math.min(...ys),y1=Math.max(...ys);return{cx:(x0+x1)/2,cy:(y0+y1)/2+10,z:Math.min((w-60)/(x1-x0),(h-110)/(y1-y0))}}
+const _icoC={};function icoPaths(n){if(_icoC[n])return _icoC[n];const tmp=document.createElement('div');tmp.innerHTML=`<svg>${XI[n]}</svg>`;const o=[];tmp.querySelectorAll('path,circle,rect').forEach(el=>{let P;if(el.tagName==='path')P=new Path2D(el.getAttribute('d'));else if(el.tagName==='circle'){P=new Path2D();P.arc(+el.getAttribute('cx'),+el.getAttribute('cy'),+el.getAttribute('r'),0,7)}else{P=new Path2D();P.rect(+el.getAttribute('x'),+el.getAttribute('y'),+el.getAttribute('width'),+el.getAttribute('height'))}o.push(P)});return _icoC[n]=o}
+function drawMap2(cv){const d=cv._d||1,W=cv.width/d,H=cv.height/d,x=cv.getContext('2d'),t=performance.now()/1000;
+ if(mvT){['cx','cy','z'].forEach(k=>{mv[k]+=(mvT[k]-mv[k])*.16});if(Math.abs(mv.z-mvT.z)<.001&&Math.hypot(mv.cx-mvT.cx,mv.cy-mvT.cy)<.5)mvT=null}
+ if(mFollow&&S.fin&&!mvT){const m=marcoPos();if(m){mv.cx+=(m[0]-mv.cx)*.05;mv.cy+=(m[1]-mv.cy)*.05}}
+ const z=mv.z,X=wx=>(wx-mv.cx)*z+W/2,Y=wy=>(wy-mv.cy)*z+H/2;
+ x.setTransform(d,0,0,d,0,0);x.fillStyle='#1b1e24';x.fillRect(0,0,W,H);
+ const poly=(pts,fill)=>{x.beginPath();pts.forEach((p,i)=>i?x.lineTo(X(p[0]),Y(p[1])):x.moveTo(X(p[0]),Y(p[1])));x.closePath();x.fillStyle=fill;x.fill()};
+ const line=(pts,w,col,dash)=>{x.beginPath();pts.forEach((p,i)=>i?x.lineTo(X(p[0]),Y(p[1])):x.moveTo(X(p[0]),Y(p[1])));x.lineWidth=w;x.strokeStyle=col;x.lineCap='round';x.lineJoin='round';x.setLineDash(dash||[]);x.stroke();x.setLineDash([])};
+ // abitato
+ x.fillStyle='#20242c';x.beginPath();x.ellipse(X(540),Y(410),330*z,290*z,0,0,7);x.fill();x.beginPath();x.ellipse(X(232),Y(280),150*z,120*z,0,0,7);x.fill();
+ poly(WOODS,'#1a2e22');poly(PARK,'#1f3a28');
+ // alberi stilizzati nel bosco
+ if(z>.45){const r=rng(5);x.fillStyle='#1f3829';for(let i=0;i<70;i++){const px=30+r()*220,py=710+r()*270;x.beginPath();x.arc(X(px),Y(py),Math.max(1.5,4*z),0,7);x.fill()}}
+ // acqua
+ line(RIVER,Math.max(3,16*z),'#1e3a57');x.fillStyle='#1e3a57';x.beginPath();x.ellipse(X(840),Y(820),110*z,74*z,-.3,0,7);x.fill();
+ // edifici
+ if(z>.55){x.fillStyle='#2a2f39';BLD.forEach(b=>{const w=b[2]*z,h=b[3]*z;if(X(b[0])>W+20||Y(b[1])>H+20||X(b[0])<-20||Y(b[1])<-20)return;x.fillRect(X(b[0]),Y(b[1]),w,h)})}
+ // strade minori
+ MINOR.forEach(s=>line(s,Math.max(1,5*z),'#2f343e'));
+ // strade
+ const RW=[16,12,9,6],RC=['#a4874a','#5d636f','#4a505b','#4a4038'],RK=['#5b4a24','#2b2f37','#2b2f37','#2b2f37'];
+ [3,2,1,0].forEach(tp=>ROADS.filter(r=>r.t===tp).forEach(r=>line(r.p,Math.max(2,RW[tp]*z)+2,RK[tp],tp===3?null:null)));
+ [3,2,1,0].forEach(tp=>ROADS.filter(r=>r.t===tp).forEach(r=>line(r.p,Math.max(1.4,RW[tp]*z),RC[tp],tp===3?[6,5]:null)));
+ // percorso di Marco
+ const mp=marcoPos();
+ if(mp){const done=MROUTE.slice(0,mp[2]).concat([[mp[0],mp[1]]]),rest=[[mp[0],mp[1]]].concat(MROUTE.slice(mp[2]));line(done,4,'rgba(150,150,160,.5)');line(rest,7,S.trackOff?'rgba(140,140,150,.55)':'rgba(255,69,58,.35)');line(rest,3.5,S.trackOff?'#8e8e93':'#ff453a',S.trackOff?[5,6]:null)}
+ // etichette area
+ x.textAlign='center';x.textBaseline='middle';
+ const lbl=(s,wx,wy,font,col,halo='#1b1e24')=>{x.font=font;x.lineWidth=3.5;x.strokeStyle=halo;x.strokeText(s,X(wx),Y(wy));x.fillStyle=col;x.fillText(s,X(wx),Y(wy))};
+ lbl('SAN ILARIO',560,250,`700 ${Math.max(10,Math.min(16,22*z))}px -apple-system,sans-serif`,'rgba(220,220,230,.55)');
+ lbl('Bosco della Cava',130,900,`italic 600 ${Math.max(10,13*z+4)}px -apple-system,sans-serif`,'#5e9a6e');
+ lbl('Lago di San Ilario',850,830,`italic 600 ${Math.max(10,13*z+4)}px -apple-system,sans-serif`,'#5d8fc0');
+ if(z>.5)lbl('Torrente Ilario',330,738,`italic 500 11px -apple-system,sans-serif`,'#5d8fc0');
+ // nomi strade lungo il tratto più lungo
+ x.font='600 10.5px -apple-system,sans-serif';
+ ROADS.forEach(r=>{let best=null,bl=0;for(let i=1;i<r.p.length;i++){const a=r.p[i-1],b=r.p[i],l=Math.hypot(X(b[0])-X(a[0]),Y(b[1])-Y(a[1])),mx=(X(a[0])+X(b[0]))/2,my=(Y(a[1])+Y(b[1]))/2;if(mx<40||mx>W-40||my<70||my>H-30)continue;if(l>bl){bl=l;best=[a,b]}}
+  const tw=x.measureText(r.n).width;if(!best||bl<tw+14)return;const [a,b]=best;let ang=Math.atan2(Y(b[1])-Y(a[1]),X(b[0])-X(a[0]));if(ang>Math.PI/2)ang-=Math.PI;if(ang<-Math.PI/2)ang+=Math.PI;
+  x.save();x.translate((X(a[0])+X(b[0]))/2,(Y(a[1])+Y(b[1]))/2);x.rotate(ang);x.lineWidth=3;x.strokeStyle='#15171c';x.strokeText(r.n,0,0);x.fillStyle=r.t===0?'#e8d6a8':'#c9ccd3';x.fillText(r.n,0,0);x.restore()});
+ // POI
+ if(z>.48)POI.forEach(p=>{const px=X(p.p[0]),py=Y(p.p[1]);if(p.i){x.fillStyle=p.c;x.beginPath();x.arc(px,py,7,0,7);x.fill();x.fillStyle='#fff';x.beginPath();x.arc(px,py,2.2,0,7);x.fill()}x.font=p.i?'600 10.5px -apple-system,sans-serif':'italic 600 10.5px -apple-system,sans-serif';x.textAlign='left';x.lineWidth=3;x.strokeStyle='#1b1e24';x.strokeText(p.n,px+(p.i?10:-30),py+(p.i?0:12));x.fillStyle=p.i?p.c:'#9aa0aa';x.fillText(p.n,px+(p.i?10:-30),py+(p.i?0:12));x.textAlign='center'});
+ // luoghi salvati
+ PLACES.forEach(pl=>{const w=MP[pl.id];if(!w)return;const px=X(w[0]),py=Y(w[1]),sel=pl.id===mapSel,r=sel?17:13,col=pl.id==='pozzo'?'#8e8e93':'#ff453a';
+  x.fillStyle='rgba(0,0,0,.35)';x.beginPath();x.ellipse(px,py+1,r*.5,r*.2,0,0,7);x.fill();
+  x.fillStyle=col;x.beginPath();x.arc(px,py-r-8,r,0,7);x.fill();x.beginPath();x.moveTo(px-r*.55,py-r-1);x.lineTo(px,py);x.lineTo(px+r*.55,py-r-1);x.fill();
+  x.lineWidth=2;x.strokeStyle='#fff';x.beginPath();x.arc(px,py-r-8,r,0,7);x.stroke();
+  x.save();x.translate(px-r*.55,py-r-8-r*.55);x.scale(r*1.1/24,r*1.1/24);x.lineWidth=2.4;x.strokeStyle='#fff';x.lineCap='round';x.lineJoin='round';icoPaths(PICON[pl.id]).forEach(P=>x.stroke(P));x.restore();
+  x.font=`700 ${sel?12.5:11.5}px -apple-system,sans-serif`;x.lineWidth=3.5;x.strokeStyle='#1b1e24';x.strokeText(pl.n,px,py+11);x.fillStyle=sel?'#fff':'#e6e6ea';x.fillText(pl.n,px,py+11)});
+ // tu
+ const ux=X(MYOU[0]),uy=Y(MYOU[1]);x.fillStyle='rgba(10,132,255,.18)';x.beginPath();x.arc(ux,uy,16+Math.sin(t*2.4)*4,0,7);x.fill();
+ const g=x.createRadialGradient(ux,uy,0,ux,uy,40);g.addColorStop(0,'rgba(10,132,255,.45)');g.addColorStop(1,'rgba(10,132,255,0)');x.fillStyle=g;x.beginPath();x.moveTo(ux,uy);x.arc(ux,uy,40,-2.2,-1.0);x.closePath();x.fill();
+ x.fillStyle='#fff';x.beginPath();x.arc(ux,uy,9,0,7);x.fill();x.fillStyle='#0a84ff';x.beginPath();x.arc(ux,uy,6.5,0,7);x.fill();
+ x.font='700 11.5px -apple-system,sans-serif';x.lineWidth=3.5;x.strokeStyle='#1b1e24';x.strokeText('Tu · Via dei Glicini 3',ux,uy+20);x.fillStyle='#8ec5ff';x.fillText('Tu · Via dei Glicini 3',ux,uy+20);
+ // marco
+ if(mp){const mx=X(mp[0]),my=Y(mp[1]),c=S.trackOff?'142,142,147':'255,69,58';const pr=(t*1.2)%1;x.strokeStyle=`rgba(${c},${1-pr})`;x.lineWidth=2;x.beginPath();x.arc(mx,my,9+pr*26,0,7);x.stroke();
+  x.fillStyle='#fff';x.beginPath();x.arc(mx,my,10,0,7);x.fill();x.fillStyle=`rgb(${c})`;x.beginPath();x.arc(mx,my,7.5,0,7);x.fill();
+  x.font='800 12px -apple-system,sans-serif';const lb=S.trackOff?'Marco V. · segnale perso':'Marco V.';x.lineWidth=3.5;x.strokeStyle='#1b1e24';x.strokeText(lb,mx,my-19);x.fillStyle=S.trackOff?'#aaa':'#ff6961';x.fillText(lb,mx,my-19)}
+ // scala
+ const target=80/z*2,steps=[50,100,200,250,500,1000,2000];let sm=steps.find(s=>s>=target*.6)||2000;const spx=sm/2*z;x.fillStyle='rgba(20,20,24,.7)';x.fillRect(10,H-30,spx+42,20);x.strokeStyle='#ddd';x.lineWidth=2;x.beginPath();x.moveTo(16,H-16);x.lineTo(16,H-12);x.lineTo(16+spx,H-12);x.lineTo(16+spx,H-16);x.stroke();x.fillStyle='#ddd';x.font='600 10px -apple-system,sans-serif';x.textAlign='left';x.fillText(sm>=1000?sm/1000+' km':sm+' m',22+spx,H-17);x.textAlign='center'}
+function mapPinAt(cv,sx,sy){const W=cv.width/(cv._d||1),H=cv.height/(cv._d||1),z=mv.z;let best=null,bd=30;PLACES.forEach(p=>{const w=MP[p.id];if(!w)return;const px=(w[0]-mv.cx)*z+W/2,py=(w[1]-mv.cy)*z+H/2-20,d=Math.hypot(px-sx,py-sy);if(d<bd){bd=d;best=p.id}});return best}
+function mfly(wx,wy,z){mvT={cx:wx,cy:wy,z:Math.max(.25,Math.min(4,z||mv.z))};mFollow=0}
+mcard=function(){const el=$('#mcard');if(!el)return;let h;
+ if(S.fin&&!S.end){const rem=finRem(),km=Math.max(.1,rem/60*.45).toFixed(1).replace('.',',');h=`<div class="mcard2 alert"><h3><i style="background:${S.trackOff?'#8e8e93':'#ff453a'}"></i>Marco V.</h3><p>${S.trackOff?'Segnale perso · ultima posizione nota':`${km} km · arrivo stimato tra ${Math.max(1,Math.ceil(rem/60))} min`}</p><em>Destinazione: Via dei Glicini 3 — la tua posizione</em><div class="mact"><span class="pr" data-a="mfollow">${mFollow?'Segui: attivo':'Segui'}</span><span data-a="mstop">Interrompi condivisione</span></div></div>`}
+ else if(mapSel){const p=PLACES.find(q=>q.id===mapSel);h=`<div class="mcard2"><h3><i style="background:${p.id==='pozzo'?'#8e8e93':'#ff453a'}"></i>${p.n}</h3><p>${p.a} · ${(Math.hypot(MP[p.id][0]-MYOU[0],MP[p.id][1]-MYOU[1])*2/1000).toFixed(1).replace('.',',')} km da te</p><em>${p.note}</em><div class="mact"><span class="pr" data-a="mroute" data-v="${p.id}">Indicazioni</span><span data-a="mshare">Condividi</span></div></div>`}
+ else h=`<div class="mcard2"><h3>Luoghi salvati</h3><p>${PLACES.length} luoghi · account marco.vettori</p></div>`;
+ el.innerHTML=h;document.querySelectorAll('.mlrow2').forEach(r=>r.classList.toggle('sel',r.dataset.v===mapSel))};
+ACT.msel=id=>{selPlace(id);const w=MP[id];if(w)mfly(w[0],w[1]+20,Math.max(mv.z,.9))};
+ACT.mfollow=()=>{mFollow=mFollow?0:1;mvT=null;if(mFollow){const m=marcoPos();if(m)mvT={cx:m[0],cy:m[1],z:Math.max(mv.z,1)}}mcard()};
+ACT.mstop=()=>openApp('find');
+ACT.mroute=v=>toast(v==='pozzo'?'Nessun percorso: l’ultimo tratto non è su strada. «Profondo. Qui non viene nessuno.»':v==='luc'?'Percorso: 6 min a piedi. Lo conosceva a memoria.':'Percorso calcolato: '+Math.round(Math.hypot(MP[v][0]-MYOU[0],MP[v][1]-MYOU[1])*2/80)+' min a piedi.');
+ACT.mshare=()=>toast('Condivisione posizione gestita da Trova Dispositivo.');
+ACT.mloc=()=>{const m=S.fin?marcoPos():null;if(m){const cx=(m[0]+MYOU[0])/2,cy=(m[1]+MYOU[1])/2,cv=$('#mc2');const W=cv?cv.offsetWidth:390,H=cv?cv.offsetHeight:500;mfly(cx,cy,Math.min(2,Math.min((W-80)/Math.max(60,Math.abs(m[0]-MYOU[0])),(H-120)/Math.max(60,Math.abs(m[1]-MYOU[1])))))}else mfly(MYOU[0],MYOU[1],1.2)};
+ACT.mfit=()=>{const cv=$('#mc2');if(!cv)return;const f=mfit(cv.offsetWidth,cv.offsetHeight);mfly(f.cx,f.cy,f.z)};
+VIEWS.maps=()=>{after=()=>{const cv=$('#mc2');const fit=()=>{const w=cv.offsetWidth,h=cv.offsetHeight,d=Math.min(3,devicePixelRatio||1);if(!w||!h)return;cv._d=d;cv.width=Math.round(w*d);cv.height=Math.round(h*d)};fit();
+ if(!VIEWS.maps._init){VIEWS.maps._init=1;const f=mfit(cv.offsetWidth,cv.offsetHeight);mv={cx:f.cx,cy:f.cy,z:f.z}}
+ const ro=typeof ResizeObserver!=='undefined'?new ResizeObserver(fit):null;if(ro)ro.observe(cv);
+ const pts=new Map();let g=null,lastTap=0;
+ cv.addEventListener('pointerdown',e=>{try{cv.setPointerCapture(e.pointerId)}catch(_){}pts.set(e.pointerId,{x:e.clientX,y:e.clientY});mvT=null;if(pts.size===1)g={x:e.clientX,y:e.clientY,cx:mv.cx,cy:mv.cy,t:performance.now(),moved:false};else g=null});
+ cv.addEventListener('pointermove',e=>{if(!pts.has(e.pointerId))return;const s=scale();const prev=pts.get(e.pointerId);
+  if(pts.size===2){const ids=[...pts.keys()],o=pts.get(ids[0]===e.pointerId?ids[1]:ids[0]);const d0=Math.hypot(prev.x-o.x,prev.y-o.y),d1=Math.hypot(e.clientX-o.x,e.clientY-o.y);if(d0>0){const r=cv.getBoundingClientRect(),mx=((e.clientX+o.x)/2-r.left)/s,my=((e.clientY+o.y)/2-r.top)/s,W=cv.offsetWidth,H=cv.offsetHeight;const wx=(mx-W/2)/mv.z+mv.cx,wy=(my-H/2)/mv.z+mv.cy;const nz=Math.max(.25,Math.min(4,mv.z*d1/d0));mv.z=nz;mv.cx=wx-(mx-W/2)/nz;mv.cy=wy-(my-H/2)/nz;mv.cx-=(e.clientX-prev.x)/2/s/nz;mv.cy-=(e.clientY-prev.y)/2/s/nz}mFollow=0}
+  else if(g){const dx=(e.clientX-g.x)/s,dy=(e.clientY-g.y)/s;if(Math.abs(dx)+Math.abs(dy)>6)g.moved=true;if(g.moved){mv.cx=g.cx-dx/mv.z;mv.cy=g.cy-dy/mv.z;mFollow=0}}
+  pts.set(e.pointerId,{x:e.clientX,y:e.clientY})});
+ const up=e=>{pts.delete(e.pointerId);if(g&&!g.moved&&e.type==='pointerup'&&performance.now()-g.t<350){const s=scale(),r=cv.getBoundingClientRect(),sx=(e.clientX-r.left)/s,sy=(e.clientY-r.top)/s,now=performance.now();
+   if(now-lastTap<300){const W=cv.offsetWidth,H=cv.offsetHeight;mfly((sx-W/2)/mv.z+mv.cx,(sy-H/2)/mv.z+mv.cy,mv.z*2);lastTap=0}else{lastTap=now;const id=mapPinAt(cv,sx,sy);if(id)ACT.msel(id);else{selPlace(null)}}}
+  if(pts.size===0)g=null};
+ cv.addEventListener('pointerup',up);cv.addEventListener('pointercancel',up);
+ cv.addEventListener('wheel',e=>{e.preventDefault();const s=scale(),r=cv.getBoundingClientRect(),mx=(e.clientX-r.left)/s,my=(e.clientY-r.top)/s,W=cv.offsetWidth,H=cv.offsetHeight,wx=(mx-W/2)/mv.z+mv.cx,wy=(my-H/2)/mv.z+mv.cy,nz=Math.max(.25,Math.min(4,mv.z*Math.exp(-e.deltaY*.0015)));mv.z=nz;mv.cx=wx-(mx-W/2)/nz;mv.cy=wy-(my-H/2)/nz;mvT=null},{passive:false});
+ let raf=0;const loop=()=>{drawMap2(cv);raf=requestAnimationFrame(loop)};loop();cleanup=()=>{cancelAnimationFrame(raf);if(ro)ro.disconnect()};mcard()};
+ return `<div class="mapw2"><canvas id="mc2"></canvas><div class="mtop"><div class="bk2" data-a="back"><svg class="xi" viewBox="0 0 24 24" style="stroke-width:2.6">${XI.chevL}</svg></div><div class="ms2">${xi('search')}Cerca in Mappe</div></div><div class="mbtns"><span data-a="mloc">${xi('locate')}</span><span data-a="mfit">${xi('fit')}</span></div></div><div class="msheet"><div class="grab"></div><div id="mcard"></div><div class="sc">${PLACES.map(p=>`<div class="mlrow2" data-a="msel" data-v="${p.id}"><span class="pin" style="background:${p.id==='pozzo'?'#636366':'#ff453a'}">${xi(PICON[p.id])}</span><div><b>${p.n}</b><small>${p.a}</small></div></div>`).join('')}</div></div>`};
+</script>
+
 </body>
 </html>
