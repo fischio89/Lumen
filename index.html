@@ -207,7 +207,8 @@ svg{display:block}
 .q i{width:52px;height:52px;border-radius:50%;background:#2c2c2e;display:flex;align-items:center;justify-content:center}
 .q i svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2}
 .q.on i{background:#0a84ff}
-.snl{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;touch-action:pan-y}
+.snl{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;touch-action:none;overscroll-behavior:contain}
+.sn{cursor:pointer}
 .sn{background:rgba(255,255,255,.08);border-radius:16px;padding:11px 14px;font-size:14px;line-height:1.35}
 .sn b{display:block;font-size:11px;color:#999;letter-spacing:.4px;margin-bottom:2px}
 .sn span{color:#bbb}
@@ -521,7 +522,7 @@ if(!S||S.end)S=fresh();S=Object.assign(fresh(),S);
 function save(){try{localStorage.setItem(SAVE,JSON.stringify(S))}catch(e){}}
 const BASE=23*3600+41*60;
 function clk(){const t=(BASE+S.el)%86400;return Math.floor(t/3600)+':'+String(Math.floor(t%3600/60)).padStart(2,'0')}
-function dateStr(){return Math.floor((BASE+S.el)/86400)?'lunedì 23 novembre':'domenica 22 novembre'}
+function dateStr(){return Math.floor((BASE+S.el)/86400)?'domenica 23 novembre':'sabato 22 novembre'}
 const nClues=()=>Object.keys(S.clues).length;
 let live=false;
 
@@ -621,11 +622,11 @@ const TH={
  owner:{name:'Numero privato',av:'?',col:'#3a3a3c',m:[]},
  gino:{name:'Gino Usato',av:'G',col:'#5a8f5a',m:[]},
  lucia:{name:'Lucia ❤',av:'L',col:'#d6457a',clue:'c_lucia',m:[SEP('17 aprile'),I('Ciao! Sono Lucia, quella del bar 🙂 mi hai lasciato il numero sul tovagliolo'),O('Speravo scrivessi.'),I('Sei sempre così misterioso?'),O('Solo con chi mi interessa.'),SEP('3 giugno'),I('Grazie per la cena ❤ sei stato dolcissimo'),O('Il blu ti sta bene. Dovresti metterlo più spesso.'),I('Come fai a sapere che ho un vestito blu? Con te non l’ho mai messo 😅'),O('Hai un armadio molto ordinato.'),I('??'),O('Scherzo. Me l’hai detto tu.'),SEP('11 settembre'),I('Ho bisogno di un po’ di spazio. Non è colpa tua.'),O('Va bene.'),O('Va bene.'),O('Va bene.'),SEP('12 settembre'),I('C’è una macchina scura ferma sotto casa mia da un’ora'),I('Sei tu?'),I('Rispondimi per favore'),I('Ti vedo. Perché tieni le luci spente'),O('Scendi. Parliamo.','12 set')]},
- mamma:{name:'Mamma',av:'M',col:'#8e6bbf',clue:'c_mamma',m:[I('Hai mangiato?'),I('Sei sempre così chiuso Marco. Chiamami ogni tanto.'),SEP('15 settembre'),I('Hai visto al telegiornale? Quella ragazza, Lucia Ferri. È del tuo quartiere.'),O('Non la conosco.'),I('Povera madre. Stai attento la sera.'),SEP('20 ottobre'),I('Perché il furgone è nel mio garage? C’è un odore strano.'),O('Non toccarlo.'),I('Marco?','20 ott')]},
- forn:{name:'Sconosciuto',av:'S',col:'#6a6a6e',clue:'c_forn',m:[SEP('10 settembre'),I('Il solito per giovedì?'),O('4 sacchi. Telo grande. Corda.'),I('Stai facendo un altro giardino eh 😂'),O('Sì. Un giardino.'),I('Contanti come sempre. Lascio la porta del deposito aperta.','10 set')]},
+ mamma:{name:'Mamma',av:'M',col:'#8e6bbf',clue:'c_mamma',m:[I('Hai mangiato?'),I('Sei sempre così chiuso Marco. Chiamami ogni tanto.'),SEP('15 settembre'),I('Hai visto al telegiornale? Quella ragazza, Lucia Ferri. È del tuo quartiere.'),O('Non la conosco.'),I('Povera madre. Stai attento la sera.'),SEP('16 settembre'),I('Sono venuti i carabinieri. Chiedevano di te.'),I('Ho detto quello che mi hai detto di dire. Che eri a cena da me fino a mezzanotte.'),I('Perché ho dovuto dirlo, Marco?'),O('Perché mi vuoi bene.'),SEP('20 ottobre'),I('Perché il furgone è nel mio garage? C’è un odore strano.'),O('Non toccarlo.'),SEP('21 ottobre'),I('L’ho aperto.'),I('C’è una scarpa da ragazza. Una sola. Col fango.'),I('Marco cosa hai fatto'),O('Arrivo.'),O('Non chiamare nessuno, mamma.','21 ott')]},
+ forn:{name:'Sconosciuto',av:'S',col:'#6a6a6e',clue:'c_forn',m:[SEP('10 settembre'),I('Il solito per venerdì?'),O('Il deposito. Tutta la notte. Nessuno in giro.'),I('Stai facendo un altro giardino eh 😂'),O('Sì. Un giardino.'),I('È arrivato il tuo pacco EdilCasa, l’ho messo dentro. Pesa un accidente.'),I('Contanti come sempre. Lascio la porta del deposito aperta.','10 set')]},
  sara:{name:'Sara (Scintilla)',av:'S',col:'#ff7a45',clue:'c_sara',m:[SEP('15 ottobre'),I('Ciao Marco! Bella foto profilo 😊'),O('Grazie. Ti va di vederci?'),I('Sì!! Dove?'),O('Al lago. Parcheggio nord. Alle 22. Vieni da sola, sono timido.'),I('Ahah ok misterioso'),SEP('20 ottobre'),I('Sono arrivata. Non c’è nessuno qui'),I('Marco?'),I('Ho visto dei fari. Sei tu?','20 ott')]}
 };
-const OWNER_REPLIES=['Lo so.','Non serve che rispondi.','Ti sento respirare.','Tienilo acceso.','Non è tuo.','Ci vediamo presto.','Hai una bella voce, quando parli da solo.'];
+const OWNER_REPLIES=['Lo so.','Non serve che rispondi.','Ti sento respirare.','Tienilo acceso.','Non è tuo.','Scrivi pure. Leggo tutto.','Lucia rispondeva così, all’inizio.','Hai chiuso la finestra? Fai bene.','Ci vediamo presto.','Hai una bella voce, quando parli da solo.'];
 const GAL=[
  {t:'sunset',s:3,n:'IMG_1180',d:'2 giu, 20:41',p:'Lido di San Ilario',fav:1},
  {t:'food',s:7,n:'IMG_1194',d:'3 giu, 21:30',p:'Osteria Centrale'},
@@ -644,11 +645,13 @@ const HID=[
  {t:'window',s:25,c:'S.',d:'18 ott',p:'Via Roma 7'}
 ];
 const NOTES=[
+ {id:'esca',t:'Il prossimo',d:'22 ott',p2:1,b:'Non devo più cercarli io.\n\nChi compra un telefono usato a novembre non ha soldi, non ha amici, non ha nessuno che lo aspetti a casa.\n\nLo terrà acceso. Guarderà le foto. Ascolterà le registrazioni. Tutti guardano.\n\nQuando avrà paura sarà troppo tardi per spegnerlo.\n\nIl telefono mi dirà dove abita.'},
  {id:'tel',t:'Telefono',d:'22 ott',b:'Portarlo da Gino. Lui lo ripristina e lo rivende.\n\nNon tutto, però.'},
  {id:'col',t:'Collezione',d:'21 ott',c:1,b:'L. ✓\nM. ✓\nA. ✓\nS. ✓'},
- {id:'sp',t:'Spesa',d:'11 set',c:1,b:'latte\npane\nsacchi neri (i più grandi)\ncandeggina\nguanti\ncalce → chiedere a quello del deposito\ncrocchette Bobby'},
+ {id:'sp',t:'Spesa',d:'11 set',c:1,b:'latte\npane\nsacchi neri (i più grandi)\ncandeggina\nguanti\ncalce → ordinata, arriva al deposito\ncrocchette Bobby'},
+ {id:'lei',t:'Lei',d:'8 set',b:'Stanotte ha scritto a sua madre: «Lo lascio. Mi mette paura.»\n\nPensa che io non legga.\n\nIo leggo tutto.\n\nVenerdì.'},
  {id:'41',t:'41',d:'30 mag',b:'Quarantuno notti.\n\nDorme sul fianco sinistro. Lascia la finestra socchiusa anche quando fa freddo. Alle tre si alza e beve un bicchiere d’acqua al buio.\n\nNon guarda mai fuori.\n\nNessuno guarda mai fuori.'},
- {id:'reg',t:'Regole',d:'2 mag',c:1,b:'1. Mai lo stesso parcheggio due volte.\n2. Il loro telefono: SIM fuori, subito.\n3. Mai di martedì. Il martedì chiama mamma.\n4. Ascoltare. Prima o poi tutti parlano, se aspetti abbastanza.\n5. Ogni cosa torna sempre al suo proprietario.'},
+ {id:'reg',t:'Regole',d:'2 mag',c:1,b:'1. Mai lo stesso parcheggio due volte.\n2. Il loro telefono: SIM fuori, subito.\n3. Mai di mercoledì. Il mercoledì chiama mamma.\n4. Ascoltare. Prima o poi tutti parlano, se aspetti abbastanza.\n5. Ogni cosa torna sempre al suo proprietario.'},
  {id:'pw',t:'Password',d:'2 mag',b:'Per tutto, la stessa:\nil suo nome + il giorno in cui l’ho conosciuta.\n\nCosì non la dimentico mai.'}
 ];
 const MAILS=[
@@ -660,10 +663,10 @@ const MAILS=[
  {id:'m6',f:'Comune di San Ilario',s:'Isola ecologica: nuovi orari',d:'1 set',b:'Dal 1° settembre l’isola ecologica di via del Molino osserverà i seguenti orari: martedì e giovedì 8:00–12:00, sabato 8:00–17:00.\nSi ricorda che è vietato abbandonare rifiuti nell’area boschiva della Cava.'},
  {id:'m7',f:'Bar Centrale',s:'Ti aspettiamo per la colazione ☕',d:'10 apr',b:'Questa settimana al banco c’è Lucia: chiedile del cornetto al pistacchio!\n\nBar Centrale, piazza Garibaldi — dal 1962.'}
 ];
-const HIST=[['Sara Bellini scomparsa lago','23 ott','n2'],['come ripristinare un telefono senza perdere le app','22 ott','q'],['Gazzetta di San Ilario — Scomparsa Lucia Ferri','14 set','n1'],['come togliere macchie dalla tappezzeria del furgone','13 set','q'],['orari isola ecologica san ilario','13 set','q'],['quanto tempo ci mette la calce viva','10 set','q'],['pozzi abbandonati bosco della cava','8 set','q'],['regali per lei vestito blu','28 mag','q']];
+const HIST=[['come ripristinare un telefono senza perdere le app','22 ott','q'],['Sara Bellini scomparsa lago','22 ott','n2'],['Gazzetta di San Ilario — Scomparsa Lucia Ferri','14 set','n1'],['come togliere macchie dalla tappezzeria del furgone','13 set','q'],['orari isola ecologica san ilario','13 set','q'],['quanto tempo ci mette la calce viva','10 set','q'],['pozzi abbandonati bosco della cava','8 set','q'],['regali per lei vestito blu','28 mag','q']];
 const NEWS={
- n1:{url:'gazzettasanilario.it/cronaca/lucia-ferri',d:'14 settembre · Cronaca',h:'Scomparsa Lucia Ferri, 27 anni. Le ricerche proseguono',p:['Di Lucia Ferri, barista del Bar Centrale, non si hanno notizie dalla sera di giovedì 12 settembre. L’auto della giovane è stata ritrovata parcheggiata sotto la sua abitazione in via dei Salici, con le chiavi nel quadro.','La madre racconta che nelle ultime settimane la figlia le aveva parlato di «un uomo gentile, forse troppo», conosciuto in primavera, dal quale aveva deciso di prendere le distanze.','Il telefono della ragazza risulta spento dalle 23:58 di quella sera. Chiunque abbia informazioni è pregato di contattare il 112.']},
- n2:{url:'gazzettasanilario.it/cronaca/sara-bellini',d:'23 ottobre · Cronaca',h:'Un’altra scomparsa: Sara Bellini non rientra a casa dopo un appuntamento',p:['Sara Bellini, 24 anni, studentessa, non è rientrata a casa dopo un appuntamento con un uomo conosciuto su un’app di incontri. La sua auto è stata ritrovata al parcheggio nord del lago, con la portiera aperta.','Gli inquirenti non escludono un collegamento con il caso di Lucia Ferri, scomparsa a settembre. Il profilo dell’uomo è stato cancellato la notte stessa.','«Il quartiere ha paura», dice il parroco. «La gente ha smesso di uscire la sera.»']}
+ n1:{url:'gazzettasanilario.it/cronaca/lucia-ferri',d:'14 settembre · Cronaca',h:'Scomparsa Lucia Ferri, 27 anni. Le ricerche proseguono',p:['Di Lucia Ferri, barista del Bar Centrale, non si hanno notizie dalla sera di venerdì 12 settembre. L’auto della giovane è stata ritrovata parcheggiata sotto la sua abitazione in via dei Salici, con le chiavi nel quadro.','La madre racconta che nelle ultime settimane la figlia le aveva parlato di «un uomo gentile, forse troppo», conosciuto in primavera, dal quale aveva deciso di prendere le distanze.','Il telefono della ragazza risulta spento dalle 23:58 di quella sera. Un conoscente della giovane, ascoltato dai carabinieri, ha fornito un alibi confermato da un familiare. Chiunque abbia informazioni è pregato di contattare il 112.']},
+ n2:{url:'gazzettasanilario.it/cronaca/sara-bellini',d:'22 ottobre · Cronaca',h:'Un’altra scomparsa: Sara Bellini non rientra a casa dopo un appuntamento',p:['Sara Bellini, 24 anni, studentessa, non è rientrata a casa dopo un appuntamento con un uomo conosciuto su un’app di incontri. La sua auto è stata ritrovata al parcheggio nord del lago, con la portiera aperta.','Gli inquirenti non escludono un collegamento con il caso di Lucia Ferri, scomparsa a settembre. Il profilo dell’uomo è stato cancellato la notte stessa. In entrambi i casi il telefono delle ragazze non è mai stato ritrovato.','«Il quartiere ha paura», dice il parroco. «La gente ha smesso di uscire la sera.»']}
 };
 const PLACES=[
  {id:'casa',n:'Casa',a:'Via del Molino 22',x:.22,y:.25,note:'«Casa.»'},
@@ -674,6 +677,7 @@ const PLACES=[
 ];
 const YOU={x:.62,y:.58};
 const EVS=[['17 apr','Bar Centrale — L. ❤','#ff2d55'],['3 giu','Cena con L. (vestito blu)','#ff2d55'],['11 set','L. vuole «spazio»','#8e8e93'],['12 set','L. ✓','#ff453a'],['13 set','Lavare il furgone · pozzo','#8e8e93'],['15 ott','Scintilla: Sara, 24','#ff9f0a'],['20 ott','S. — lago, 22:00','#ff453a'],['21 ott','S. ✓','#ff453a'],['22 ott','Portare il telefono da Gino','#0a84ff']];
+const REC5={n:'Nota vocale 5',d:'Oggi',len:'0:31',dur:10,snd:'room',tx:['[una stanza silenziosa. Pioggia sui vetri.]','[un respiro. È il tuo.]','[sotto, più piano, un secondo respiro. Non è nella stanza: viene dall’altoparlante del telefono.]','Sussurro: «…nessuno guarda mai fuori.»','Sussurro: «Tu guardi dentro. È peggio.»']};
 const RECS=[
  {n:'Nota vocale 4',d:'21 ott',len:'0:19',dur:6,snd:'room',tx:['«Gino, sono io. Domani ti porto il telefono.»','«Ripristinalo bene, stavolta.»','[una risata breve]']},
  {n:'Nota vocale 3',d:'13 set',len:'1:05',dur:10,snd:'wind',c:1,tx:['[vento tra gli alberi]','[una pala che entra nella terra, a ritmo regolare]','[respiro affannato]','«…quarantuno notti.»','«Ti ho guardata per quarantuno notti.»']},
@@ -690,7 +694,7 @@ const STORE=[
 const CONTACTS=[['Gino Usato','347 221 0981'],['Lucia ❤','333 418 2290'],['Madre di L.','0577 412 209'],['Mamma','339 004 1188'],['Sconosciuto','380 667 1020']];
 const RECENTS=[['Gino Usato','22 ott','out'],['Madre di L.','15 set','missed',3],['Lucia ❤','12 set','missed',4],['Lucia ❤','12 set','out'],['Sconosciuto','10 set','in'],['Mamma','8 set','in']];
 const VM0=[{n:'Madre di L.',d:'15 set, 08:12',len:'0:41',c:1,tx:'«Marco, sono la mamma di Lucia. Lucia non è tornata a casa. Mi hai detto che l’hai riaccompagnata tu verso le undici… ma la sua macchina è ancora sotto casa, con le chiavi dentro. Ti prego, richiamami. Ti prego.»'}];
-const FIN_MSGS=[[232,'Ciao.'],[226,'Grazie per averlo tenuto acceso.'],[190,'Hai guardato le mie foto. Lo so.'],[150,'Via dei Glicini. Bella zona.'],[115,'Hai cambiato la suoneria. Mi piaceva la mia.'],[80,'Parcheggiato.'],[52,'Il portone era aperto.'],[28,'Terzo piano, vero?'],[10,'Sento il telefono vibrare.']];
+const FIN_MSGS=[[232,'Ciao.'],[226,'Grazie per averlo tenuto acceso.'],[190,'Hai guardato le mie foto. Lo so.'],[170,'Hai letto di Lucia. Anche lei ha fatto quella faccia.'],[150,'Via dei Glicini. Bella zona.'],[115,'Hai cambiato la suoneria. Mi piaceva la mia.'],[95,'Non chiamare nessuno. Arriverebbero dopo di me.'],[80,'Parcheggiato.'],[52,'Il portone era aperto.'],[40,'Le scale scricchiolano. Lo sapevi?'],[28,'Terzo piano, vero?'],[10,'Sento il telefono vibrare.']];
 
 /* ---------- OS CORE ---------- */
 const VIEWS={},ACT={};
@@ -706,14 +710,16 @@ function renderLock(){$('#ldate').textContent=dateStr();$('#ltime').textContent=
 let banT=null,banTarget=null;
 function showBanner(app,title,body,target){const b=$('#ban');b.innerHTML=`${appIcon(app)}<div class="t"><b>${esc(title)}</b><span>${esc(body)}</span></div>`;banTarget=Object.assign({app},target||{});b.classList.add('show');clearTimeout(banT);banT=setTimeout(()=>b.classList.remove('show'),4200)}
 ACT.ban=()=>{$('#ban').classList.remove('show');if(!banTarget||S.end||!live)return;const t=banTarget;openApp(t.app);if(t.th)ACT.th(t.th);if(t.ptab){ptab=t.ptab;draw()}};
-function notify(app,title,body,target){S.notifs.unshift({app,title,body,ts:clk()});S.notifs=S.notifs.slice(0,25);if(app!=='msg'&&curApp!==app)S.badges[app]=(S.badges[app]||0)+1;SND.ping();vib(120);showBanner(app,title,body,target);renderHome();if(!live)renderLock();save()}
+function notify(app,title,body,target){S.notifs.unshift({app,title,body,ts:clk(),target:target||null});S.notifs=S.notifs.slice(0,25);if(app!=='msg'&&curApp!==app)S.badges[app]=(S.badges[app]||0)+1;SND.ping();vib(120);showBanner(app,title,body,target);renderHome();if(!live)renderLock();save()}
 
 /* shade */
 function q(id,l,on){return `<div class="q ${on?'on':''}" data-a="qt" data-v="${id}"><i>${svg(id)}</i><span>${l}</span></div>`}
-function renderShade(){$('#shade').innerHTML=`<div class="shtime">${clk()}</div><div class="shdate">${dateStr()}</div><div class="qt">${q('wifi','Wi‑Fi',S.wifi)}${q('air','Aereo',!S.wifi)}${q('bt','Bluetooth',S.bt)}${q('loc','Posizione',S.fin&&!S.trackOff)}${q('torch','Torcia',S.torch)}</div>${S.fin&&!S.end?`<div class="sn warn"><b>TROVA DISPOSITIVO</b>${S.trackOff?'Condivisione della posizione interrotta.':'Questo telefono sta condividendo la posizione con «Marco V.» in tempo reale.'}</div>`:''}<div class="snl">${S.notifs.map(n=>`<div class="sn"><b>${esc((APPS[n.app]||{n:'Lumen'}).n.toUpperCase())} · ${n.ts}</b><div>${esc(n.title)}</div><span>${esc(n.body)}</span></div>`).join('')||'<p class="none">Nessuna notifica</p>'}</div><div class="shclose" data-a="shclose"><i></i></div>`}
+function renderShade(){$('#shade').innerHTML=`<div class="shtime">${clk()}</div><div class="shdate">${dateStr()}</div><div class="qt">${q('wifi','Wi‑Fi',S.wifi)}${q('air','Aereo',!S.wifi)}${q('bt','Bluetooth',S.bt)}${q('loc','Posizione',S.fin&&!S.trackOff)}${q('torch','Torcia',S.torch)}</div>${S.fin&&!S.end?`<div class="sn warn"><b>TROVA DISPOSITIVO</b>${S.trackOff?'Condivisione della posizione interrotta.':'Questo telefono sta condividendo la posizione con «Marco V.» in tempo reale.'}</div>`:''}<div class="snl">${S.notifs.map((n,i)=>`<div class="sn" data-a="shn" data-v="${i}"><b>${esc((APPS[n.app]||{n:'Lumen'}).n.toUpperCase())} · ${n.ts}</b><div>${esc(n.title)}</div><span>${esc(n.body)}</span></div>`).join('')||'<p class="none">Nessuna notifica</p>'}</div><div class="shclose" data-a="shclose"><i></i></div>`}
 function openShade(){if(!live||S.end)return;renderShade();$('#shade').classList.add('open')}
 function closeShade(){$('#shade').classList.remove('open')}
 ACT.shclose=closeShade;
+let shDragAt=0;
+ACT.shn=v=>{if(performance.now()-shDragAt<350)return;const n=S.notifs[+v];closeShade();if(!n||!APPS[n.app]||!VIEWS[n.app])return;const t=n.target||{};openApp(n.app);if(t.th)ACT.th(t.th);if(t.ptab){ptab=t.ptab;draw()}};
 ACT.qt=v=>{if(v==='wifi')setWifi(!S.wifi);else if(v==='air')setWifi(!S.wifi);else if(v==='bt')S.bt=!S.bt;else if(v==='loc')toast(S.fin?'Gestita da Trova Dispositivo. Serve l’account del proprietario per modificarla.':'Posizione gestita da Trova Dispositivo.');else if(v==='torch'){S.torch=!S.torch;toast(S.torch?'Torcia accesa.':'Torcia spenta.')}renderShade();renderSB();save()};
 function setWifi(on){S.wifi=on?1:0;if(S.fin&&!S.end){if(!on&&!S.trackOff)trackOff('wifi');else if(on&&S.trackOff&&S.trackBy==='wifi'){S.trackOff=0;S.fin.frozen=null;setTimeout(()=>addMsg('owner','Ti ho perso per un attimo. Ora ti rivedo.'),2000)}}if(on&&S.pend.length){const p=S.pend;S.pend=[];p.forEach(([id,t],i)=>setTimeout(()=>addMsg(id,t),900+i*1100))}renderSB();if(curApp==='settings'||curApp==='find')draw();save()}
 
@@ -724,17 +730,19 @@ function addMsg(id,t){if(!S.wifi){S.pend.push([id,t]);save();return}(S.xmsg[id]=
 /* progression */
 function clue(id){if(!id||S.clues[id])return;S.clues[id]=1;save();if(S.phase===0&&nClues()>=5)startPhase2()}
 function startPhase2(){S.phase=1;S.p2t=S.el;glitch();SND.glitch();drone(.035);save()}
-function startFinale(){if(S.fin||S.end)return;S.phase=Math.max(S.phase,1);S.fin={at:S.el,dur:240,bonus:0,m:{},frozen:null,bonused:0};glitch();SND.glitch();vib([100,50,100,50,300]);drone(.08);renderSB();notify('find','Trova Dispositivo','La condivisione della posizione è stata attivata da «Tablet di Marco».',{});setTimeout(()=>{addMsg('gino','Scusami.');setTimeout(()=>addMsg('gino','È tornato al negozio. Mi ha messo le mani addosso.'),2600);setTimeout(()=>addMsg('gino','Gli ho detto dove abiti. Mi dispiace. Mi dispiace davvero.'),5600)},4500);save()}
+function startFinale(){if(S.fin||S.end)return;S.phase=Math.max(S.phase,1);S.fin={at:S.el,dur:240,bonus:0,m:{},frozen:null,bonused:0};glitch();SND.glitch();vib([100,50,100,50,300]);drone(.08);renderSB();notify('find','Trova Dispositivo','La condivisione della posizione è stata attivata da «Tablet di Marco».',{});setTimeout(()=>{addMsg('gino','Scusami.');setTimeout(()=>addMsg('gino','È tornato al negozio. Mi ha messo le mani addosso.'),2600);setTimeout(()=>addMsg('gino','Ha preso il registro delle vendite. C’era il tuo nome. E la via, per la ricevuta.'),5600);setTimeout(()=>addMsg('gino','Mi dispiace. Mi dispiace davvero.'),8600)},4500);save()}
 const finRem=()=>S.fin?S.fin.at+S.fin.dur+S.fin.bonus-S.el:0;
 function himProg(){const f=S.fin;let p=f.frozen!=null?f.frozen:1-finRem()/(f.dur+f.bonus);return Math.max(0,Math.min(1,p))}
-function trackOff(by){if(!S.fin||S.trackOff)return;S.fin.frozen=himProg();S.trackOff=1;S.trackBy=by;if(!S.fin.bonused){S.fin.bonus+=90;S.fin.bonused=1}SND.glitch();glitch();setTimeout(()=>addMsg('owner','Furbo.'),2500);setTimeout(()=>addMsg('owner','Non importa. Gino mi ha già dato la via. Dovrò solo trovare il piano giusto.'),6500);if(S.called&&!S.goodAt)S.goodAt=S.el+12;renderSB();save()}
+function trackOff(by){if(!S.fin||S.trackOff)return;S.fin.frozen=himProg();S.trackOff=1;S.trackBy=by;if(!S.fin.bonused){S.fin.bonus+=90;S.fin.bonused=1}SND.glitch();glitch();setTimeout(()=>addMsg('owner','Furbo.'),2500);setTimeout(()=>addMsg('owner','Non importa. La via me l’ha data Gino. Mi manca solo il piano. Busserò a tutte le porte.'),6500);if(S.called&&!S.goodAt)S.goodAt=S.el+12;renderSB();save()}
 
 let tickI=null;
 function tick(){if(!live||S.end)return;S.el++;renderSB();updWidget();if(S.el%110===0&&S.battery>7)S.battery--;
  if(S.phase>=1&&!S.fin){const d=S.el-S.p2t;
   if(d>=4&&!S.p2.call){S.p2.call=1;incomingCall()}
+  if(d>=18&&!S.p2.luc){S.p2.luc=1;addMsg('lucia','Sei tu che hai il telefono di Marco?');setTimeout(()=>addMsg('lucia','aiutami ti prego sono nel'),3200);setTimeout(()=>{addMsg('lucia','Scusa.');glitch();SND.glitch()},9000);setTimeout(()=>addMsg('lucia','Lei non scrive più da settembre. La SIM l’ho tenuta io. Regola 2.'),12500)}
   if(d>=32&&!S.p2.gino){S.p2.gino=1;addMsg('gino','Senti, oggi è passato un tizio al negozio.');setTimeout(()=>addMsg('gino','Chiedeva chi avesse comprato quel telefono. Gli ho detto che non do nomi.'),2600);setTimeout(()=>addMsg('gino','Aveva una faccia… non so. Stai attento.'),5200)}
-  if(d>=70&&!S.p2.own){S.p2.own=1;S.xphotos.push({t:'street',s:31,n:'IMG_0001',d:'Oggi, '+clk(),p:'Via dei Glicini 3'});addMsg('owner','Ti piace il mio telefono?');glitch()}
+  if(d>=52&&!S.p2.rec){S.p2.rec=1;notify('rec','Registratore','Nuova registrazione: «Nota vocale 5» · 0:31',{});setTimeout(()=>addMsg('owner','Ti ho registrato. Ascolta.'),3000)}
+  if(d>=70&&!S.p2.own){S.p2.own=1;S.xphotos.push({t:'street',s:31,n:'IMG_0001',d:'Oggi, '+clk(),p:'Via Roma 2 · davanti a Gino Usato'});addMsg('owner','Ti piace il mio telefono?');glitch()}
   if(d>=105&&!S.p2.own2){S.p2.own2=1;addMsg('owner','Guarda le foto. Ce n’è una nuova.')}
   if((nClues()>=10&&d>=125)||d>=600)startFinale()}
  if(S.fin&&!S.end)finTick();
@@ -800,7 +808,7 @@ function sendMsg(id){const i=$('#mi'),v=i.value.trim();if(!v)return;const ok=id=
 /* ---------- GALLERY ---------- */
 let galTab='foto',galList=[],pin='';
 const allPhotos=()=>S.xphotos.slice().reverse().concat(GAL.slice().reverse());
-const hidList=()=>(S.phase>=1?[{t:'street',s:31,c:'Il prossimo.',d:'Oggi',p:'Via dei Glicini 3'}]:[]).concat(HID.slice().reverse());
+const hidList=()=>(S.phase>=1?[{t:'street',s:31,c:'Il prossimo.',d:'Oggi',p:'Via Roma 2 · Gino Usato'}]:[]).concat(HID.slice().reverse());
 const pgrid=l=>`<div class="pgrid">${l.map((p,i)=>`<img src="${photo(p.t,p.s)}" data-a="pv" data-v="${i}" alt="">`).join('')}</div>`;
 VIEWS.gallery=()=>{let body;if(galTab==='foto'){galList=allPhotos();body=pgrid(galList)+`<p class="cnt">${galList.length} foto</p>`}else{body=`<div class="albs"><div class="alb" data-a="alb" data-v="all"><div style="background-image:url(${photo('lake',17)})"></div><b>Recenti</b><small>${allPhotos().length}</small></div><div class="alb" data-a="alb" data-v="fav"><div style="background-image:url(${photo('dog',5)})"></div><b>Preferiti</b><small>2</small></div><div class="alb" data-a="alb" data-v="hid"><div>🔒</div><b>Nascosti</b><small>Bloccato</small></div></div>`}
  return hd('Home')+`<div class="tt">${galTab==='foto'?'Foto':'Album'}</div><div class="sc">${body}</div><div class="tabs"><div class="tab ${galTab==='foto'?'on':''}" data-a="gtab" data-v="foto">Foto</div><div class="tab ${galTab==='album'?'on':''}" data-a="gtab" data-v="album">Album</div></div>`};
@@ -816,9 +824,10 @@ VIEWS.hid=()=>{if(S.hidden){clue('c_hidden');galList=hidList();if(S.phase>=1&&!S
 ACT.pin=v=>{if(v==='⌫')pin=pin.slice(0,-1);else if(pin.length<4)pin+=v;const pd=$('#pd');pd.innerHTML=[0,1,2,3].map(i=>`<i class="${i<pin.length?'f':''}"></i>`).join('');if(pin.length===4){if(pin==='1704'){S.hidden=1;pin='';setTimeout(draw,250)}else{pd.classList.add('shake');vib(150);setTimeout(()=>{pin='';pd.classList.remove('shake');pd.innerHTML=[0,1,2,3].map(()=>'<i></i>').join('')},450)}}};
 
 /* ---------- NOTES / MAIL ---------- */
-VIEWS.notes=()=>hd('Home')+`<div class="tt">Note</div><div class="sc">${NOTES.map((n,i)=>`<div class="nrow" data-a="note" data-v="${i}"><b>${esc(n.t)}</b><span>${n.d} · ${esc(n.b.split('\n')[0])}</span></div>`).join('')}</div>`;
+const notesL=()=>NOTES.filter(n=>!n.p2||S.phase>=1);
+VIEWS.notes=()=>hd('Home')+`<div class="tt">Note</div><div class="sc">${notesL().map((n,i)=>`<div class="nrow" data-a="note" data-v="${i}"><b>${esc(n.t)}</b><span>${n.d} · ${esc(n.b.split('\n')[0])}</span></div>`).join('')}</div>`;
 ACT.note=v=>go(VIEWS.note,+v);
-VIEWS.note=i=>{const n=NOTES[i];if(n.c)clue('c_notes');let b=n.b;if(n.id==='col'&&S.phase>=1)b+='\n\n…\n\n6. Chi ha il mio telefono.';return hd('Note')+`<div class="sc"><div class="note"><small>${n.d}</small>${esc(b)}</div></div>`};
+VIEWS.note=i=>{const n=notesL()[i];if(!n)return hd('Note');if(n.c)clue('c_notes');let b=n.b;if(n.id==='col'&&S.phase>=1)b+=S.fin?'\n\nVia dei Glicini 3. Terzo piano.':'\n\n?. Chi ha il mio telefono.';return hd('Note')+`<div class="sc"><div class="note"><small>${n.d}</small>${esc(b)}</div></div>`};
 VIEWS.mail=()=>hd('Home')+`<div class="tt">Posta in arrivo</div><div class="sc">${MAILS.map(m=>`<div class="row" data-a="mail" data-v="${m.id}"><div class="rc"><div class="r1"><b>${S.read[m.id]?'':'<i class="dot" style="display:inline-block;margin-right:6px"></i>'}${esc(m.f)}</b><small>${m.d}</small></div><div style="font-size:15px;margin-top:2px">${esc(m.s)}</div><div class="r2">${esc(m.b.split('\n')[0])}</div></div></div>`).join('')}<p class="cnt">marco.vettori@lumen.mail</p></div>`;
 ACT.mail=v=>go(VIEWS.mailv,v);
 VIEWS.mailv=id=>{const m=MAILS.find(x=>x.id===id);S.read[id]=1;clue(m.c);return hd('Posta')+`<div class="sc" style="padding:6px 20px 40px"><h2 style="font-size:21px;line-height:1.3">${esc(m.s)}</h2><p style="color:#8e8e93;margin:8px 0 18px;font-size:14px">Da: ${esc(m.f)} · ${m.d}</p><div style="white-space:pre-wrap;font-size:16px;line-height:1.55">${esc(m.b)}</div></div>`};
@@ -853,11 +862,11 @@ VIEWS.maps=()=>{after=()=>{const cv=$('#mc'),b=cv.getBoundingClientRect(),d=Math
  return hd('Home')+`<div class="mapw"><canvas id="mc"></canvas><div class="msearch">🔍 Cerca in Mappe</div><div class="mcard" id="mcard"></div></div><div class="gh" style="margin-top:12px">Luoghi salvati</div><div class="sc">${PLACES.map(p=>`<div class="row" data-a="msel" data-v="${p.id}"><div class="av sm" style="background:${p.id==='pozzo'?'#636366':'#ff453a'}">📍</div><div class="rc"><div class="r1"><b>${p.n}</b></div><div class="r2">${p.a}</div></div></div>`).join('')}</div>`};
 
 /* ---------- CALENDAR / WEATHER ---------- */
-VIEWS.cal=()=>{clue('c_cal');let g='';['L','M','M','G','V','S','D'].forEach(d=>g+=`<span>${d}</span>`);for(let i=0;i<6;i++)g+='<b></b>';for(let d=1;d<=30;d++)g+=`<b class="${d===22?'td':''} ${d===23&&S.phase>=1?'ev':''}">${d}</b>`;
- const up=S.phase>=1?`<div class="evr"><small>Lun 23</small><i style="background:#ff453a"></i><span>Riprendere il telefono</span></div>`:'<p class="cnt">Nessun evento in programma</p>';
- return hd('Home')+`<div class="tt">Novembre 2026</div><div class="sc"><div class="mg">${g}</div><div class="gh" style="margin-top:20px">Prossimi</div>${up}<div class="gh" style="margin-top:18px">Passati</div>${EVS.slice().reverse().map(e=>`<div class="evr"><small>${e[0]}</small><i style="background:${e[2]}"></i><span>${esc(e[1])}</span></div>`).join('')}</div>`};
+VIEWS.cal=()=>{clue('c_cal');let g='';['L','M','M','G','V','S','D'].forEach(d=>g+=`<span>${d}</span>`);for(let i=0;i<5;i++)g+='<b></b>';for(let d=1;d<=30;d++)g+=`<b class="${d===22?'td':''} ${d===23&&S.phase>=1?'ev':''}">${d}</b>`;
+ const up=S.phase>=1?`<div class="evr"><small>Dom 23</small><i style="background:#ff453a"></i><span>Riprendere il telefono</span></div>`:'<p class="cnt">Nessun evento in programma</p>';
+ return hd('Home')+`<div class="tt">Novembre 2025</div><div class="sc"><div class="mg">${g}</div><div class="gh" style="margin-top:20px">Prossimi</div>${up}<div class="gh" style="margin-top:18px">Passati</div>${EVS.slice().reverse().map(e=>`<div class="evr"><small>${e[0]}</small><i style="background:${e[2]}"></i><span>${esc(e[1])}</span></div>`).join('')}</div>`};
 VIEWS.weather=()=>{const f=S.fin&&!S.end,p=S.phase,hrs=['Ora','1','2','3','4','5'],tm=[9,8,8,7,7,6];
- return hd('Home')+`<div class="sc wx"><div class="wcity">San Ilario</div><div class="wtemp">${f?'—':'9°'}</div><div class="wdesc">${f?'Qualcuno sta arrivando':p?'Pioggia dalle 3:00':'Nebbia'}</div><div class="whl">${f?'Non uscire.':'Max 12° · Min 5°'}</div><div class="wcard"><small>${f?'Ti vedo. Ti vedo. Ti vedo.':p?'Terreno morbido. Ottima notte per scavare.':'Nebbia fitta fino al mattino. Visibilità ridotta.'}</small><div class="whrs">${hrs.map((h,i)=>`<div><span>${h}</span><b>${f?'👁':p&&i>2?'☂':'☁'}</b><span>${f?'—':tm[i]+'°'}</span></div>`).join('')}</div></div><div class="wcard">${['Lun','Mar','Mer','Gio','Ven'].map((d,i)=>`<div class="wday"><span>${d}</span><b>${p&&i===0?'☂':'☁'}</b><span>${p&&i>0?'—':(5+i)+'° / '+(11+i%2)+'°'}</span></div>`).join('')}</div></div>`};
+ return hd('Home')+`<div class="sc wx"><div class="wcity">San Ilario</div><div class="wtemp">${f?'—':'9°'}</div><div class="wdesc">${f?'Qualcuno sta arrivando':p?'Pioggia dalle 3:00':'Nebbia'}</div><div class="whl">${f?'Non uscire.':'Max 12° · Min 5°'}</div><div class="wcard"><small>${f?'Ti vedo. Ti vedo. Ti vedo.':p?'Terreno morbido. Ottima notte per scavare.':'Nebbia fitta fino al mattino. Visibilità ridotta.'}</small><div class="whrs">${hrs.map((h,i)=>`<div><span>${h}</span><b>${f?'👁':p&&i>2?'☂':'☁'}</b><span>${f?'—':tm[i]+'°'}</span></div>`).join('')}</div></div><div class="wcard">${['Dom','Lun','Mar','Mer','Gio'].map((d,i)=>`<div class="wday"><span>${d}</span><b>${p&&i===0?'☂':'☁'}</b><span>${p&&i>0?'—':(5+i)+'° / '+(11+i%2)+'°'}</span></div>`).join('')}</div></div>`};
 
 /* ---------- STORE ---------- */
 VIEWS.store=()=>hd('Home')+`<div class="tt">Store</div><div class="sc">${STORE.map((a,i)=>`<div class="st-it" data-a="sapp" data-v="${i}"><div class="sq" style="background:${a.id==='find'?APPS.find.c:a.id==='bolle'?APPS.bolle.c:'linear-gradient(#555,#222)'}">${svg(a.id==='find'?'find':a.id==='bolle'?'bolle':'store')}</div><div class="rc"><div class="r1"><b>${a.n}</b></div><div class="r2">${a.dev} · ★ ${a.r}</div></div><span class="get">${a.st==='Aperta'?'APRI':'OTTIENI'}</span></div>`).join('')}</div>`;
@@ -880,9 +889,10 @@ function startBubbles(){const cv=$('#bc'),b=cv.getBoundingClientRect(),d=Math.mi
  raf=requestAnimationFrame(loop);cleanup=()=>cancelAnimationFrame(raf)}
 
 /* ---------- RECORDER ---------- */
-VIEWS.rec=()=>hd('Home')+`<div class="tt">Registrazioni</div><div class="sc">${RECS.map((r,i)=>`<div class="row" data-a="recp" data-v="${i}"><div class="rc"><div class="r1"><b>${r.n}</b><small>${r.len}</small></div><div class="r2">${r.d}</div></div></div>`).join('')}</div>`;
+const recs=()=>(S.p2&&S.p2.rec?[REC5]:[]).concat(RECS);
+VIEWS.rec=()=>hd('Home')+`<div class="tt">Registrazioni</div><div class="sc">${recs().map((r,i)=>`<div class="row" data-a="recp" data-v="${i}"><div class="rc"><div class="r1"><b>${r.n}</b><small>${r.len}</small></div><div class="r2">${r.d}</div></div></div>`).join('')}</div>`;
 ACT.recp=v=>go(VIEWS.recp,+v);
-VIEWS.recp=i=>{const r=RECS[i];after=()=>{const cv=$('#wv'),b=cv.getBoundingClientRect();cv.width=b.width*2;cv.height=b.height*2;const x=cv.getContext('2d');let raf=0,nodes=[],timers=[],playing=false,t0=0;
+VIEWS.recp=i=>{const r=recs()[i];if(!r)return hd('Registrazioni');after=()=>{const cv=$('#wv'),b=cv.getBoundingClientRect();cv.width=b.width*2;cv.height=b.height*2;const x=cv.getContext('2d');let raf=0,nodes=[],timers=[],playing=false,t0=0;
  const drawW=()=>{const W=cv.width,H=cv.height;x.clearRect(0,0,W,H);const pr=playing?Math.min(1,(performance.now()-t0)/1000/r.dur):0;for(let k=0;k<80;k++){const a=playing&&k/80<pr?(.2+Math.random()*.8):.12+.1*Math.sin(k*1.7+i);x.fillStyle=k/80<pr?'#ff453a':'#555';const hh=a*H*.8;x.fillRect(k*W/80+2,(H-hh)/2,W/80-4,hh)}raf=requestAnimationFrame(drawW)};drawW();
  ACT.rplay=()=>{if(playing)return;playing=true;t0=performance.now();$('#rtx').innerHTML='';$('#pb').textContent='■';if(r.c)clue('c_rec');
   if(r.snd==='car'){nodes.push(noise(r.dur,{f:180,v:.6}));nodes.push(tone(46,r.dur,'sawtooth',.05))}else if(r.snd==='wind')nodes.push(noise(r.dur,{f:450,type:'bandpass',q:.3,v:.5}));else nodes.push(noise(r.dur,{f:1100,type:'bandpass',q:.6,v:.15}));
@@ -940,22 +950,26 @@ async function endBad(){if(S.end)return;S.end='bad';save();stopAll();ovShow('<di
  [0,.45,.9].forEach(w=>SND.knock(w));vib([80,370,80,370,80]);await sleep(1500);
  await say(e,'Qualcuno bussa alla porta.',1200);
  const ch=await new Promise(res=>{const c=document.createElement('div');c.className='copts';c.innerHTML='<div class="copt">Resta immobile</div><div class="copt">Guarda dallo spioncino</div>';e.appendChild(c);c.children[0].onclick=()=>{c.remove();res(0)};c.children[1].onclick=()=>{c.remove();res(1)}});
- if(ch===0){await say(e,'Trattieni il respiro. Il telefono, sul pavimento, vibra. Una volta. Due.');vib([150,300,150]);await say(e,'Dall’altra parte della porta, un altro telefono vibra in risposta.');await say(e,'Poi la maniglia si abbassa, piano. La porta non era chiusa a chiave. Non la chiudi mai: con sessanta euro in tasca non hai niente da farti rubare.');await say(e,'Avevi una cosa da farti rubare.',3200)}
- else{await say(e,'Ti avvicini alla porta senza fare rumore. Il pianerottolo è buio. Non c’è nessuno.');await say(e,'Poi, a un palmo dal vetro, si accende lo schermo di un telefono. C’è una foto. È la tua porta. Scattata adesso.');SND.knock();await say(e,'«Apri», dice una voce gentile. «Sono venuto solo a riprendere le mie cose.»',3200)}
+ if(ch===0){await say(e,'Trattieni il respiro. Il telefono, sul pavimento, vibra. Una volta. Due.');vib([150,300,150]);await say(e,'Dall’altra parte della porta, un altro telefono vibra in risposta.');await say(e,'Poi la maniglia si abbassa, piano. La porta non era chiusa a chiave. Non la chiudi mai: dopo Gino non ti è rimasto niente da farti rubare.');await say(e,'Avevi una cosa da farti rubare.',3200);await say(e,'«Shh», dice, chinandosi su di te. «Ascolta. Prima o poi tutti parlano.»',3200)}
+ else{await say(e,'Ti avvicini alla porta senza fare rumore. Il pianerottolo è buio. Non c’è nessuno.');await say(e,'Poi, a un palmo dal vetro, si accende lo schermo di un telefono. C’è una foto. È la tua porta. Scattata adesso.');SND.knock();await say(e,'«Apri», dice una voce gentile. «Sono venuto solo a riprendere le mie cose.»',3200);await say(e,'Fai un passo indietro. Dietro di te, in camera da letto, la finestra è socchiusa. Tu non la lasci mai socchiusa.',3200)}
  SND.glitch();e.innerHTML='';await sleep(2500);
- const o=$('#ov');o.innerHTML=`<div class="flock" style="background-image:url(${photo('door',41)})"><div class="ldate">lunedì 23 novembre</div><div class="ltime">3:33</div><div class="lnot"><div class="ln"><b>TROVA DISPOSITIVO · ora</b>«Telefono di Marco» è stato ritrovato.</div></div></div>`;vib(300);SND.ping();
+ const o=$('#ov');o.innerHTML=`<div class="flock" style="background-image:url(${photo('door',41)})"><div class="ldate">domenica 23 novembre</div><div class="ltime">3:33</div><div class="lnot"><div class="ln"><b>TROVA DISPOSITIVO · ora</b>«Telefono di Marco» è stato ritrovato.</div></div></div>`;vib(300);SND.ping();await sleep(2600);{const n=document.createElement('div');n.className='ln';n.innerHTML='<b>NOTE · ora</b>Collezione<br><span style="opacity:.85">L. ✓ · M. ✓ · A. ✓ · S. ✓ · Via dei Glicini 3 ✓</span>';const l=o.querySelector('.lnot');if(l)l.appendChild(n);SND.ping();vib(120)}
  await sleep(4500);etitle(o,'FINALE A','RITROVATO','Ogni cosa torna sempre al suo proprietario.<br>Esiste un altro finale.')}
 async function endGood(){if(S.end)return;S.end='good';save();stopAll();ovShow('<div class="end" id="end"></div>');const e=$('#end');
  SND.siren();await sleep(1500);
  await say(e,'Le sirene arrivano pochi minuti dopo.');
  await say(e,'Dalla finestra vedi due agenti fermare un uomo sul marciapiede di fronte. Non scappa. Non dice niente.');
  await say(e,'Prima di salire in macchina alza la testa verso il terzo piano. Verso di te. E sorride, come chi ha soltanto rimandato.');
- await say(e,'Il telefono lo consegni la mattina dopo. A dicembre, nel Bosco della Cava, i vigili del fuoco calano una scala nel vecchio pozzo.');
+ await say(e,'Il telefono lo consegni la mattina dopo. A dicembre, nel Bosco della Cava, i vigili del fuoco calano una scala nel vecchio pozzo. Risalgono senza parlare.');
+ await say(e,'Nel garage di sua madre trovano il furgone. Lei è in cucina, seduta, con il telefono in grembo. Non chiamava nessuno da un mese.');
+ await say(e,'Il tablet di Marco non viene mai trovato.',3000);
  await say(e,'Ti compri un telefono nuovo. Ci metti tre mesi a pagarlo.');
  await say(e,'Una sera, sullo schermo, compare una notifica.',2000);
- const o=$('#ov');o.innerHTML=`<div class="flock" style="background:#050505"><div class="ldate">venerdì 13 marzo</div><div class="ltime">23:58</div><div class="lnot"><div class="ln"><b>MESSAGGI · ora</b>Lucia ❤<br><span style="opacity:.85">grazie</span></div></div></div>`;SND.ping();vib(200);
+ const o=$('#ov');o.innerHTML=`<div class="flock" style="background:#050505"><div class="ldate">venerdì 13 marzo</div><div class="ltime">23:58</div><div class="lnot"><div class="ln"><b>MESSAGGI · ora</b>+39 333 418 2290<br><span style="opacity:.85">grazie</span></div></div></div>`;SND.ping();vib(200);
+ await sleep(3600);{const d0=document.createElement('div');d0.className='ln';d0.style.cssText='position:absolute;left:12px;right:12px;bottom:190px;text-align:center';d0.textContent='Lo riconosci. È il numero di Lucia. Lo hai letto così tante volte da saperlo a memoria.';o.firstChild.appendChild(d0)}
  await sleep(4200);const d=document.createElement('div');d.className='ln';d.style.cssText='position:absolute;left:12px;right:12px;bottom:120px;text-align:center';d.textContent='Richiami. «Il numero da lei chiamato è inesistente.»';o.firstChild.appendChild(d);SND.hang();
- await sleep(4500);etitle(o,'FINALE B','DISCONNESSO','Lo hanno fermato. Qualcuno ti ha ringraziato.<br>Esiste un altro finale.')}
+ await sleep(4200);{const n=document.createElement('div');n.className='ln';n.innerHTML='<b>MESSAGGI · ora</b>+39 333 418 2290<br><span style="opacity:.85">5. Ogni cosa torna sempre al suo proprietario.</span>';const l=o.querySelector('.lnot');if(l)l.appendChild(n);SND.ping();vib([100,60,100]);glitch()}
+ await sleep(4800);etitle(o,'FINALE B','DISCONNESSO','Lo hanno fermato. Qualcuno ti ha scritto lo stesso.<br>Esiste un altro finale.')}
 ACT.restart=()=>{try{localStorage.removeItem(SAVE)}catch(e){}location.reload()};
 
 /* ---------- INPUT / BOOT ---------- */
@@ -972,7 +986,16 @@ function swipe(el,{down,up,move,end}){let y0=null;el.addEventListener('pointerdo
 const lock=$('#lock');
 swipe(lock,{move:dy=>{lock.style.transition='none';lock.style.transform=`translateY(${Math.min(0,dy)}px)`},end:(dy,c)=>{lock.style.transition='';lock.style.transform='';if(!c&&dy<-60)unlock()}});
 ACT.unlock=()=>unlock();
-swipe($('#shade'),{end:dy=>{if(dy<-40)closeShade()}});
+(function(){const sh=$('#shade');let st=null;const k=()=>{const r=$('#scr').getBoundingClientRect();return r.width/$('#scr').offsetWidth||1};
+ sh.addEventListener('pointerdown',e=>{if(!sh.classList.contains('open'))return;const l=e.target.closest('.snl');st={x:e.clientX,y:e.clientY,ly:e.clientY,l,mode:null,t:performance.now(),v:0}});
+ sh.addEventListener('pointermove',e=>{if(!st)return;const s=k(),dx=(e.clientX-st.x)/s,dy=(e.clientY-st.y)/s;
+  if(!st.mode){if(Math.abs(dx)<6&&Math.abs(dy)<6)return;shDragAt=performance.now();if(Math.abs(dx)>Math.abs(dy)){st.mode='x';return}
+   const l=st.l,max=l?l.scrollHeight-l.clientHeight:0;st.mode=l&&max>1&&(dy>0?l.scrollTop>0:l.scrollTop<max-1)?'scroll':dy<0?'close':'none';try{sh.setPointerCapture(e.pointerId)}catch(_){}}
+  const step=(e.clientY-st.ly)/s;st.ly=e.clientY;
+  if(st.mode==='scroll'){const l=st.l,max=l.scrollHeight-l.clientHeight;if(step<0&&l.scrollTop>=max-1){st.mode='close';st.y=e.clientY;return}l.scrollTop-=step}
+  else if(st.mode==='close'){const t=performance.now();st.v=step/Math.max(1,t-(st.lt||st.t));st.lt=t;sh.style.transition='none';sh.style.transform=`translateY(${Math.min(0,dy)}px)`}});
+ const end=(e,c)=>{if(!st)return;const s=k(),dy=(e.clientY-st.y)/s,m=st.mode,v=st.v;st=null;if(m)shDragAt=performance.now();sh.style.transition='';sh.style.transform='';if(m==='close'&&!c&&(dy<-50||v<-.4))closeShade()};
+ sh.addEventListener('pointerup',e=>end(e));sh.addEventListener('pointercancel',e=>end(e,1))})();
 function showLock(){lock.style.backgroundImage=`url(${photo('lake',17)})`;renderLock();lock.classList.add('on');renderSB()}
 function unlock(){if(live)return;lock.classList.add('gone');live=true;SND.unlock();renderHome();
  if(!S.started){S.started=1;setTimeout(()=>{addMsg('gino','Ciao! Sono Gino del negozio 👋 tutto ok col telefono?');setTimeout(()=>addMsg('gino','L’ho ripristinato io. A volte però qualche app del vecchio proprietario resta dentro. Se trovi roba sua, cancella pure.'),2700);setTimeout(()=>addMsg('gino','Niente resi eh 😅'),5200)},3500)}
@@ -1172,7 +1195,7 @@ bar(x,r,w,h){const bg=layer(w,h,b=>{b.fillStyle=G(b,0,0,0,h,[[0,'#2a1a10'],[.6,'
  x.strokeStyle='#ddd6cc';x.lineWidth=10;x.beginPath();x.ellipse(cx+70,cy+3,18,22,0,-1.2,1.4);x.stroke();
  x.fillStyle='#efe9e0';x.beginPath();x.ellipse(cx,cy-20,63,17,0,0,7);x.fill();x.fillStyle=Rg(x,cx,cy-20,4,58,[[0,'#dcb88e'],[.7,'#a8703f'],[1,'#5e3820']]);x.beginPath();x.ellipse(cx,cy-20,57,14,0,0,7);x.fill();
  x.fillStyle='rgba(250,240,225,.95)';x.beginPath();x.moveTo(cx,cy-9);x.bezierCurveTo(cx-32,cy-22,cx-18,cy-35,cx,cy-25);x.bezierCurveTo(cx+18,cy-35,cx+32,cy-22,cx,cy-9);x.fill();
- x.save();x.translate(115,545);x.rotate(-.13);x.fillStyle='rgba(0,0,0,.35)';x.fillRect(-56,-30,124,72);x.fillStyle='#f1ece2';x.fillRect(-62,-36,124,72);x.fillStyle='rgba(30,40,100,.85)';x.font='italic 17px Georgia,serif';x.fillText('Marco',-44,-8);x.font='italic 14px Georgia,serif';x.fillText('— 333 41…',-44,16);x.restore();
+ x.save();x.translate(115,545);x.rotate(-.13);x.fillStyle='rgba(0,0,0,.35)';x.fillRect(-56,-30,124,72);x.fillStyle='#f1ece2';x.fillRect(-62,-36,124,72);x.fillStyle='rgba(30,40,100,.85)';x.font='italic 17px Georgia,serif';x.fillText('Marco',-44,-8);x.font='italic 14px Georgia,serif';x.fillText('— 345 77…',-44,16);x.restore();
  light(x,w-30,30,220,'255,170,90',.28);return{warm:.5,teal:.02,grain:12,bloom:.3}},
 sunset(x,r,w,h){const hz=h*.56;x.fillStyle=G(x,0,0,0,hz,[[0,'#140f33'],[.35,'#4b2457'],[.72,'#c4513f'],[1,'#f7b25a']]);x.fillRect(0,0,w,hz);
  for(let i=0;i<10;i++){const cy=50+r()*hz*.75,cw=110+r()*230;x.fillStyle=G(x,0,cy-12,0,cy+14,[[0,'rgba(60,30,70,0)'],[.5,cy>hz*.5?'rgba(245,150,95,.55)':'rgba(130,60,115,.5)'],[1,'rgba(255,170,110,0)']]);x.beginPath();x.ellipse(r()*w,cy,cw,7+r()*10,0,0,7);x.fill()}
