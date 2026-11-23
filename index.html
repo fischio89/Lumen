@@ -519,7 +519,8 @@ function fresh(){return{clues:{},phase:0,p2t:0,p2:{},el:0,read:{},un:{},hidden:0
 let S=null;try{S=JSON.parse(localStorage.getItem(SAVE)||'null')}catch(e){}
 const hadSave=!!(S&&!S.end&&S.el>5);
 if(!S||S.end)S=fresh();S=Object.assign(fresh(),S);
-function save(){try{localStorage.setItem(SAVE,JSON.stringify(S))}catch(e){}}
+let wiping=false;
+function save(){if(wiping)return;try{localStorage.setItem(SAVE,JSON.stringify(S))}catch(e){}}
 const BASE=23*3600+41*60;
 function clk(){const t=(BASE+S.el)%86400;return Math.floor(t/3600)+':'+String(Math.floor(t%3600/60)).padStart(2,'0')}
 function dateStr(){return Math.floor((BASE+S.el)/86400)?'domenica 23 novembre':'sabato 22 novembre'}
@@ -970,7 +971,7 @@ async function endGood(){if(S.end)return;S.end='good';save();stopAll();ovShow('<
  await sleep(4200);const d=document.createElement('div');d.className='ln';d.style.cssText='position:absolute;left:12px;right:12px;bottom:120px;text-align:center';d.textContent='Richiami. «Il numero da lei chiamato è inesistente.»';o.firstChild.appendChild(d);SND.hang();
  await sleep(4200);{const n=document.createElement('div');n.className='ln';n.innerHTML='<b>MESSAGGI · ora</b>+39 333 418 2290<br><span style="opacity:.85">5. Ogni cosa torna sempre al suo proprietario.</span>';const l=o.querySelector('.lnot');if(l)l.appendChild(n);SND.ping();vib([100,60,100]);glitch()}
  await sleep(4800);etitle(o,'FINALE B','DISCONNESSO','Lo hanno fermato. Qualcuno ti ha scritto lo stesso.<br>Esiste un altro finale.')}
-ACT.restart=()=>{try{localStorage.removeItem(SAVE)}catch(e){}location.reload()};
+ACT.restart=()=>{wiping=true;try{clearInterval(tickI)}catch(e){}try{localStorage.removeItem(SAVE)}catch(e){}location.reload()};
 
 /* ---------- INPUT / BOOT ---------- */
 document.addEventListener('click',e=>{
