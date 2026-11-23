@@ -2441,5 +2441,179 @@ setInterval(()=>{if(live&&!S.end)renderIsland()},1000);
 const _sa7=sysAlert;sysAlert=function(t,m,b){const p=_sa7(t,m,b);const d=[...document.querySelectorAll('.alrt')].pop();if(d){const abox=d.querySelector('.abox');d.addEventListener('click',e=>{const s=e.target.closest('span[data-i]');if(!s)return;const g=d.cloneNode(true);g.classList.add('out');g.style.pointerEvents='none';d.parentNode&&d.parentNode.appendChild(g);requestAnimationFrame(()=>requestAnimationFrame(()=>{g.style.opacity='0'}));setTimeout(()=>g.remove(),220)},true)}return p};
 </script>
 
+<style>
+/* ===== v8: app installabili, Serpente, Radar, SegnalaOra, Torcia, Eliminati ===== */
+.st-hero{margin:4px 16px 18px;border-radius:18px;padding:18px;background:linear-gradient(135deg,#0f3d2a,#06150f);position:relative;overflow:hidden;cursor:pointer}
+.st-hero small{color:#30d158;font-weight:700;font-size:12px;letter-spacing:1px}.st-hero h3{font-size:22px;margin:4px 0}.st-hero p{color:#aaa;font-size:14px}
+.st-hero canvas{position:absolute;right:-10px;bottom:-10px;width:140px;height:140px;opacity:.9}
+.get{min-width:74px;text-align:center;position:relative;transition:all .25s}
+.get.dl{width:30px;min-width:30px;height:30px;padding:0;border-radius:50%;background:conic-gradient(#0a84ff var(--p,0%),#3a3a3c 0);color:transparent}
+.get.dl::after{content:"";position:absolute;inset:4px;border-radius:50%;background:#000}
+.get.dl::before{content:"";position:absolute;left:11px;top:11px;width:8px;height:8px;background:#0a84ff;border-radius:2px;z-index:1}
+.sd-get{display:block;width:calc(100% - 32px);margin:6px 16px 16px;text-align:center;background:#0a84ff;color:#fff;border-radius:14px;padding:13px;font-weight:600;font-size:16px;cursor:pointer;position:relative;overflow:hidden}
+.sd-get i{position:absolute;left:0;top:0;bottom:0;background:rgba(255,255,255,.25);width:0}
+.sd-meta{display:flex;justify-content:space-around;margin:0 16px 14px;padding:10px 0;border-top:.5px solid #2c2c2e;border-bottom:.5px solid #2c2c2e;text-align:center}.sd-meta div{font-size:13px;color:#8e8e93}.sd-meta b{display:block;color:#ddd;font-size:15px}
+.ic.new span::before{content:"";display:inline-block;width:6px;height:6px;border-radius:50%;background:#0a84ff;margin-right:4px;vertical-align:1px}
+.ic.inst .sq{animation:instIn .7s cubic-bezier(.2,1.5,.4,1)}@keyframes instIn{from{transform:scale(.2);opacity:0}}
+.snk{flex:1;display:flex;flex-direction:column;position:relative;touch-action:none;background:radial-gradient(120% 80% at 50% 0%,#10261a,#050806 70%)}
+.snhd{display:flex;justify-content:space-between;padding:4px 20px 8px;font-size:14px;color:#8e8e93}.snhd b{color:#fff;font-size:20px;margin-left:6px;font-variant-numeric:tabular-nums}
+#skc{flex:1;width:100%;display:block;touch-action:none}
+.skov{position:absolute;inset:40px 0 0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;background:rgba(0,0,0,.55);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);transition:opacity .3s}
+.skov.off{opacity:0;pointer-events:none}.skov>b{font-size:36px;letter-spacing:6px;color:#4cd964;text-shadow:0 0 18px rgba(76,217,100,.6)}.skov>span{color:#aaa;font-size:14px;text-align:center;padding:0 30px}
+.skov .btn{width:200px;background:linear-gradient(90deg,#34c759,#0a7a2a)}
+.sklb{width:240px;margin-top:6px}.sklb div{display:flex;justify-content:space-between;font-size:14px;padding:4px 2px;border-bottom:.5px solid rgba(255,255,255,.08);color:#ccc}.sklb div.me{color:#4cd964;font-weight:700}
+.rad{position:relative;width:250px;height:250px;margin:6px auto 14px}.rad canvas{width:100%;height:100%}
+.rdev{display:flex;align-items:center;gap:12px;margin:0 16px;padding:11px 4px;border-bottom:.5px solid #2c2c2e}.rdev i{width:10px;height:10px;border-radius:50%;flex:none}.rdev div{flex:1}.rdev b{display:block;font-size:15px}.rdev small{color:#8e8e93;font-size:12.5px}.rdev em{font-style:normal;font-size:13px;color:#aaa}
+.rtip{margin:14px 16px;background:#1c1c1e;border-radius:12px;padding:12px 14px;font-size:14px;line-height:1.45}.rtip b{display:block;margin-bottom:4px}
+.rtip.red{background:rgba(255,69,58,.16);color:#ffb4ae}
+.sgf{padding:0 16px}.sgf h2{font-size:20px;margin:6px 0 4px}.sgf p{color:#8e8e93;font-size:13.5px;line-height:1.4;margin-bottom:12px}
+.sgc{display:flex;gap:12px;align-items:flex-start;background:#1c1c1e;border-radius:12px;padding:12px 14px;margin-bottom:8px;cursor:pointer;font-size:14.5px;line-height:1.35}
+.sgc i{width:22px;height:22px;border-radius:6px;border:2px solid #555;flex:none;display:flex;align-items:center;justify-content:center;font-style:normal;font-size:14px;transition:all .2s}.sgc.on i{background:#0a84ff;border-color:#0a84ff}.sgc.on i::after{content:"✓"}
+.sgc small{display:block;color:#8e8e93;font-size:12.5px;margin-top:2px}
+.sgsent{text-align:center;padding:30px 24px}.sgsent div{width:72px;height:72px;border-radius:50%;background:#30d158;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:38px;animation:pop .5s cubic-bezier(.3,1.6,.5,1)}
+.trc{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;transition:background .3s}
+.trc.on{background:#fff}.trc .tb{width:120px;height:120px;border-radius:50%;background:#1c1c1e;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 0 0 6px #2c2c2e;transition:all .3s}
+.trc.on .tb{background:#ffd60a;box-shadow:0 0 60px 10px rgba(255,214,10,.6)}.trc .tb svg{width:54px;height:54px;stroke:#fff;fill:none;stroke-width:1.8}.trc.on .tb svg{stroke:#000}
+.trc span{color:#8e8e93;font-size:14px}.trc.on span{color:#333}
+.trc .sosb{background:#2c2c2e;border-radius:14px;padding:10px 26px;font-weight:700;cursor:pointer}.trc.on .sosb{background:#eee;color:#000}
+.pdel{position:relative}.pdel span{position:absolute;right:4px;bottom:4px;font-size:11px;font-weight:600;background:rgba(0,0,0,.55);border-radius:6px;padding:1px 5px}
+</style>
+<script>
+/* ===== v8: app da installare ===== */
+'use strict';
+IC.snake='<path d="M5 17c0-3 3-3 5-3s5 0 5-3-3-3-5-3-5 0-5-3"/><circle cx="17.5" cy="17.5" r="1.6" fill="#fff"/><path d="M5 5h0"/>';
+IC.radar='<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="4.5"/><path d="M12 12l6-6"/><circle cx="16" cy="9" r="1.2" fill="#fff"/>';
+IC.shield='<path d="M12 3l7.5 3v5.5c0 4.6-3.2 8.3-7.5 9.5-4.3-1.2-7.5-4.9-7.5-9.5V6z"/><path d="M9 12l2.2 2.2L15.5 10"/>';
+Object.assign(APPS,{snake:{n:'Serpente',c:'linear-gradient(135deg,#1c3a24,#050c07)',i:'snake'},radar:{n:'Radar BT',c:'linear-gradient(#5e5ce6,#2a1f8f)',i:'radar'},segnala:{n:'SegnalaOra',c:'linear-gradient(#ff9f0a,#d9480f)',i:'shield'},torcia:{n:'Torcia Pro',c:'linear-gradient(#ffd60a,#c9a200)',i:'torch',dark:1}});
+const INST=['snake','radar','segnala','torcia'];
+STORE.splice(0,STORE.length,
+ {id:'snake',n:'Serpente',dev:'Fizzy Games',st:'Ottieni',r:'4,7',sz:'38 MB',age:'4+',desc:'Il classico serpente, al neon. Mangia, cresci, non morderti la coda. Scorri per girare.',rev:[['bolla_fan','★★★★★','Meglio di Bolle. Il record di «M.V.» però è impossibile.'],['sara.b','★★★★☆','Ci gioco mentre aspetto. Lui era sempre in ritardo 😅']]},
+ {id:'radar',n:'Radar BT — Trova tracker',dev:'OpenScan Lab',st:'Ottieni',r:'4,6',sz:'21 MB',age:'4+',desc:'Scopri chi ti sta seguendo. Rileva tracker Bluetooth, dispositivi vicini e app che condividono la tua posizione in background.',rev:[['giulia_88','★★★★★','Ho trovato un tracker sotto il sedile della macchina. Lo consiglio a tutte.'],['anonimo','★★★★★','Ti dice anche come disattivare la condivisione. Salvavita.']]},
+ {id:'segnala',n:'SegnalaOra',dev:'Rete Antiviolenza Valdilario',st:'Ottieni',r:'4,8',sz:'16 MB',age:'12+',desc:'Invia ai carabinieri una segnalazione anonima, anche senza SIM: basta il Wi‑Fi. Puoi allegare quello che sai. Ogni segnalazione viene letta.',rev:[['Mariella_SI','★★★★★','Dopo la scomparsa di Lucia l’ho installata a tutta la famiglia.'],['utente','★★★★☆','Ti risponde la mattina dopo, però funziona.']]},
+ {id:'torcia',n:'Torcia Pro',dev:'Utility Lab',st:'Ottieni',r:'4,1',sz:'9 MB',age:'4+',desc:'La torcia più luminosa del mondo. Con segnale SOS.',rev:[['marco.v','★★★★★','Indispensabile di notte, nei boschi.']]},
+ {id:'find',n:'Trova Dispositivo',dev:'Lumen',st:'Aperta',r:'4,8',sz:'—',age:'4+',desc:'Localizza, blocca e ritrova i tuoi dispositivi. Il proprietario dell’account può attivare la condivisione della posizione da remoto, anche dopo un ripristino.',rev:[['marco.v','★★★★★','Funziona benissimo. Ho ritrovato il mio telefono in dieci minuti. Chi l’aveva preso non se l’aspettava.'],['giulia_88','★★★★☆','Utile. Un po’ inquietante, però.']]},
+ {id:'scin',n:'Scintilla — Incontri',dev:'Scintilla srl',st:'Aperta',r:'3,9',sz:'—',age:'17+',desc:'Conosci persone vicino a te. Stasera.',rev:[['anonimo','★☆☆☆☆','Una mia amica ha conosciuto qui un tizio gentilissimo. Lei non risponde più al telefono.']]},
+ {id:'bolle',n:'Bolle!',dev:'Fizzy Games',st:'Aperta',r:'4,5',sz:'—',age:'4+',desc:'Scoppia più bolle che puoi in 20 secondi.',rev:[['sara.b','★★★★★','Ci gioco mentre aspetto qualcuno 😊']]},
+ {id:'banca',n:'BancaFacile',dev:'BancaFacile spa',st:'Ottieni',r:'2,9',sz:'1,9 GB',age:'4+',desc:'Il tuo conto, sempre in tasca.',rev:[['utente','★☆☆☆☆','Pesa quasi due giga. Per vedere il saldo.']]});
+if(!S.inst)S.inst={};
+function syncInstalled(){INST.forEach(id=>{if(S.inst[id]&&!PAGES[1].includes(id))PAGES[1].push(id)})}syncInstalled();
+const stIcon=a=>APPS[a.id]?appIcon(a.id):`<div class="sq" style="background:linear-gradient(#555,#222)">${svg('store')}</div>`;
+const stState=a=>INST.includes(a.id)?(S.inst[a.id]?'APRI':'OTTIENI'):a.st==='Aperta'?'APRI':'OTTIENI';
+VIEWS.store=()=>{after=()=>{const c=$('#sthc');if(!c)return;const x=c.getContext('2d');c.width=280;c.height=280;let t=0,raf=0;const loop=()=>{t+=.03;x.clearRect(0,0,280,280);for(let i=0;i<14;i++){const a=t+i*.35,px=140+Math.cos(a)*(40+i*5),py=140+Math.sin(a*1.3)*(40+i*5);x.fillStyle=`rgba(76,217,100,${1-i/15})`;x.beginPath();x.arc(px,py,14-i*.6,0,7);x.fill()}raf=requestAnimationFrame(loop)};loop();cleanup=()=>cancelAnimationFrame(raf)};
+ return hd('Home')+`<div class="tt">Store</div><div class="sc"><div class="st-hero" data-a="sapp" data-v="0"><canvas id="sthc"></canvas><small>GIOCO DEL GIORNO</small><h3>Serpente</h3><p>Il classico, al neon.<br>Quanto riesci a crescere?</p></div><div class="gh">App consigliate</div>${STORE.map((a,i)=>`<div class="st-it" data-a="sapp" data-v="${i}">${stIcon(a)}<div class="rc"><div class="r1"><b>${a.n}</b></div><div class="r2">${a.dev} · ★ ${a.r}</div></div><span class="get" data-a="sget" data-v="${i}" id="sg${i}">${stState(a)}</span></div>`).join('')}</div>`};
+VIEWS.sdet=i=>{const a=STORE[i];if(a.id==='find')learn('find');if(a.id==='radar')learn('find');
+ return hd('Store',a.n)+`<div class="sc"><div class="fcard">${stIcon(a)}<b style="font-size:22px;margin-top:8px">${a.n}</b><span>${a.dev}</span></div><div class="sd-get" data-a="sget" data-v="${i}" id="sgd${i}"><i></i><span>${stState(a)==='APRI'?'Apri':'Ottieni'}</span></div><div class="sd-meta"><div><b>${a.r} ★</b>Valutazione</div><div><b>${a.age}</b>Età</div><div><b>${a.sz}</b>Dimensioni</div></div><p class="fine" style="font-size:15px;color:#ccc;margin-bottom:16px">${a.desc}</p><div class="gh">Recensioni</div>${a.rev.map(r=>`<div class="rev"><b>${esc(r[0])} <span style="color:#ff9f0a">${r[1]}</span></b>${esc(r[2])}</div>`).join('')||'<p class="cnt">Nessuna recensione</p>'}</div>`};
+let installing={},newAnim=null;
+ACT.sget=(v,el,e)=>{if(e)e.stopPropagation();const i=+v,a=STORE[i];
+ if(INST.includes(a.id)){if(S.inst[a.id])return openApp(a.id);if(installing[a.id])return;if(!S.wifi)return sysAlert('Impossibile scaricare','Nessuna connessione a Internet. Disattiva la modalità aereo.');installApp(i);return}
+ if(a.id==='find')return openApp('find');if(a.id==='bolle')return openApp('bolle');
+ if(a.id==='scin')return sysAlert('Sessione scaduta','Accedi come «marco.vettori» per continuare a usare Scintilla.',[['Annulla'],['Accedi','b']]).then(k=>{if(k)toast('Password errata.')});
+ sysAlert('Impossibile scaricare','Spazio insufficiente: servono 1,9 GB, disponibili 2,1 GB, ma «Dati di sistema» non lascia spazio per l’installazione. Gestisci lo spazio in Impostazioni.',[['OK','b']])};
+function installApp(i){const a=STORE[i];installing[a.id]=1;vib(10);SND.tap();const t0=performance.now(),D=2600;
+ const step=()=>{const p=Math.min(1,(performance.now()-t0)/D);const g=$('#sg'+i);if(g){g.classList.add('dl');g.style.setProperty('--p',(p*100).toFixed(1)+'%')}const d=$('#sgd'+i);if(d){d.querySelector('i').style.width=(p*100)+'%';d.querySelector('span').textContent=p<1?`Download… ${Math.round(p*100)}%`:'Apri'}
+  if(p<1)return requestAnimationFrame(step);
+  delete installing[a.id];S.inst[a.id]=1;syncInstalled();S.newApp=a.id;save();renderHome();const g2=$('#sg'+i);if(g2){g2.classList.remove('dl');g2.textContent='APRI'}
+  nt(1568,{d:.25,v:.05,wet:.3});vib([20,40,20]);logA('app','inst_'+a.id)};
+ requestAnimationFrame(step)}
+const _rh8=renderHome;renderHome=function(){_rh8();if(S.newApp){const ic=document.querySelector(`#home .ic[data-open="${S.newApp}"]`);if(ic){ic.classList.add('new');if(newAnim!==S.newApp){newAnim=S.newApp;ic.classList.add('inst')}}}};
+const _oa8=openApp;openApp=function(id){if(S.newApp===id){S.newApp=null;save()}_oa8(id)};
+
+/* ---------- SERPENTE ---------- */
+VIEWS.snake=()=>{after=startSnake;const best=S.snakeBest||0;
+ const rows=[['M.V.',87,'3 giu'],['L.',41,'30 mag'],['SARA',23,'19 ott']].concat(best?[['TU',best,'oggi']]:[]).sort((a,b)=>b[1]-a[1]);
+ return hd('Home','Serpente')+`<div class="snk" id="snk"><div class="snhd"><span>Punti<b id="sks">0</b></span><span>Record<b id="skb">${best}</b></span></div><canvas id="skc"></canvas><div class="skov" id="skov"><b>SERPENTE</b><span id="skmsg">Scorri sullo schermo (o usa le frecce) per girare.</span><div class="btn" data-a="skgo">Gioca</div><div class="sklb">${rows.map(r=>`<div class="${r[0]==='TU'?'me':''}"><span>${r[0]}</span><span>${r[1]} · ${r[2]}</span></div>`).join('')}</div></div></div>`};
+function startSnake(){const cv=$('#skc'),box=$('#snk');const d=Math.min(2,devicePixelRatio||1);const W=cv.offsetWidth,H=cv.offsetHeight;cv.width=W*d;cv.height=H*d;const x=cv.getContext('2d');x.scale(d,d);
+ const C=16,cs=Math.floor((W-16)/C),R=Math.max(14,Math.floor((H-16)/cs)),ox=(W-C*cs)/2,oy=(H-R*cs)/2;
+ let sn,dir,nd,food,score,alive=false,acc=0,last=0,raf=0,parts=[],shake=0,glyph=null;
+ const reset=()=>{sn=[[5,R>>1],[4,R>>1],[3,R>>1]];dir=[1,0];nd=[1,0];score=0;placeFood();$('#sks').textContent=0};
+ const placeFood=()=>{do{food=[Math.random()*C|0,Math.random()*R|0]}while(sn.some(s=>s[0]===food[0]&&s[1]===food[1]));glyph=S.act>=2&&Math.random()<.35?'LMAS'[Math.random()*4|0]:null};
+ const turn=(a,b)=>{if(!alive)return;if(a===-dir[0]&&b===-dir[1])return;if(a===nd[0]&&b===nd[1])return;nd=[a,b];nt(900,{d:.03,v:.03,type:'triangle'})};
+ const die=()=>{alive=false;shake=12;vib([80,40,160]);SND.glitch();const best=S.snakeBest||0;if(score>best){S.snakeBest=score;$('#skb').textContent=score}S.cnt.snake=score;logA('snake',String(score));save();
+  const m=$('#skmsg');if(m)m.textContent=score>87?'Nuovo record. Hai battuto M.V.':score>best?`Nuovo record: ${score}.`:S.act>=2?`${score} punti. «Lucia ne faceva di più.»`:`${score} punti. Riprova.`;
+  setTimeout(()=>{const o=$('#skov');if(o)o.classList.remove('off')},700)};
+ const step=()=>{dir=nd;const h=[sn[0][0]+dir[0],sn[0][1]+dir[1]];if(h[0]<0||h[1]<0||h[0]>=C||h[1]>=R||sn.some(s=>s[0]===h[0]&&s[1]===h[1]))return die();sn.unshift(h);
+  if(h[0]===food[0]&&h[1]===food[1]){score+=1;$('#sks').textContent=score;nt(660+score*12,{d:.1,v:.06,type:'triangle'});nt(990+score*12,{d:.12,v:.04,w:.05});vib(15);for(let i=0;i<14;i++)parts.push({x:ox+(food[0]+.5)*cs,y:oy+(food[1]+.5)*cs,vx:(Math.random()-.5)*4,vy:(Math.random()-.5)*4,l:1});placeFood()}else sn.pop()};
+ const draw=t=>{x.save();if(shake>0){x.translate((Math.random()-.5)*shake,(Math.random()-.5)*shake);shake*=.85}
+  x.clearRect(-20,-20,W+40,H+40);x.strokeStyle='rgba(76,217,100,.07)';x.lineWidth=1;for(let i=0;i<=C;i++){x.beginPath();x.moveTo(ox+i*cs,oy);x.lineTo(ox+i*cs,oy+R*cs);x.stroke()}for(let j=0;j<=R;j++){x.beginPath();x.moveTo(ox,oy+j*cs);x.lineTo(ox+C*cs,oy+j*cs);x.stroke()}
+  x.strokeStyle='rgba(76,217,100,.35)';x.lineWidth=2;x.strokeRect(ox,oy,C*cs,R*cs);
+  const fx=ox+(food[0]+.5)*cs,fy=oy+(food[1]+.5)*cs,pul=1+Math.sin(t/180)*.12;const g=x.createRadialGradient(fx,fy,0,fx,fy,cs*1.4);g.addColorStop(0,'rgba(255,69,58,.55)');g.addColorStop(1,'rgba(255,69,58,0)');x.fillStyle=g;x.fillRect(fx-cs*1.5,fy-cs*1.5,cs*3,cs*3);
+  if(glyph){x.fillStyle='#ff453a';x.font=`800 ${cs*.9}px -apple-system,sans-serif`;x.textAlign='center';x.textBaseline='middle';x.fillText(glyph,fx,fy+1)}else{x.fillStyle='#ff453a';x.beginPath();x.arc(fx,fy,cs*.36*pul,0,7);x.fill();x.fillStyle='rgba(255,255,255,.6)';x.beginPath();x.arc(fx-cs*.12,fy-cs*.12,cs*.08,0,7);x.fill()}
+  sn.forEach((s,i)=>{const k=1-i/(sn.length+4),px=ox+s[0]*cs,py=oy+s[1]*cs;x.shadowColor='#4cd964';x.shadowBlur=i?6:14;x.fillStyle=`hsl(${135-i*.8},70%,${38+k*22}%)`;x.beginPath();x.roundRect(px+1.5,py+1.5,cs-3,cs-3,cs*.32);x.fill()});x.shadowBlur=0;
+  const h=sn[0],hx=ox+(h[0]+.5)*cs,hy=oy+(h[1]+.5)*cs;x.fillStyle='#041006';[[-1,1],[1,1]].forEach(([a])=>{const ex=hx+dir[0]*cs*.15+(dir[1]?a*cs*.18:0),ey=hy+dir[1]*cs*.15+(dir[0]?a*cs*.18:0);x.beginPath();x.arc(ex,ey,cs*.09,0,7);x.fill()});
+  parts=parts.filter(p=>p.l>0);parts.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.l-=.04;x.fillStyle=`rgba(255,120,90,${p.l})`;x.fillRect(p.x,p.y,3,3)});x.restore()};
+ const loop=t=>{const dt=t-(last||t);last=t;if(alive){acc+=dt;const sp=Math.max(70,165-score*3);while(acc>=sp&&alive){acc-=sp;step()}}draw(t);raf=requestAnimationFrame(loop)};
+ reset();raf=requestAnimationFrame(loop);
+ ACT.skgo=()=>{reset();acc=0;alive=true;$('#skov').classList.add('off');SND.tap()};
+ let sx=null,sy=null;const pd=e=>{sx=e.clientX;sy=e.clientY},pm=e=>{if(sx==null)return;const dx=e.clientX-sx,dy=e.clientY-sy;if(Math.hypot(dx,dy)<18)return;if(Math.abs(dx)>Math.abs(dy))turn(dx>0?1:-1,0);else turn(0,dy>0?1:-1);sx=e.clientX;sy=e.clientY},pu=()=>{sx=null};
+ cv.addEventListener('pointerdown',pd);cv.addEventListener('pointermove',pm);cv.addEventListener('pointerup',pu);cv.addEventListener('pointercancel',pu);
+ const kd=e=>{const m={ArrowUp:[0,-1],ArrowDown:[0,1],ArrowLeft:[-1,0],ArrowRight:[1,0],w:[0,-1],s:[0,1],a:[-1,0],d:[1,0]}[e.key];if(m){e.preventDefault();turn(...m)}else if((e.key===' '||e.key==='Enter')&&!alive)ACT.skgo()};document.addEventListener('keydown',kd);
+ cleanup=()=>{cancelAnimationFrame(raf);document.removeEventListener('keydown',kd);alive=false}}
+WL.snake=e=>S.act>=2?`Ti ho visto giocare. ${e.v} punti. Il serpente non sa mai quando fermarsi. Neanche tu.`:null;
+
+/* ---------- RADAR BT ---------- */
+VIEWS.radar=()=>{learn('find');
+ const fin=S.fin&&!S.end,rem=fin?finRem():999,near=fin&&rem<200,dist=near?Math.max(8,Math.round(rem*2.6)):null;
+ const devs=[];if(near)devs.push({c:'#ff453a',n:'Tablet di Marco',s:'Lumen Tab · proprietario di questo telefono',e:`~${dist} m · ${rem<60?'molto vicino':'in avvicinamento'}`,a:.8});
+ if(S.bt)devs.push({c:'#0a84ff',n:'DIRECT-41-Stampante',s:'Stampante · appartamento vicino',e:'~6 m'});devs.push({c:'#8e8e93',n:'Dispositivo sconosciuto',s:'Segnale debole · fermo da 2 ore',e:'~30 m'});
+ const share=!S.fin?['#ff9f0a','Trova Dispositivo · condivisione disattivata','Ma il proprietario (marco.vettori) può riattivarla da remoto in qualsiasi momento, anche dopo un ripristino.']:S.trackOff?['#30d158','Trova Dispositivo · invio posizione interrotto','La tua posizione non viene più aggiornata. L’ultima posizione inviata resta visibile al proprietario.']:['#ff453a','Trova Dispositivo · STA INVIANDO LA TUA POSIZIONE','Destinatario: Tablet di Marco (marco.vettori). Aggiornamento ogni 5 secondi.'];
+ after=()=>{const c=$('#radc');const d=2,W=c.offsetWidth;c.width=c.height=W*d;const x=c.getContext('2d');x.scale(d,d);const r=W/2;let raf=0;const dots=devs.map((v,i)=>({a:(i*2.1+1)%6.28,rr:i===0&&near?Math.max(.15,Math.min(.92,dist/520)):.45+i*.18,c:v.c,f:0}));
+  const loop=t=>{const a=t/900%(Math.PI*2);x.clearRect(0,0,W,W);x.fillStyle='#07101f';x.beginPath();x.arc(r,r,r-2,0,7);x.fill();x.strokeStyle='rgba(94,92,230,.35)';x.lineWidth=1;[.33,.66,.98].forEach(k=>{x.beginPath();x.arc(r,r,(r-2)*k,0,7);x.stroke()});x.beginPath();x.moveTo(r,2);x.lineTo(r,W-2);x.moveTo(2,r);x.lineTo(W-2,r);x.stroke();
+   const g=x.createConicGradient?x.createConicGradient(a-.9,r,r):null;if(g){g.addColorStop(0,'rgba(94,92,230,0)');g.addColorStop(.14,'rgba(120,118,255,.45)');g.addColorStop(.15,'rgba(94,92,230,0)');x.fillStyle=g;x.beginPath();x.arc(r,r,r-2,0,7);x.fill()}
+   x.strokeStyle='#a5a4ff';x.lineWidth=2;x.beginPath();x.moveTo(r,r);x.lineTo(r+Math.cos(a)*(r-2),r+Math.sin(a)*(r-2));x.stroke();
+   dots.forEach(dt=>{let da=(a-dt.a+6.283)%6.283;if(da<.08){dt.f=1;if(dt.c==='#ff453a'){nt(1200,{d:.06,v:.04});vib(10)}}dt.f*=.985;const px=r+Math.cos(dt.a)*dt.rr*(r-8),py=r+Math.sin(dt.a)*dt.rr*(r-8);x.fillStyle=dt.c;x.globalAlpha=.25+dt.f*.75;x.beginPath();x.arc(px,py,5+dt.f*3,0,7);x.fill();x.globalAlpha=1});
+   x.fillStyle='#0a84ff';x.beginPath();x.arc(r,r,5,0,7);x.fill();raf=requestAnimationFrame(loop)};raf=requestAnimationFrame(loop);cleanup=()=>cancelAnimationFrame(raf)};
+ return hd('Home','Radar BT')+`<div class="sc"><div class="rad"><canvas id="radc"></canvas></div><div class="rtip ${share[0]==='#ff453a'?'red':''}"><b style="color:${share[0]}">${share[1]}</b>${share[2]}</div><div class="gh">Dispositivi rilevati</div>${devs.map(v=>`<div class="rdev"><i style="background:${v.c}"></i><div><b>${v.n}</b><small>${v.s}</small></div><em>${v.e}</em></div>`).join('')}<div class="rtip"><b>Come smettere di essere localizzati</b>1. Attiva la modalità aereo o spegni il Wi‑Fi: senza connessione il telefono non invia la posizione.<br>2. Accedi all’account del proprietario (Trova → Gestisci account) e interrompi la condivisione.<br>3. Se sei in pericolo, chiama il 112: funziona anche senza SIM.</div><p class="fine" style="text-align:center;margin:8px 0 20px">${S.bt?'Bluetooth attivo · scansione continua':'Bluetooth disattivato · rilevamento limitato'}</p></div>`};
+
+/* ---------- SEGNALAORA ---------- */
+const SGF=[['name','Il proprietario di questo telefono si chiama Marco Vettori','Via del Molino 22, San Ilario',()=>true],['rel','Ha perseguitato Lucia Ferri per settimane','Foto dalla sua finestra, «41 notti»',()=>kn('rel')],['night','La notte del 12 settembre era con lei','Registrazione in auto: «fammi scendere»',()=>kn('night')],['van','Usa un furgone grigio targato EX 417','Ora nel garage di sua madre',()=>kn('van')],['burial','C’è un pozzo nel Bosco della Cava','Foto, posizione salvata, calce viva',()=>kn('burial')],['dep','Ha un deposito in via del Molino 40','Dove gli arrivano gli ordini e tiene le sue cose',()=>kn('dep')],['sara','Ha dato appuntamento a Sara Bellini al lago','Scintilla, 20 ottobre, parcheggio nord',()=>kn('sara')],['coll','Ci sono altre vittime: «M.» e «A.»','La nota «Collezione», i backup dei loro telefoni',()=>kn('coll')]];
+let sgSel={};
+VIEWS.segnala=()=>{if(S.report)return hd('Home','SegnalaOra')+`<div class="sc"><div class="sgsent"><div>✓</div><h2>Segnalazione inviata</h2><p class="fine" style="margin-top:8px">N. ${S.report.n} · inviata alle ${S.report.ts}<br>Stazione Carabinieri di San Ilario</p><p class="fine" style="margin-top:14px">Hai segnalato:<br>${S.report.f.map(k=>'• '+esc(SGF.find(s=>s[0]===k)[1])).join('<br>')}</p><p class="fine" style="margin-top:14px">«Grazie. La segnalazione verrà letta da un operatore domattina. Se sei in pericolo adesso, chiama il 112.»</p></div></div>`;
+ const av=SGF.filter(s=>s[3]());return hd('Home','SegnalaOra')+`<div class="sc"><div class="sgf"><h2>Nuova segnalazione anonima</h2><p>Seleziona solo quello che hai visto con i tuoi occhi. Più dettagli dai, più facile sarà trovare chi cerchiamo.</p>${av.map(s=>`<div class="sgc ${sgSel[s[0]]?'on':''}" data-a="sgt" data-v="${s[0]}"><i></i><div>${esc(s[1])}<small>${esc(s[2])}</small></div></div>`).join('')}${av.length<4?'<p>Hai ancora pochi elementi. Continua a guardare nel telefono: ogni dettaglio conta.</p>':''}</div><div class="btn" data-a="sgsend" style="background:#ff9f0a">Invia in forma anonima</div><p class="fine" style="text-align:center;margin-bottom:24px">Serve una connessione Wi‑Fi.</p></div>`};
+ACT.sgt=v=>{sgSel[v]=!sgSel[v];vib(8);draw()};
+ACT.sgsend=()=>{const f=Object.keys(sgSel).filter(k=>sgSel[k]);if(f.length<2)return toast('Seleziona almeno due elementi.');if(!S.wifi)return sysAlert('Invio non riuscito','Nessuna connessione. Disattiva la modalità aereo.');
+ const d=document.createElement('div');d.className='alrt';d.innerHTML='<div class="abox"><b>Invio in corso…</b><p><span class="spin"></span></p></div>';$('#scr').appendChild(d);
+ setTimeout(()=>{d.remove();S.report={f,n:'SI-'+(4400+S.el%500),ts:clk()};if(f.includes('dep')&&f.includes('burial'))S.told=1;S.repAt=S.el;learn(...f.filter(k=>FW[k]!==undefined));save();draw();vib([20,40,20]);SND.ping();
+  if(!S.end){if(S.act<2)Rg5.enter(2);setTimeout(()=>addMsg('owner','Hai fatto una segnalazione. «Anonima».'),14000);setTimeout(()=>addMsg('owner','Il telefono è mio. Anche le cose che scrivi.'),18000)}},2200)};
+const _chk8=Rg5.check;Rg5.check=function(){_chk8();if(S.act===2&&!S.fin&&!S.end&&S.repAt&&S.el-S.repAt>=40&&!ovOn()){if(!kn('find')&&!S.hints.find){S.hints.find=S.el;notify('mail','Account Lumen','«Tablet di Marco» ha chiesto la posizione di questo telefono. Trova Dispositivo è ancora attivo.',{mail:'m2'});return}if(S.hints.find&&S.el-S.hints.find<22)return;S.act=3;startFinale()}};
+
+/* ---------- TORCIA PRO ---------- */
+let sosI=null;
+VIEWS.torcia=()=>{after=()=>{cleanup=()=>{clearInterval(sosI);sosI=null}};return `<div class="trc ${S.torch?'on':''}" id="trc">${hd('Home')}<div class="tb" data-a="trt">${svg('torch')}</div><span>${S.torch?'Accesa':'Tocca per accendere'}</span><div class="sosb" data-a="trsos">${sosI?'Ferma SOS':'Segnale SOS'}</div></div>`};
+ACT.trt=()=>{clearInterval(sosI);sosI=null;S.torch=!S.torch;vib(15);nt(S.torch?1400:900,{d:.05,v:.05});draw();if(S.torch&&S.act>=2&&!S.cnt.torchmsg){S.cnt.torchmsg=1;setTimeout(()=>addMsg('owner','Hai acceso una luce. Adesso si vede meglio la finestra.'),5000)}};
+ACT.trsos=()=>{if(sosI){clearInterval(sosI);sosI=null;draw();return}const seq=[1,0,1,0,1,0,0,1,1,1,0,1,1,1,0,1,1,1,0,0,1,0,1,0,1,0,0,0,0,0];let k=0;sosI=setInterval(()=>{const el=$('#trc');if(!el)return;el.classList.toggle('on',!!seq[k++%seq.length])},160);draw()};
+
+/* ---------- GALLERIA: Eliminati di recente ---------- */
+P3.shelf=function(x,r,w,h){x.fillStyle=G(x,0,0,0,h,[[0,'#0d0c0a'],[1,'#1a1712']]);x.fillRect(0,0,w,h);for(let y=0;y<h;y+=14)for(let i=-1;i<w/40+1;i++){x.fillStyle=`rgba(${50+r()*15|0},${48+r()*12|0},${44+r()*10|0},.5)`;x.fillRect(i*40+((y/14|0)%2)*20,y,38,12)}
+ light(x,w*.5,40,260,'255,220,160',.7);x.strokeStyle='#222';x.lineWidth=2;x.beginPath();x.moveTo(w*.5,0);x.lineTo(w*.5,32);x.stroke();x.fillStyle='#fff6d8';x.beginPath();x.arc(w*.5,40,9,0,7);x.fill();
+ [300,470].forEach(y=>{x.fillStyle=G(x,0,y,0,y+12,[[0,'#8a8d92'],[1,'#3a3c40']]);x.fillRect(20,y,w-40,12);x.fillStyle='rgba(0,0,0,.5)';x.fillRect(20,y+12,w-40,10)});x.fillStyle='#55585e';[26,w-32].forEach(px=>x.fillRect(px,120,7,h));
+ ['L.','M.','A.','S.',''].forEach((l,i)=>{const px=48+i*84,py=232;x.save();x.translate(px+30,py+36);x.rotate((r()-.5)*.08);x.fillStyle='#0b0b0d';x.beginPath();x.roundRect(-26,-50,52,100,8);x.fill();x.fillStyle='#16161a';x.beginPath();x.roundRect(-22,-45,44,88,5);x.fill();if(!l){x.restore();x.fillStyle='rgba(0,0,0,0)'}else x.restore();
+  x.save();x.translate(px+30,py+108);x.rotate((r()-.5)*.12);x.fillStyle='#e9e3cf';x.fillRect(-20,-12,40,24);x.fillStyle='#222';x.font='bold 15px Georgia,serif';x.textAlign='center';x.fillText(l,0,6);x.restore()});
+ x.fillStyle='rgba(0,0,0,.35)';x.fillRect(0,0,w,h);light(x,w*.5,240,200,'255,220,160',.25);
+ x.fillStyle='#d8d0b8';x.fillRect(90,520,120,70);x.fillStyle='#333';x.font='11px monospace';['#4471 calce ×4','#4502 calce ×4','telo PVC'].forEach((t,i)=>x.fillText(t,98,540+i*16));
+ return{grain:24,warm:.35,teal:.06,bloom:.35,vig:.8}};
+P3.shoe=function(x,r,w,h){x.fillStyle=G(x,0,0,0,h,[[0,'#1d1f22'],[1,'#0c0d0e']]);x.fillRect(0,0,w,h);for(let i=0;i<14;i++){x.fillStyle='rgba(255,255,255,.03)';x.fillRect(0,i*48,w,3)}
+ for(let i=0;i<500;i++){x.fillStyle=`rgba(${70+r()*30|0},${50+r()*20|0},${30+r()*10|0},${.3+r()*.4})`;x.beginPath();x.ellipse(r()*w,h*.45+r()*h*.55,2+r()*9,1+r()*5,r()*3,0,7);x.fill()}
+ light(x,w*.7,80,300,'200,215,255',.35);
+ const cx=240,cy=400;x.fillStyle='rgba(0,0,0,.5)';x.beginPath();x.ellipse(cx+10,cy+46,150,30,0,0,7);x.fill();
+ x.fillStyle=G(x,0,cy-60,0,cy+40,[[0,'#f2e7ea'],[1,'#b7a1a8']]);x.beginPath();x.moveTo(cx-140,cy+30);x.quadraticCurveTo(cx-150,cy-10,cx-100,cy-20);x.lineTo(cx-10,cy-34);x.quadraticCurveTo(cx+30,cy-80,cx+90,cy-76);x.quadraticCurveTo(cx+140,cy-70,cx+142,cy-10);x.lineTo(cx+138,cy+30);x.closePath();x.fill();
+ x.fillStyle='#f6f2f0';x.fillRect(cx-145,cy+22,288,18);x.fillStyle='#e05a8a';x.beginPath();x.ellipse(cx+40,cy-30,40,14,-.2,0,7);x.fill();
+ x.strokeStyle='#fff';x.lineWidth=3;for(let i=0;i<5;i++){x.beginPath();x.moveTo(cx+20+i*14,cy-60+i*3);x.lineTo(cx+44+i*14,cy-52+i*3);x.stroke()}
+ for(let i=0;i<160;i++){x.fillStyle=`rgba(${80+r()*30|0},${55+r()*20|0},${25+r()*10|0},${.4+r()*.5})`;x.beginPath();x.ellipse(cx-140+r()*280,cy-10+r()*50,2+r()*8,1+r()*5,r()*3,0,7);x.fill()}
+ x.fillStyle='rgba(120,140,170,.18)';x.beginPath();x.moveTo(0,h*.82);x.lineTo(w,h*.7);x.lineTo(w,h);x.lineTo(0,h);x.fill();return{grain:26,teal:.12,bloom:.25,vig:.8}};
+P3.tarp=function(x,r,w,h){x.fillStyle='#0c0d10';x.fillRect(0,0,w,h);light(x,w*.3,60,320,'255,200,140',.4);
+ for(let i=0;i<4;i++){const px=40+i*100,py=360+r()*20;x.fillStyle=G(x,0,py,0,py+150,[[0,'#d9d2c2'],[1,'#8f8878']]);x.beginPath();x.roundRect(px,py,92,150,12);x.fill();x.fillStyle='#222';x.font='bold 16px sans-serif';x.fillText('CALCE',px+16,py+60);x.font='11px sans-serif';x.fillText('VIVA · 25 kg',px+16,py+80)}
+ x.fillStyle='rgba(60,90,140,.55)';x.beginPath();x.moveTo(20,120);x.quadraticCurveTo(200,60,460,140);x.lineTo(470,330);x.quadraticCurveTo(250,300,10,340);x.fill();x.strokeStyle='rgba(180,200,240,.25)';x.lineWidth=2;for(let i=0;i<8;i++){x.beginPath();x.moveTo(30+i*50,130);x.quadraticCurveTo(50+i*50,220,30+i*55,330);x.stroke()}
+ x.strokeStyle='#c9a24a';x.lineWidth=7;for(let i=0;i<5;i++){x.beginPath();x.ellipse(360,560,70-i*9,26-i*3,0,0,7);x.stroke()}
+ return{grain:24,warm:.2,teal:.1,bloom:.3,vig:.8}};
+const DEL=[{t:'shelf',s:61,n:'IMG_1466',d:'Eliminata il 25 ott · restano 3 giorni',p:'Deposito, via del Molino 40',c:'L. M. A. S.'},{t:'shoe',s:62,n:'IMG_1451',d:'Eliminata il 25 ott · restano 3 giorni',p:'Garage, via Gramsci 9',c:'IMG_1451'},{t:'tarp',s:63,n:'IMG_1448',d:'Eliminata il 25 ott · restano 3 giorni',p:'Deposito, via del Molino 40',c:'IMG_1448'}];
+Object.assign(PVF,{shelf:['dep','coll'],shoe:['van','sara'],tarp:['burial','dep']});
+WL.photo=(o=>e=>({shelf:'Hai visto la mensola. C’è ancora un’etichetta bianca.',shoe:'Era la sinistra. La destra non l’ho mai trovata.',tarp:'Quattro sacchi bastano sempre.'})[e.v]||o(e))(WL.photo);
+const _gal8=VIEWS.gallery;VIEWS.gallery=()=>{let h=_gal8();if(galTab==='album')h=h.replace('<div class="alb" data-a="alb" data-v="hid">',`<div class="alb" data-a="alb" data-v="del"><div style="background-image:url(${photo('shelf',61)});filter:grayscale(.6) brightness(.7)"></div><b>Eliminati di recente</b><small>${DEL.length}</small></div><div class="alb" data-a="alb" data-v="hid">`);return h};
+const _alb8=ACT.alb;ACT.alb=v=>{if(v==='del')return go(VIEWS.adel);_alb8(v)};
+VIEWS.adel=()=>{galList=DEL;return hd('Album','Eliminati di recente',`<span class="hlink" data-a="adrec">Recupera</span>`)+`<div class="sc"><p class="fine" style="margin:6px 0 12px">Elementi eliminati dal proprietario da «Tablet di Marco». Verranno rimossi definitivamente dopo 30 giorni.</p><div class="pgrid">${DEL.map((p,i)=>`<div class="pdel"><img src="${photo(p.t,p.s)}" data-a="pv" data-v="${i}" alt=""><span>3 g</span></div>`).join('')}</div></div>`};
+ACT.adrec=()=>sysAlert('Impossibile recuperare','Gli elementi sono stati eliminati dal proprietario dell’account e possono essere recuperati solo da «Tablet di Marco».');
+allPhotoKeys=(o=>()=>o().concat(DEL.map(p=>[p.t,p.s])))(allPhotoKeys);
+</script>
+
 </body>
 </html>
